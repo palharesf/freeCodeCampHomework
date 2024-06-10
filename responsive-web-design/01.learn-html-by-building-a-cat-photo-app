@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"
+ <!-- In HTML, comments are kept in blocks like these. I'll be abusing them in this document to explain to myself some of the commands and how they were used -->
+
+<!DOCTYPE html>    <!-- This is standard practice, it's a handshake with the browser to tell the page has been developed with HTML5 standards in mind -->
+<html lang="en">   <!-- The html command opens and encompasses the whole webpage, and can carry some attributes that are communicated to the server/SEO alghoritms -->
+  <head>           <!-- Head contains information sent to the server, but not displayed. Body is what's displayed, with footer being author/version information -->
+    <meta charset="utf-8">
     <title>CatPhotoApp</title>
   </head>
-  <body>
+  <body>        
     <main>
-      <h1>CatPhotoApp</h1>
-      <section>
+      <h1>CatPhotoApp</h1>      <!-- H1, H2 ... H6 are the headers, denoting hierarchy on information display -->
+      <section>                 <!-- Sections are created mostly for organizational purposes -->
         <h2>Cat Photos</h2>
         <!-- TODO: Add link to cat photos -->
-        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>
-        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+        <p>See more <a target="_blank" href="https://freecatphotoapp.com">cat photos</a> in our gallery.</p>                                                                         <!-- The anchor element, denoted by <a> and </a>, is what handles hyperlinks. Among its attributes are the target (_blank is the target for new tab), and href (which is the actual target link) -->
+        <a href="https://freecatphotoapp.com"><img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>      <!-- Here, the anchor is attached to an image. Image elements don't need to be closed with </img>. Src is the source of the image, while alt is the text that shows up if the image fails to load -->
       </section>
       <section>
         <h2>Cat Lists</h2>
         <h3>Things cats love:</h3>
-        <ul>
+        <ul>                                                        <!-- <ul> is unordered list, or bullet points. <ol> are ordered lists, or numbered bullets (1,2,3). Once opening either <ul> or <ol>, you then create the rows using <li> -->
           <li>cat nip</li>
           <li>laser pointers</li>
           <li>lasagna</li>
         </ul>
-        <figure>
+        <figure>                                                    <!-- Unless I'm missing somehing important, <figure> seems to only be useful to generate legends for pictures (using <figcaption>). Seems like something could be quite easily accomplished by <p> on a new row -->
           <img src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/lasagna.jpg" alt="A slice of lasagna on a plate.">
-          <figcaption>Cats <em>love</em> lasagna.</figcaption>  
+          <figcaption>Cats <em>love</em> lasagna.</figcaption>      <!-- <em> and <strong> are formatting elements. <em> is italic, <strong> is bold -->
         </figure>
         <h3>Top 3 things cats hate:</h3>
         <ol>
@@ -38,19 +40,19 @@
       </section>
       <section>
         <h2>Cat Form</h2>
-        <form action="https://freecatphotoapp.com/submit-cat-photo">
-          <fieldset>
-            <legend>Is your cat an indoor or outdoor cat?</legend>
-            <label><input id="indoor" type="radio" name="indoor-outdoor" value="indoor" checked> Indoor</label>
+        <form action="https://freecatphotoapp.com/submit-cat-photo">                                                               <!-- Forms are tricky to handle. The action attribute here indicates where the form will lead towards -->
+          <fieldset>                                                                                                               <!-- The <fieldset> element creates a box that wraps around form elements, useful to group together several radio buttons or checkboxes as we do below -->
+            <legend>Is your cat an indoor or outdoor cat?</legend>                                                                 <!-- The legend is incorporated into the wrapping box created on <fieldset> -->
+            <label><input id="indoor" type="radio" name="indoor-outdoor" value="indoor" checked> Indoor</label>                    <!-- <label> is a way to wrap all information related to a button in it. In this case, this button labeled Indoor will also incorporate attributes such as id and value (both set to 'indoor'), type ('radio'), name ('indoor-outdoor') and the checked attribute ensure it's selected by default -->
             <label><input id="outdoor" type="radio" name="indoor-outdoor" value="outdoor"> Outdoor</label>
           </fieldset>
           <fieldset>
             <legend>What's your cat's personality?</legend>
-            <input id="loving" type="checkbox" name="personality" value="loving" checked> <label for="loving">Loving</label>
+            <input id="loving" type="checkbox" name="personality" value="loving" checked> <label for="loving">Loving</label>       <!-- Very similar logic, with the exception we're using here checkboxes instead of radio buttons. All of them share the same name, meaning they become mutually exclusive (only one can be selected) -->
             <input id="lazy" type="checkbox" name="personality" value="lazy"> <label for="lazy">Lazy</label>
             <input id="energetic" type="checkbox" name="personality" value="energetic"> <label for="energetic">Energetic</label>
           </fieldset>
-          <input type="text" name="catphotourl" placeholder="cat photo URL" required>
+          <input type="text" name="catphotourl" placeholder="cat photo URL" required>                                              <!-- The 'required' attribute makes sure this has to be selected before the form can be submitted -->
           <button type="submit">Submit</button>
         </form>
       </section>
