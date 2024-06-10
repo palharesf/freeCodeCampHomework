@@ -4,6 +4,4 @@
 
 ## Quick Start
 
-1. Clone or download the repo
-2. Run `npm install`
-3. Run `npm start`
+1. Read and ask questions. There's nothing to do here besides that, at least for now
