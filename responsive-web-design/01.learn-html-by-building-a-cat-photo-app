@@ -1,4 +1,5 @@
- <!-- In HTML, comments are kept in blocks like these. I'll be abusing them in this document to explain to myself some of the commands and how they were used -->
+<!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-html-by-building-a-cat-photo-app/step-1 -->
+<!-- In HTML, comments are kept in blocks like these. I'll be abusing them in this document to explain to myself some of the commands and how they were used -->
 
 <!DOCTYPE html>    <!-- This is standard practice, it's a handshake with the browser to tell the page has been developed with HTML5 standards in mind -->
 <html lang="en">   <!-- The html command opens and encompasses the whole webpage, and can carry some attributes that are communicated to the server/SEO alghoritms -->
