@@ -1,1 +1,150 @@
+<!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-basic-css-by-building-a-cafe-menu/step-1 -->
+<!-- SPLIT INTO TWO FILES: index.html AND styles.cc -->
 
+
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />              <!-- meta with information ensuring page is properly readable in mobile screens -->
+    <title>Cafe Menu</title>
+    <link href="styles.css" rel="stylesheet"/>                                            <!-- Linking the other file (styles.css) to this page -->
+  </head>
+  <body>
+    <div class="menu">                                                                    <!--div tag is a content division tag. Useful to apply different class styles in different parts of the page -->
+      <main>
+        <h1>CAMPER CAFE</h1>
+        <p class="established">Est. 2020</p>                                              <!-- Here, a class is being associated with the <p> element. The class was defined in the styles.css file below -->
+        <hr>                                                                              <!-- hr elements are self-closing elements that introduce a horizontal break (horizontal rule) in the page -->
+        <section>
+          <h2>Coffee</h2>
+          <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/coffee.jpg" alt="coffee icon">
+          <article class="item">
+            <p class="flavor">French Vanilla</p><p class="price">3.00</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Caramel Macchiato</p><p class="price">3.75</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Pumpkin Spice</p><p class="price">3.50</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Hazelnut</p><p class="price">4.00</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Mocha</p><p class="price">4.50</p>
+          </article>
+        </section>
+        <section>
+          <h2>Desserts</h2>
+          <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/pie.jpg" alt="pie icon">
+          <article class="item">
+            <p class="dessert">Donut</p><p class="price">1.50</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cherry Pie</p><p class="price">2.75</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cheesecake</p><p class="price">3.00</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cinnamon Roll</p><p class="price">2.50</p>
+          </article>
+        </section>
+      </main>
+      <hr>
+      <footer>
+        <p>
+          <a href="https://www.freecodecamp.org" target="_blank">Visit our website</a>
+        </p>
+        <p class="address">123 Free Code Camp Drive</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+<!-- styles.css -->                   (PS - Comments in CSS are denoted by /* comment */, different from regular HTML comments denoted by <!-- --> )
+
+body {
+  background-image: url(https://cdn.freecodecamp.org/curriculum/css-cafe/beans.jpg);
+  font-family: sans-serif;
+  padding: 20px;                     /* Padding applied uniformly across all borders */
+}
+h1 {
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+h2 {
+  font-size: 30px;
+}
+h1, h2, p {
+  text-align: center;
+}
+h1, h2 {
+  font-family: Impact, serif;         /* Impact is a specific font, but separated by a comma we have a fallback font family */
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -25px;                  /* Naturally, margins can receive negative values */
+}
+hr {
+  height: 2px;
+  background-color: brown;
+  border-color: brown;                /* The border line is 1px high, so 1px of the upper border + 2px of the hr height + 1px of the lower border for a total height of 4px for this hr element */
+}
+.menu {                               /* id selectors are chosen by using a hashtag symbol (eg #menu) before the respective id. Using a dot (eg .menu) denotes class selector instead of id selector  */
+  width: 80%;                         /* Width and height can be measured either in absolute terms (eg 300px) or relative terms (eg 80%) */ 
+  background-color: burlywood;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;                      /* If padding is uniform across class, you can use a single 'padding' command. If you want different padding for different areas of the document, you can use 'padding-left', 'padding-top', etc */
+  max-width: 500px;                   /* Helpful to include a max-width in cases when the screen is too large, so elements don't get too distant from each other */
+}
+.item p {
+  display: inline-block;              /* Inline-block collapses different <p> elements into the same line as long as there's no space separating them */ 
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.flavor, .dessert {
+  text-align: left;
+  width: 75%;
+}
+.price {
+  text-align: right;
+  width: 25%
+}
+.established {
+  font-style: italic;
+}
+.bottom-line {
+  margin-top: 25px;
+}
+/* FOOTER */
+footer {
+  font-size: 14px;
+}
+.address {
+  margin-bottom: 5px;
+}
+a {                                  /* Here we set the styles for four anchor elements: a, a:visited, a:hover, and a:active. These are the different status that hyperlinks can be in: before being clicked, after being clicked, with mouse hovering, and as it's being clicked */
+  color: black;
+}
+a:visited {
+  color: black;
+}
+a:hover {
+  color: brown;
+}
+a:active {
+  color: brown;
+}
