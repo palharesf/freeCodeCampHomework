@@ -1,1 +1,82 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-css-colors-by-building-a-set-of-colored-markers/step-1 -->
+
+
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colored Markers</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>CSS Color Markers</h1>
+    <div class="container">
+      <div class="marker red">                   <!-- Multiple classes can be added to an element by listing them in the class attribute and separating them with a space. If you add multiple classes to an HTML element, the styles of the first classes you list may be overridden by later classes -->
+        <div class="cap"></div>
+        <div class="sleeve"></div>
+      </div>
+      <div class="marker green">
+        <div class="cap"></div>
+        <div class="sleeve"></div>
+      </div>
+      <div class="marker blue">
+        <div class="cap"></div>
+        <div class="sleeve"></div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+styles.css
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  background-color: rgb(255, 255, 255);                                                       /* A function is a piece of code that can take an input and perform a specific action. The CSS rgb function accepts values, or arguments, for red, green, and blue, and produces a color */
+  padding: 10px 0;
+}
+
+.marker {
+  width: 200px;
+  height: 25px;
+  margin: 10px auto;                                                                          /* When the shorthand margin property has two values, it sets margin-top and margin-bottom to the first value, and margin-left and margin-right to the second value */
+}
+
+.cap {
+  width: 60px;
+  height: 25px;
+}
+
+.sleeve {
+  width: 110px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.5);                                                 /* One way to set the transparency for an element is through opacity, and another one is with the alpha channel. Example: opacity: 0.5 gives a 50% opacity for a given CSS element. To add an alpha channel to an rgb color, use the rgba function instead */
+  border-left: 10px double rgba(0, 0, 0, 0.75);                                               /* The border-left shorthand property lets you to set the left border's width, style, and color at the same time. Here is the syntax: border-left: width style color */
+}
+
+.cap, .sleeve {
+  display: inline-block;                                                                      /* The default display property for div elements is block. So when two block elements are next to each other, they stack like actual blocks. To position two div elements on the same line, set their display properties to inline-block */
+}
+
+.red {
+  background: linear-gradient(rgb(122, 74, 14), rgb(245, 62, 113), rgb(162, 27, 27));         /* A gradient is when one color transitions into another. The CSS linear-gradient function lets you control the direction of the transition along a line, and which colors are used. One thing to remember is that the linear-gradient function actually creates an image element, and is usually paired with the background property which can accept an image as a value. The syntax is linear-gradient(gradientDirection, color1, color2, ...) */
+  box-shadow: 0 0 20px 0 rgba(83, 14, 14, 0.8);                                               /* Color-stops allow you to fine-tune where colors are placed along the gradient line. They are a length unit like px or percentages that follow a color in the linear-gradient function. For example, in this red-black gradient, the transition from red to black takes place at the 90% point along the gradient line, so red takes up most of the available space: linear-gradient(90deg, red 90%, black) */
+}
+
+.green {
+  background: linear-gradient(#55680D, #71F53E, #116C31);
+  box-shadow: 0 0 20px 0 #3B7E20CC;                                                           /* The box-shadow property lets you apply one or more shadows around an element. Here is basic syntax: box-shadow: offsetX offsetY blurRadius spreadRadius color */
+}
+
+.blue {
+  background: linear-gradient(hsl(186, 76%, 16%), hsl(223, 90%, 60%), hsl(240, 56%, 42%));     /* The HSL color model, or hue, saturation, and lightness, is another way to represent colors. The CSS hsl function accepts 3 values: a number from 0 to 360 for hue, a percentage from 0 to 100 for saturation, and a percentage from 0 to 100 for lightness */
+  box-shadow: 0 0 20px 0 hsla(223,59%,31%,0.8);
+}
