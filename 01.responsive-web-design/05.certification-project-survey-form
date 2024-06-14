@@ -1,1 +1,62 @@
+Permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/build-a-survey-form-project/build-a-survey-form
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 id="title">Ag Enthusiast Survey Form</h1>
+    <p id="description">Thank you for sharing more about your agriculture enthusiast profile!</p>
+    <form id="survey-form">
+      <fieldset>
+        <label for="name" id="name-label">Name: <input id="name" type="text" required placeholder="Enter your name" /></label>
+        <label for="email" id="email-label">Email: <input id="email" type="email" required placeholder="Enter your Email" /></label>                          
+        <label for="number" id="number-label">Age (optional): <input id="number" type="number" min="6" max="110" placeholder="Age" /></label>
+        <label for="dropdown">What is your favorite crop of all time?
+          <select id="dropdown">
+            <option value="">Select crop</option>  
+            <option value="1">Corn (maize)</option>  
+            <option value="2">Soybeans</option>  
+            <option value="3">Wheat (summer or winter)</option>  
+          </select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Would you recommend a farming life to a city friend?</legend>
+        <label for="rec-yes"><input id="rec-yes" type="radio" name="recommendation" value="1" checked /> For sure!</label> 
+        <label for="rec-mbe"><input id="rec-mbe" type="radio" name="recommendation" value="2" /> Potentially</label>
+        <label for="rec-not"><input id="rec-not" type="radio" name="recommendation" value="3" /> I Don't Think So</label>
+      </fieldset>
+      <fieldset>
+        <legend>What technology(ies) do you employ in your farm?</legend>
+        <label for="farm-tech"><input id="farm-tech" type="checkbox" value="ag" />Auto Guidance </label>
+        <label for="farm-tech"><input id="farm-tech" type="checkbox" value="spray" />Smart Spraying </label>
+        <label for="farm-tech"><input id="farm-tech" type="checkbox" value="vr" />Variable Rate </label>
+        <label for="farm-tech"><input id="farm-tech" type="checkbox" value="au" />Auto Unload </label>
+        <label for="farm-tech"><input id="farm-tech" type="checkbox" value="fms" />Farm Management Software </label>
+      </fieldset>
+      <fieldset>
+        <legend>Any additional comments?</legend>
+        <label for="bio"><textarea id="comments" rows="3" cols="50" placeholder="Type your comments here"></textarea>                                        
+        </label>
+      </fieldset>
+      <input id="submit" type="submit" value="Submit" />
+    </form>  
+  </body>
+  </html>
+
+
+<!--
+  <label for="dropdown2">What is your favorite feature of freeCodeCamp?
+          <select id="dropdown2">
+            <option value="">Select an option</option>  
+            <option value="1">Challenges</option>  
+            <option value="2">Projects</option>  
+            <option value="3">Community</option>  
+            <option value="4">Open Source</option>  
+          </select>
+        </label>
+
+      -->
