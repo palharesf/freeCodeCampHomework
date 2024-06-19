@@ -1,12 +1,75 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-the-css-box-model-by-building-a-rothko-painting/step-1 -->
 
 
-
-
-
 index.html
 
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rothko Painting</title>
+    <link href="./styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="frame">
+      <div class="canvas">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+    </div>
+  </body>
+</html>
 
 
 styles.css
+
+.canvas {
+  width: 500px;
+  height: 600px;
+  background-color: #4d0f00;
+  overflow: hidden;                        /* Adding 1 pixel of padding to the top, bottom, left, and right of the canvas changed its dimensions to 502 pixels x 602 pixels. Replace the padding property with overflow set to hidden - changing the canvas back to its original dimensions */
+  filter: blur(2px);                       /* The colors and shapes of your painting are too sharp to pass as a Rothko. Use the filter property to blur the painting by 2px in the .canvas element */
+}
+
+.frame {
+  border: 50px solid black;
+  width: 500px;
+  padding: 50px;
+  margin: 20px auto;
+}
+
+.one {
+  width: 425px;
+  height: 150px;
+  background-color: #efb762;
+  margin: 20px auto;
+  box-shadow: 0 0 3px 3px #efb762;
+  border-radius: 9px;                      /* The corners of each rectangle are still too sharp. Round each corner of the .one element by 9 pixels, using the border-radius property */
+  transform: rotate(-0.6deg);              /* Use the transform property on the .one selector to rotate it counter clockwise by 0.6 degrees */
+}
+
+.two {
+  width: 475px;
+  height: 200px;
+  background-color: #8f0401;
+  margin: 0 auto 20px;                      /* In margin selectors, the order is top margin, horizontal margin, and bottom margin */
+  box-shadow: 0 0 3px 3px #8f0401;
+  border-radius: 8px 10px;                  /* The border-radius property sets its top-left radius and bottom-right radius to 8px, and top-right radius and bottom-left radius to 10px when only two parameters are inserted */
+  transform: rotate(0.4deg);
+}
+
+.one, .two {
+  filter: blur(1px);
+}
+
+.three {
+  width: 91%;
+  height: 28%;
+  background-color: #b20403;
+  margin: auto;
+  filter: blur(2px);
+  box-shadow: 0 0 5px 5px #b20403;
+  border-radius: 30px 25px 60px 12px;      /* The border-radius property accepts up to four values to round the top-left, top-right, bottom-right, and bottom-left corners */
+  transform: rotate(-0.2deg)
+}
