@@ -1,19 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-more-about-css-pseudo-selectors-by-building-a-balance-sheet/step-1 -->
 
-HTML tables use the caption element to describe what the table is about. The caption element should always be the first child of a table, but can be positioned with the caption-side CSS property
-The thead and tbody elements are used to indicate which portion of your table is the header, and which portion contains the primary data or content
-The tr element is used to indicate a table row. Add a tr element within your thead element. In your new tr element, add a td element, followed by three th elements
-
-Before you get too far into your styling, you should make use of the sr-only class. You can use CSS to make elements with this class completely hidden from the visual page, but still be announced by screen readers. The CSS you are about to write is a common set of properties used to ensure elements are completely hidden visually
-The :first-of-type pseudo-selector is used to target the first element that matches the selector. Create an h1 .flex span:first-of-type selector to target the first span element in your .flex container. Remember that your span elements are reversed, visually, so this will appear to be the second element on the page
-The :last-of-type pseudo-selector does the exact opposite - it targets the last element that matches the selector
-The calc() function is a CSS function that allows you to calculate a value based on other values. For example, you can use it to calculate the width of the viewport minus the margin of an element
-Style the text within your #years element by creating a #years span[class] selector. The span[class] syntax will target any span element that has a class attribute set, regardless of the attribute's value
-The :not() pseudo-selector is used to target all elements that do not match the selector - in this case, any of your span elements that do not have the sr-only class. This ensures that your earlier rules for the span[class~="sr-only"] selector are not overwritten
-Rather than having to constantly double-check you are not overwriting your earlier properties, you can use the !important keyword to ensure these properties are always applied, regardless of order or specificity
-The [attribute="value"] selector targets any element that has an attribute with a specific value. Create a tr[class="total"] selector to target specifically your tr elements with the total class
-The :nth-of-type() pseudo-selector is used to target specific elements based on their order among siblings of the same type
-
 index.html
 
 <!DOCTYPE html>
@@ -40,9 +26,9 @@ index.html
         </div>
         <div class="table-wrap">
           <table>
-            <caption>Assets</caption>
-            <thead>
-              <tr>
+            <caption>Assets</caption>																					<!-- HTML tables use the caption element to describe what the table is about. The caption element should always be the first child of a table, but can be positioned with the caption-side CSS property -->
+            <thead>																										<!-- The thead and tbody elements are used to indicate which portion of your table is the header, and which portion contains the primary data or content -->
+              <tr>																										<!-- The tr element is used to indicate a table row. Add a tr element within your thead element. In your new tr element, add a td element, followed by three th elements -->
                 <td></td>
                 <th><span class="sr-only year">2019</span></th>
                 <th><span class="sr-only year">2020</span></th>
@@ -143,8 +129,8 @@ index.html
 
 styles.css
 
-span[class~="sr-only"] {
-  border: 0 !important;
+span[class~="sr-only"] {										/* You can use CSS to make elements with this class completely hidden from the visual page, but still be announced by screen readers. The CSS below is a common set of properties used to ensure elements are completely hidden visually */
+  border: 0 !important;											/* Rather than having to constantly double-check you are not overwriting your earlier properties, you can use the !important keyword to ensure these properties are always applied, regardless of order or specificity */
   clip: rect(1px, 1px, 1px, 1px) !important;
   clip-path: inset(50%) !important;
   height: 1px !important;
@@ -177,11 +163,11 @@ h1 .flex {
   gap: 1rem;
 }
 
-h1 .flex span:first-of-type {
+h1 .flex span:first-of-type {									/* The :first-of-type pseudo-selector is used to target the first element that matches the selector. Create an h1 .flex span:first-of-type selector to target the first span element in your .flex container. Remember that your span elements are reversed, visually, so this will appear to be the second element on the page */
   font-size: 0.7em;
 }
 
-h1 .flex span:last-of-type {
+h1 .flex span:last-of-type {									/* The :last-of-type pseudo-selector does the exact opposite - it targets the last element that matches the selector */
   font-size: 1.2em;
 }
 
@@ -199,11 +185,11 @@ section {
   top: 0;
   background: #0a0a23;
   color: #fff;
-  padding: 0.5rem calc(1.25rem + 2px) 0.5rem 0;
+  padding: 0.5rem calc(1.25rem + 2px) 0.5rem 0;					/* The calc() function is a CSS function that allows you to calculate a value based on other values. For example, you can use it to calculate the width of the viewport minus the margin of an element */
   margin: 0 -2px;
 }
 
-#years span[class] {
+#years span[class] {											/* The span[class] syntax will target any span element that has a class attribute set, regardless of the attribute's value */
   font-weight: bold;
   width: 4.5rem;
   text-align: right;
@@ -240,7 +226,7 @@ tbody th {
   width: calc(100% - 12rem);
 }
 
-tr[class="total"] {
+tr[class="total"] {												/* The [attribute="value"] selector targets any element that has an attribute with a specific value. Create a tr[class="total"] selector to target specifically your tr elements with the total class */
   border-bottom: 4px double #0a0a23;
   font-weight: bold;
 }
@@ -403,7 +389,7 @@ tr.total td {
   padding: 0 0.25rem;
 }
 
-tr.total td:nth-of-type(3) {
+tr.total td:nth-of-type(3) {								/* The :nth-of-type() pseudo-selector is used to target specific elements based on their order among siblings of the same type */
   padding-right: 0.5rem;
 }
 
