@@ -1,16 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-intermediate-css-by-building-a-cat-painting/step-1 -->
 
-Use the universal selector to add box-sizing: border-box; to your CSS. This ensures elements include padding and border in their specified width and height
-CSS positioning lets you set how you want an element to be positioned in the browser. It has a position property you can set to static, absolute, relative, sticky or fixed. Once you set the position property of the element, you can move the element around by setting a pixel or a percentage value for one or more of the top, right, left, or bottom properties. static is the default positioning for all elements. If you assign it to an element, you won't be able to move it around with top, right, left, or bottom
-Set a value of 0 for the right, left, top, bottom properties, then set its margin property on all sides to auto. That's one way to center an element vertically and horizontally using CSS positioning
-The transform property allows you to modify the shape, position, and size of an element without changing the layout or affecting the surrounding elements. It has functions such as translate(), rotate(), scale(), skew(), and matrix()
-z-index is a property you can use to define the order of overlapping HTML elements. Any element with a higher z-index will always be positioned over an element with a lower z-index
-You are going to make the two mouth lines into an elliptical shape. So, give the .cat-mouth div selector a border color of black transparent transparent transparent and a border radius of 190%/190px 150px 0 0
-
-
-
-
-
 index.html
 
 <!DOCTYPE html>
@@ -73,7 +62,7 @@ index.html
 
 styles.css
 
-* {
+* {																/* Use the universal selector to add box-sizing: border-box; to your CSS. This ensures elements include padding and border in their specified width and height */
   box-sizing: border-box;
 }
 
@@ -82,12 +71,12 @@ body {
 }
 
 .cat-head {
-  position: absolute;
+  position: absolute;											/* CSS positioning lets you set how you want an element to be positioned in the browser. It has a position property you can set to static, absolute, relative, sticky or fixed. Once you set the position property of the element, you can move the element around by setting a pixel or a percentage value for one or more of the top, right, left, or bottom properties. static is the default positioning for all elements. If you assign it to an element, you won't be able to move it around with top, right, left, or bottom */
   right: 0;
   left: 0;
   top: 0;
   bottom: 0;
-  margin: auto;
+  margin: auto;													/* Set a value of 0 for the right, left, top, bottom properties, then set its margin property on all sides to auto. That's one way to center an element vertically and horizontally using CSS positioning */
   background: linear-gradient(#5e5e5e 85%, #45454f 100%);
   width: 205px;
   height: 180px;
@@ -99,10 +88,10 @@ body {
   position: absolute;
   top: -26px;
   left: -31px;
-  z-index: 1;
+  z-index: 1;													/* z-index is a property you can use to define the order of overlapping HTML elements. Any element with a higher z-index will always be positioned over an element with a lower z-index */
   border-top-left-radius: 90px;
   border-top-right-radius: 10px;
-  transform: rotate(-45deg);
+  transform: rotate(-45deg);									/* The transform property allows you to modify the shape, position, and size of an element without changing the layout or affecting the surrounding elements. It has functions such as translate(), rotate(), scale(), skew(), and matrix() */
   border-left: 35px solid transparent;
   border-right: 35px solid transparent;
   border-bottom: 70px solid #5e5e5e;
@@ -204,7 +193,7 @@ body {
   border-bottom: 20px solid #442c2c;
 }
 
-.cat-mouth div {
+.cat-mouth div {															/* You are going to make the two mouth lines into an elliptical shape. So, give the .cat-mouth div selector a border color of black transparent transparent transparent and a border radius of 190%/190px 150px 0 0 */
   width: 30px;
   height: 50px;
   border: 2px solid #000;
