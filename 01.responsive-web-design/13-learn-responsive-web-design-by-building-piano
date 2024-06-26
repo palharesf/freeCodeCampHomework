@@ -1,12 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-responsive-web-design-by-building-a-piano/step-1 -->
 
-Now that you have reset the html box model, you need to pass that on to the elements within as well. To do this, you can set the box-sizing property to inherit, which will tell the targeted elements to use the same value as the parent element
-The ::before selector creates a pseudo-element which is the first child of the selected element, while the ::after selector creates a pseudo-element which is the last child of the selected element. These pseudo-elements are often used to create cosmetic content, which you will see later in this project
-Set the content property to "". This will make the pseudo-elements empty. The content property is used to set or override the content of the element. By default, the pseudo-elements created by the ::before and ::after pseudo-selectors are empty, and the elements will not be rendered to the page. Setting the content property to an empty string "" will ensure the element is rendered to the page while still being empty
-The @media at-rule, also known as a media query, is used to conditionally apply CSS. Media queries are commonly used to apply CSS based on the viewport width using the max-width and min-width properties
-Set overflow to hidden in the first .keys selector, to take care of this issue. This property will hide any element that is pushed outside the set width value of .keys
-Logical operators can be used to construct more complex media queries. The and logical operator is used to query two media conditions
-
 index.html
 
 <!DOCTYPE html>
@@ -58,8 +51,8 @@ html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
-  box-sizing: inherit;
+*, *::before, *::after {									/* The ::before selector creates a pseudo-element which is the first child of the selected element, while the ::after selector creates a pseudo-element which is the last child of the selected element. These pseudo-elements are often used to create cosmetic content, which you will see later in this project */
+  box-sizing: inherit;										/* Now that you have reset the html box model, you need to pass that on to the elements within as well. To do this, you can set the box-sizing property to inherit, which will tell the targeted elements to use the same value as the parent element */
 }
 
 #piano {
@@ -77,7 +70,7 @@ html {
   width: 949px;
   height: 180px;
   padding-left: 2px;
-  overflow: hidden;
+  overflow: hidden;											/* Set overflow to hidden in the first .keys selector, to take care of this issue. This property will hide any element that is pushed outside the set width value of .keys */
 }
 
 .key {
@@ -92,7 +85,7 @@ html {
 
 .key.black--key::after {
   background-color: #1d1e22;
-  content: "";
+  content: "";												/* Set the content property to "". This will make the pseudo-elements empty. The content property is used to set or override the content of the element. By default, the pseudo-elements created by the ::before and ::after pseudo-selectors are empty, and the elements will not be rendered to the page. Setting the content property to an empty string "" will ensure the element is rendered to the page while still being empty */
   position: absolute;
   left: -18px;
   width: 32px;
@@ -106,7 +99,7 @@ html {
   top: 23px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) {									/* The @media at-rule, also known as a media query, is used to conditionally apply CSS. Media queries are commonly used to apply CSS based on the viewport width using the max-width and min-width properties */
   #piano {
     width: 358px;
   }
@@ -120,7 +113,7 @@ html {
   }
 }
 
-@media (max-width: 1199px) and (min-width: 769px) {
+@media (max-width: 1199px) and (min-width: 769px) {  			/* Logical operators can be used to construct more complex media queries. The and logical operator is used to query two media conditions */
   #piano {
     width: 675px;
   }
