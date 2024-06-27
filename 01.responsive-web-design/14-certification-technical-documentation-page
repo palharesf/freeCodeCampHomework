@@ -1,3 +1,77 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/build-a-technical-documentation-page-project/build-a-technical-documentation-page -->
 
+index.html
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Documentation Page</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <main id="main-doc">
+    <nav id="navbar">
+      <header>Navbar Description // Topic of Tech Doc</header>
+      <a href="#Description_1" class="nav-link">Description 1</a>
+      <a href="#Description_2" class="nav-link">Description 2</a>
+      <a href="#Description_3" class="nav-link">Description 3</a>
+      <a href="#Description_4" class="nav-link">Description 4</a>
+      <a href="#Description_5" class="nav-link">Description 5</a>
+    </nav>
+    <section class="main-section" id="Description_1">Section 1
+      <header>Description 1</header>
+      <p></p>
+      <p></p>
+      <code></code>
+    </section>
+    <section class="main-section" id="Description_2">Section 2
+      <header>Description 2</header>
+      <p></p>
+      <p></p>
+      <code></code>
+      <ul>
+        <li>List 1</li>
+        <li>List 2</li>
+        <li>List 3</li>
+        <li>List 4</li>
+        <li>List 5</li>
+      </ul>
+    </section>
+    <section class="main-section" id="Description_3">Section 3
+      <header>Description 3</header>
+      <p></p>
+      <p></p>
+      <code></code>
+    </section>
+    <section class="main-section" id="Description_4">Section 4
+      <header>Description 4</header>
+      <p></p>
+      <p></p>
+      <code></code>
+    </section>
+    <section class="main-section" id="Description_5">Section 5
+      <header>Description 5</header>
+      <p></p>
+      <p></p>
+      <code></code>
+    </section>
+  </main>
+</html>
+
+
+
+
+styles.css
+
+#navbar {
+  display: flex;
+  align-items: left;
+  flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;												
+  }
+}
