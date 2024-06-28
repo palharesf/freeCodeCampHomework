@@ -1,17 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-css-variables-by-building-a-city-skyline/step-1 -->
 
-Using an universal * selector in CSS at the beginning of a project with properties such as 'border: 1px solid black' and 'box-sizing: border-box' allow you to visualize all the elements on a page, and can be deleted at the end of the project when it's not needed anymore
-Variable declarations begin with two dashes (-) and are given a name and a value like this: --variable-name: value;
-To use a variable, put the variable name in parentheses with var in front of them like this: var(--variable-name). Whatever value you gave the variable will be applied to whatever property you use it on
-You should add a fallback value to a variable by putting it as the second value of where you use the variable like this: var(--variable-name, fallback-value). The property will use the fallback value when there's a problem with the variable
-Variables are often declared in the :root selector. This is the highest level selector in CSS; putting your variables there will make them usable everywhere
-Gradients in CSS are a way to transition between colors across the distance of an element. They are applied to the background property and the syntax looks like this: gradient-type( color1, color2);
-You can specify where you want a gradient transition to complete by adding it to the color like this: gradient-type(color1,color2 20%,color3);
-Change the gradient type from linear-gradient to repeating-linear-gradient for this section. This will make the four colors of your gradient repeat until it gets to the bottom of the element; giving you some stripes, and saving you from having to add a bunch of elements to create them
-You can specify another direction for a gradient by adding it before your colors like this: gradient-type(  direction,  color1,  color2);
-You can add multiple gradients to an element by separating them with a comma (,) like this: gradient1(  colors), gradient2(  colors);
-At the top of the sky gradient color list, where you would put a direction for the gradient; add circle closest-corner at 15% 15%,. This will move the start of the gradient to 15% from the top and left. It will make it end at the closest-corner and it will maintain a circle shape. These are some keywords built into gradients to describe how it behaves
-
 index.html
 
 <!DOCTYPE html>
@@ -103,8 +91,8 @@ index.html
 
 styles.css
 
-:root {
-  --building-color1: #aa80ff;
+:root {																	/* Variables are often declared in the :root selector. This is the highest level selector in CSS; putting your variables there will make them usable everywhere */
+  --building-color1: #aa80ff;											/* Variable declarations begin with two dashes (-) and are given a name and a value like this: --variable-name: value; */
   --building-color2: #66cc99;
   --building-color3: #cc6699;
   --building-color4: #538cc6;
@@ -114,7 +102,7 @@ styles.css
   --window-color4: #8cb3d9;
 }
 
-* {
+* {																		/* Using an universal * selector in CSS at the beginning of a project with 'border: 1px solid black' properties allow you to visualize all the elements on a page, and can be deleted at the end of the project when it's not needed anymore */
   box-sizing: border-box;
 }
 
@@ -148,7 +136,7 @@ body {
 
 .sky {
   background: radial-gradient(
-      closest-corner circle at 15% 15%,
+      closest-corner circle at 15% 15%,										/* At the top of the sky gradient color list, where you would put a direction for the gradient; add circle closest-corner at 15% 15%,. This will move the start of the gradient to 15% from the top and left. It will make it end at the closest-corner and it will maintain a circle shape. These are some keywords built into gradients to describe how it behaves */
       #ffcf33,
       #ffcf33 20%,
       #ffff66 21%,
@@ -177,9 +165,9 @@ body {
 .bb1d {
   width: 100%;
   height: 70%;
-  background: linear-gradient(
-      var(--building-color1) 50%,
-      var(--window-color1)
+  background: linear-gradient(								/* Gradients in CSS are a way to transition between colors across the distance of an element. They are applied to the background property and the syntax looks like this: gradient-type( color1, color2); */
+      var(--building-color1) 50%,							/* To use a variable, put the variable name in parentheses with var in front of them like this: var(--variable-name). Whatever value you gave the variable will be applied to whatever property you use it on */
+      var(--window-color1)									/* You could add a fallback value to a variable by putting it as the second value of where you use the variable like this: var(--variable-name, fallback-value). The property will use the fallback value when there's a problem with the variable */
     );
 }
 
@@ -205,9 +193,9 @@ body {
 .bb2b {
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(
+  background: repeating-linear-gradient(					/* Using the repeating-linear-gradient for this section will make the four colors of your gradient repeat until it gets to the bottom of the element; giving you some stripes, and saving you from having to add a bunch of elements to create them */
       var(--building-color2),
-      var(--building-color2) 6%,
+      var(--building-color2) 6%,							/* You can specify where you want a gradient transition to complete by adding it to the color like this: gradient-type(color1,color2 20%,color3); */
       var(--window-color2) 6%,
       var(--window-color2) 9%
     );
@@ -217,7 +205,7 @@ body {
   width: 10%;
   height: 55%;
   background: repeating-linear-gradient(
-      90deg,
+      90deg,												/* You can specify another direction for a gradient by adding it before your colors like this: gradient-type(  direction,  color1,  color2); */
       var(--building-color3),
       var(--building-color3),
       var(--window-color3) 15%
@@ -274,7 +262,7 @@ body {
 .fb1c {
   width: 100%;
   height: 80%;
-  background: repeating-linear-gradient(
+  background: repeating-linear-gradient(									/* You can add multiple gradients to an element by separating them with a comma (,) like this: gradient1(  colors), gradient2(  colors); */
       90deg,
       var(--building-color4),
       var(--building-color4) 10%,
