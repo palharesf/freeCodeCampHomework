@@ -1,28 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-css-grid-by-building-a-magazine/step-1 -->
 
-The loading attribute on an img element can be set to lazy to tell the browser not to fetch the image resource until it is needed (as in, when the user scrolls the image into view). As an additional benefit, lazy loaded elements will not load until the non-lazy elements are loaded - this means users with slow internet connections can view the content of your page without having to wait for the images to load
-The Referer HTTP header contains information about the address or URL of a page that a user might be visiting from. This information can be used in analytics to track how many users from your page visit freecodecamp.org, for example. Setting the rel attribute to noreferrer omits this information from the HTTP request. Give your a element a rel attribute set to noreferrer
-Create an html selector and give it a font-size property set to 62.5%. This will set the default font size for your web page to 10px (the browser default is 16px). This will make it easier for you to work with rem units later, as 2rem would be 20px
-CSS Grid offers a two-dimensional grid-based layout, allowing you to center items horizontally and vertically while still retaining control to do things like overlap elements. Begin by creating a main selector and giving it a display property set to grid
-Set the content to have a three-column layout by adding a grid-template-columns property with a value of 1fr 94rem 1fr. This will create three columns where the middle column is 94rem wide, and the first and last columns are both 1 fraction of the remaining space in the grid container
-Use the minmax function to make your columns responsive on any device. The minmax function takes two arguments, the first being the minimum value and the second being the maximum. These values could be a length, percentage, fr, or even a keyword like max-content
-To add space between rows in the grid layout, you can use the row-gap property
-The grid-column property is a shorthand for grid-column-start and grid-column-end. The grid-column property tells the grid item which grid line to start and end at. Set the grid-column property to 2 / 3. This will tell the .heading element to start at grid line 2 and end at grid line 3.
-The CSS repeat() function is used to repeat a value, rather than writing it out manually, and is helpful for grid layouts. For example, setting the grid-template-columns property to repeat(20, 200px) would create 20 columns each 200px wide
-fr stands for "fraction", and is a good way of dividing the available space between its elements
-Remember that the grid-column property determines which columns an element starts and ends at. There may be times where you are unsure of how many columns your grid will have, but you want an element to stop at the last column. To do this, you can use -1 for the end column. Give it a grid-column property set to 1 / -1. This will tell the element to span the full width of the grid
-The object-fit property tells the browser how to position the element within its container. In this case, cover will set the image to fill the container, cropping as needed to avoid changing the aspect ratio
-You can use the grid-auto-flow property. This property takes either row or column as the first value, with an optional second value of dense. grid-auto-flow uses an auto-placement algorithm to adjust the grid layout. Setting it to column will tell the algorithm to create new columns for content as needed. The dense value allows the algorithm to backtrack and fill holes in the grid with smaller items, which can result in items appearing out of order
-However, the algorithm defaults the new column width to be auto, which will not match your current columns. You can override this with the grid-auto-columns property
-Your .text element is not a CSS Grid, but you can create columns within an element without using Grid by using the column-width property
-The ::first-letter pseudo-selector allows you to target the first letter in the text content of an element
-The other text has been shifted out of place. Move it into position by giving the .first-paragraph::first-letter selector a float property set to left and a margin-right property set to 1rem
-Create a .lists selector and set the list-style-type property to none. This will get rid of the bullet points on the list items
-Give the .image-wrapper selector a grid-template-columns property set to 2fr 1fr and a grid-template-rows property set to repeat(3, min-content). This will give our grid rows that adjust in height based on the content, but columns that remain a fixed width based on the container
-The gap property is a shorthand way to set the value of column-gap and row-gap at the same time. If given one value, it sets the column-gap and row-gap both to that value. If given two values, it sets the row-gap to the first value and the column-gap to the second
-The place-items property can be used to set the align-items and justify-items values at the same time. The place-items property takes one or two values. If one value is provided, it is used for both the align-items and justify-items properties. If two values are provided, the first value is used for the align-items property and the second value is used for the justify-items property
-A @media query for only screen with a max-width of 720px, with an .image-wrapper selector with grid-template-columns property of 1fr will collapse the three images into one column on smaller screens
-
 index.html
 
 <!DOCTYPE html>
@@ -48,7 +25,7 @@ index.html
           <img
             src="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png"
             alt="freecodecamp logo"
-            loading="lazy"
+            loading="lazy"																											<!-- The loading attribute on an img element can be set to lazy to tell the browser not to fetch the image resource until it is needed (as in, when the user scrolls the image into view). As an additional benefit, lazy loaded elements will not load until the non-lazy elements are loaded - this means users with slow internet connections can view the content of your page without having to wait for the images to load -->
             class="hero-img"
           />
           <h1 class="hero-title">OUR NEW CURRICULUM</h1>
@@ -60,7 +37,7 @@ index.html
         <div class="author">
           <p class="author-name">
             By
-            <a href="https://freecodecamp.org" target="_blank" rel="noreferrer"
+            <a href="https://freecodecamp.org" target="_blank" rel="noreferrer"														<!-- The Referer HTTP header contains information about the address or URL of a page that a user might be visiting from. This information can be used in analytics to track how many users from your page visit freecodecamp.org, for example. Setting the rel attribute to noreferrer omits this information from the HTTP request. Give your a element a rel attribute set to noreferrer -->
               >freeCodeCamp</a
             >
           </p>
@@ -214,7 +191,7 @@ styles.css
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%;																								/* Giving a font-size property set to 62.5% will set the default font size for your web page to 10px (the browser default is 16px). This will make it easier for you to work with rem units later, as 2rem would be 20px */
 }
 
 body {
@@ -237,14 +214,14 @@ a {
 }
 
 main {
-  display: grid;
-  grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);
-  row-gap: 3rem;
+  display: grid;																								/* CSS Grid offers a two-dimensional grid-based layout, allowing you to center items horizontally and vertically while still retaining control to do things like overlap elements. Begin by creating a main selector and giving it a display property set to grid */
+  grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);						/* Set the content to have a three-column layout by adding a grid-template-columns property with a value of 1fr 94rem 1fr. This will create three columns where the middle column is 94rem wide, and the first and last columns are both 1 fraction of the remaining space in the grid container. Use the minmax function to make your columns responsive on any device. The minmax function takes two arguments, the first being the minimum value and the second being the maximum. These values could be a length, percentage, fr, or even a keyword like max-content */
+  row-gap: 3rem;																								/* To add space between rows in the grid layout, you can use the row-gap property */
 }
 
 img {
   width: 100%;
-  object-fit: cover;
+  object-fit: cover;																							/* The object-fit property tells the browser how to position the element within its container. In this case, cover will set the image to fill the container, cropping as needed to avoid changing the aspect ratio */
 }
 
 hr {
@@ -253,9 +230,9 @@ hr {
 }
 
 .heading {
-  grid-column: 2 / 3;
+  grid-column: 2 / 3;																							/* The grid-column property is a shorthand for grid-column-start and grid-column-end. The grid-column property tells the grid item which grid line to start and end at. This will tell the .heading element to start at grid line 2 and end at grid line 3 */
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);																		/* The CSS repeat() function is used to repeat a value, rather than writing it out manually, and is helpful for grid layouts. For example, setting the grid-template-columns property to repeat(20, 200px) would create 20 columns each 200px wide */
   row-gap: 1.5rem;
 }
 
@@ -263,12 +240,12 @@ hr {
   grid-column: 2 / 3;
   font-size: 1.8rem;
   letter-spacing: 0.6px;
-  column-width: 25rem;
+  column-width: 25rem;																							/* The .text element is not a CSS Grid, but you can create columns within an element without using Grid by using the column-width property */
   text-align: justify;
 }
 
 .hero {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1;																							/* Remember that the grid-column property determines which columns an element starts and ends at. There may be times where you are unsure of how many columns your grid will have, but you want an element to stop at the last column. To do this, you can use -1 for the end column. Give it a grid-column property set to 1 / -1. This will tell the element to span the full width of the grid */
   position: relative;
 }
 
@@ -300,14 +277,14 @@ hr {
 .social-icons {
   display: grid;
   font-size: 3rem;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-template-columns: repeat(5, 1fr);																		/* fr stands for "fraction", and is a good way of dividing the available space between its elements 8?
+  grid-auto-flow: column;																						/* You can use the grid-auto-flow property. This property takes either row or column as the first value, with an optional second value of dense. grid-auto-flow uses an auto-placement algorithm to adjust the grid layout. Setting it to column will tell the algorithm to create new columns for content as needed. The dense value allows the algorithm to backtrack and fill holes in the grid with smaller items, which can result in items appearing out of order */
+  grid-auto-columns: 1fr;																						/* However, the algorithm defaults the new column width to be auto, which will not match your current columns. You can override this with the grid-auto-columns property */
   align-items: center;
 }
 
-.first-paragraph::first-letter {
-  font-size: 6rem;
+.first-paragraph::first-letter {																				/* The ::first-letter pseudo-selector allows you to target the first letter in the text content of an element */
+  font-size: 6rem;																								/* The other text has been shifted out of place. Move it into position by giving the .first-paragraph::first-letter selector a float property set to left and a margin-right property set to 1rem */
   color: orangered;
   float: left;
   margin-right: 1rem;
@@ -336,7 +313,7 @@ hr {
 }
 
 .lists {
-  list-style-type: none;
+  list-style-type: none;																						/* Setting the list-style-type property to none will get rid of the bullet points on the list items */
   margin-top: 2rem;
 }
 
@@ -348,19 +325,19 @@ hr {
   color: #00beef;
 }
 
-.image-wrapper {
+.image-wrapper {																								/* Giving the .image-wrapper selector a grid-template-columns property set to 2fr 1fr and a grid-template-rows property set to repeat(3, min-content) will give our grid rows that adjust in height based on the content, but columns that remain a fixed width based on the container */
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: repeat(3, min-content);
-  gap: 2rem;
-  place-items: center;
+  gap: 2rem;																									/* The gap property is a shorthand way to set the value of column-gap and row-gap at the same time. If given one value, it sets the column-gap and row-gap both to that value. If given two values, it sets the row-gap to the first value and the column-gap to the second */
+  place-items: center;																							/* The place-items property can be used to set the align-items and justify-items values at the same time. The place-items property takes one or two values. If one value is provided, it is used for both the align-items and justify-items properties. If two values are provided, the first value is used for the align-items property and the second value is used for the justify-items property */
 }
 
 .image-1, .image-3 {
   grid-column: 1 / -1;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 720px) {																		/* A @media query for only screen with a max-width of 720px, with an .image-wrapper selector with grid-template-columns property of 1fr will collapse the three images into one column on smaller screens */
   .image-wrapper {
     grid-template-columns: 1fr;
   }
