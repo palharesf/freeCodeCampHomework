@@ -1,2 +1,60 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/build-a-product-landing-page-project/build-a-product-landing-page -->
 
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Landing Page</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header id="header">
+      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.1E4RYlL9Ske_t6DnpYNd4AHaB1%26pid%3DApi&f=1&ipt=a874dbeb7cd9260e1afb700f1df7ced0c35fb73a3296ad550d38ddff88ace3ae&ipo=images" alt="Company Logo" id="header-img">
+      <nav id="nav-bar">
+        <p><a href="#video" class="nav-link">Generic Video</a></p>
+        <p><a href="#form" class="nav-link">Email Info</a></p>
+        <p><a href="#company" class="nav-link">Company Info</a></p>
+      </nav>
+    </header>
+    <section class="video">
+      <h2>Embedded video</h2>
+      <video id="video" width="960" height="540" controls>
+        <source src="https://cdn.pixabay.com/video/2024/06/14/216696_large.mp4" type="video/mp4">
+      </video>
+    </section>
+    <section class="form">
+      <h2>Form</h2>
+      <form id="form" method="get" action="https://www.freecodecamp.com/email-submit">
+        <fieldset>
+          <label for="email">Enter Your Email for more information: <input id="email" name="email" type="email" placeholder="abc@xyz.com" required /></label> 
+        </fieldset>
+        <input id="submit" type="submit" value="Submit" />
+      </form>
+    </section>
+    <section class="company">
+      <h2 id="company">About us</h2>
+      <p>We are a generic company. That's it!</p>
+    </section>
+  </body>
+</html>
+
+
+
+
+styles.css
+
+#nav-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+body {
+  padding-top: 70px;							/* Creates a buffer so the navbar is not over content */
+}
