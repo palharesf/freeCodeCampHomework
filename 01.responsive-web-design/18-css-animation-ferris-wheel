@@ -1,16 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-css-animation-by-building-a-ferris-wheel/step-1 -->
 
-The transform-origin property is used to set the point around which a CSS transformation is applied. For example, when performing a rotate (which you will do later in this project), the transform-origin determines around which point the element is rotated
-Using ::nth-of-type allows you to select the second, third, etc lines -- set the transform property to rotate(60deg)
-Set the .cabin to have a transform-origin property of 50% 0%. This will set the origin point to be offset 50% from the left and 0% from the top, placing it in the middle of the top edge of the element
-The @keyframes at-rule is used to define the flow of a CSS animation. Within the @keyframes rule, you can create selectors for specific points in the animation sequence, such as 0% or 25%, or use from and to to define the start and end of the sequence. @keyframes rules require a name to be assigned to them, which you use in other rules to reference. For example, the @keyframes freeCodeCamp { } rule would be named freeCodeCamp
-The animation-name property is used to link a @keyframes rule to a CSS selector. The value of this property should match the name of the @keyframes rule
-The animation-duration property is used to set how long the animation should sequence to complete. The time should be specified in either seconds (s) or milliseconds (ms)
-The animation-iteration-count property sets how many times your animation should repeat. This can be set to a number, or to infinite to indefinitely repeat the animation
-The animation-timing-function property sets how the animation should progress over time. There are a few different values for this property, but you want the Ferris wheel animation to run at the same rate from start to finish
-Set the animation property of the .cabin rule to cabins 10s linear infinite. This will set the animation-name, animation-duration, animation-timing-function, and animation-iteration-count properties in that order
-To make your cabin animation seem more like a natural swinging motion, you can use the ease-in-out timing function. This setting will tell the animation to start and end at a slower pace, but move more quickly in the middle of the cycle
-
 index.html
 
 <!DOCTYPE html>
@@ -55,10 +44,10 @@ styles.css
   width: 55vw;
   max-width: 500px;
   max-height: 500px;
-  animation-name: wheel;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  animation-name: wheel;								/* The animation-name property is used to link a @keyframes rule to a CSS selector. The value of this property should match the name of the @keyframes rule */
+  animation-duration: 10s;								/* The animation-duration property is used to set how long the animation should sequence to complete. The time should be specified in either seconds (s) or milliseconds (ms) */
+  animation-iteration-count: infinite;					/* The animation-iteration-count property sets how many times your animation should repeat. This can be set to a number, or to infinite to indefinitely repeat the animation */
+  animation-timing-function: linear;					/* The animation-timing-function property sets how the animation should progress over time. There are a few different values for this property, but you want the Ferris wheel animation to run at the same rate from start to finish */
 }
 
 .line {
@@ -68,10 +57,10 @@ styles.css
   position: absolute;
   top: 50%;
   left: 50%;
-  transform-origin: 0% 0%;
+  transform-origin: 0% 0%;								/* The transform-origin property is used to set the point around which a CSS transformation is applied. For example, when performing a rotate (which you will do later in this project), the transform-origin determines around which point the element is rotated */
 }
 
-.line:nth-of-type(2) {
+.line:nth-of-type(2) {									/* Using ::nth-of-type allows you to select the second, third, etc lines -- set the transform property to rotate(60deg) */
   transform: rotate(60deg);
 }
 .line:nth-of-type(3) {
@@ -93,8 +82,8 @@ styles.css
   height: 20%;
   position: absolute;
   border: 2px solid;
-  transform-origin: 50% 0%;
-  animation: cabins 10s ease-in-out infinite;
+  transform-origin: 50% 0%;								/* Set the .cabin to have a transform-origin property of 50% 0%. This will set the origin point to be offset 50% from the left and 0% from the top, placing it in the middle of the top edge of the element */
+  animation: cabins 10s ease-in-out infinite;			/* The animation property will set the animation-name, animation-duration, animation-timing-function, and animation-iteration-count properties in that order. To make your cabin animation seem more like a natural swinging motion, you can use the ease-in-out timing function. This setting will tell the animation to start and end at a slower pace, but move more quickly in the middle of the cycle */
 }
 
 .cabin:nth-of-type(1) {
@@ -122,7 +111,7 @@ styles.css
   top: 7%;
 }
 
-@keyframes wheel {
+@keyframes wheel {										/* The @keyframes at-rule is used to define the flow of a CSS animation. Within the @keyframes rule, you can create selectors for specific points in the animation sequence, such as 0% or 25%, or use from and to to define the start and end of the sequence. @keyframes rules require a name to be assigned to them, which you use in other rules to reference. For example, the @keyframes freeCodeCamp { } rule would be named freeCodeCamp */
    0% {
      transform: rotate(0deg);
    }
