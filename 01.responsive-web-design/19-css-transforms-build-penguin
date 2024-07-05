@@ -1,14 +1,5 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/learn-css-transforms-by-building-a-penguin/step-1 -->
 
-To make the mountain look more like a mountain, you can use the skew transform function, which takes two arguments. The first being an angle to shear the x-axis by, and the second being an angle to shear the y-axis by
-To select all descendents of an element, we can target 'element *'
-With the ::before selector, we target the first child of an element
-Setting opacity to 70% is in effect equal to setting transparency for 30%, but with a direct command instead of relying on color/background-color properties
-Reminder: using double dashes allow you to declare CSS variables
-Using the transform function, you can invert the X-axis by using the parameter 'scaleX(-1)'
-Using the 'cursor: not-allowed' property you can tell users that a function is not allowed (in this case, dragging the penguin)
-To make the transition to the bigger size smoother, we can use the 'transition' property
-
 index.html
 
 <!DOCTYPE html>
@@ -62,7 +53,7 @@ index.html
 index.css
 
 :root {
-  --penguin-face: white;
+  --penguin-face: white;																				/* Reminder: using double dashes allow you to declare CSS variables */
   --penguin-picorna: orange;
   --penguin-skin: gray;
 }
@@ -81,7 +72,7 @@ body {
   height: 300px;
   background: linear-gradient(rgb(203, 241, 228), rgb(80, 183, 255));
   position: absolute;
-  transform: skew(0deg, 44deg);
+  transform: skew(0deg, 44deg);																			/* The skew transform function takes two arguments: the first being an angle to shear the x-axis by, and the second being an angle to shear the y-axis by */
   z-index: 2;
   margin-top: 100px;
 }
@@ -114,16 +105,16 @@ body {
   margin-top: 75px;
   z-index: 4;
   position: relative;
-  transition: transform 1s ease-in-out 0ms;
+  transition: transform 1s ease-in-out 0ms;															/* To make the transition to the bigger size smoother, we can use the 'transition' property */
 }
 
-.penguin * {
+.penguin * {																						/* To select all descendents of an element, we can target 'element *' */
   position: absolute;
 }
 
 .penguin:active {
   transform: scale(1.5);
-  cursor: not-allowed;
+  cursor: not-allowed;																				/* Using the 'cursor: not-allowed' property you can tell users that a function is not allowed (in this case, dragging the penguin) */
 }
 
 .penguin-head {
@@ -252,7 +243,7 @@ body {
   left: 23.5%;
 }
 
-.penguin-body::before {
+.penguin-body::before {																		/* With the ::before selector, we target the first child of an element */
   content: "";
   position: absolute;
   width: 50%;
@@ -261,7 +252,7 @@ body {
   top: 10%;
   left: 25%;
   border-radius: 0% 0% 100% 100%;
-  opacity: 70%;
+  opacity: 70%;																				/* Setting opacity to 70% is in effect equal to setting transparency for 30%, but with a direct command instead of relying on color/background-color properties */
 }
 
 .arm {
@@ -280,7 +271,7 @@ body {
   top: 35%;
   left: 5%;
   transform-origin: top left; 
-  transform: rotate(130deg) scaleX(-1);
+  transform: rotate(130deg) scaleX(-1);														/* Using the transform function, you can invert the X-axis by using the parameter 'scaleX(-1)' */
   animation: 3s linear infinite wave;
 }
 
