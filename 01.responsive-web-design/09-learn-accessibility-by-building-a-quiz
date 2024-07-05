@@ -310,7 +310,7 @@ address {
   height: 1px;
   padding: 0;
   margin: -1px;
-  overflow: hidden;
+  overflow: hidden;															/* Setting the overflow to hidden will remove any scroll bars / scrollbars from showing on your viewport */
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
