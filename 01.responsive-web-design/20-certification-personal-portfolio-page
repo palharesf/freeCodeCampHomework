@@ -1,2 +1,47 @@
 <!-- Homework permalink: https://www.freecodecamp.org/learn/2022/responsive-web-design/build-a-personal-portfolio-webpage-project/build-a-personal-portfolio-webpage -->
 
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Penguin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <section id="navbar">
+      <div><a href="https://github.com/palharesf/" id="profile-link" target="_blank">My Profile</a></div>
+      <div><a href="#projects">Projects</a></div>
+    </section>
+    <section id="welcome-section">
+      <h1>Welcome to my Portfolio Page</h1>
+    </section>
+    <section id="projects">
+      <h2>Projects</h1>
+      <h3 class="project-tile">My freeCodeCamp homework - link <a href="https://github.com/palharesf/freeCodeCampHomework">here</a></h3>
+    </section>
+  </body>
+  </html>
+  
+  
+  
+styles.css
+  
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;												
+  }
+}
+
+#navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 10px;
+  gap: 5px;
+}
