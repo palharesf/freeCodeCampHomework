@@ -1,48 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-basic-javascript-by-building-a-role-playing-game/step-1
 
-//We'll start adding JavaScript to our HTML files, using the '<script></script>' notation. Usually we link our script from an external file using the 'src="./script.js"' attribute. It is advisable to place the <script> element at the end of the <body> element, so the page finished loading before you start querying it for information used on your script
-/*JavaScript interacts with the HTML using the Document Object Model, or DOM. The DOM is a tree of objects that represents the HTML. You can access the HTML using the document object, which represents your entire HTML document. One method for finding specific elements in your HTML is using the querySelector() method. The querySelector() method takes a CSS selector as an argument and returns the first element that matches that selector. For example, to find the <h1> element in your HTML, you would write:
-
-let h1 = document.querySelector("h1");
-
-Note that h1 is a string and matches the CSS selector you would use*/
-// Since button1 is a variable that is not going to be reassigned, it is best practice to use the const keyword to declare it instead of the let keyword. This will tell JavaScript to throw an error if you accidentally reassign it
-// You can hide CSS elements using a 'display:none' propery
-// button1 represents your first button element. These elements have a special property called onclick, which you can use to determine what happens when someone clicks that button
-// Reminder: when we're initializing a button (onclick), we should not call a function (i.e. we should not add the parenthesis)
-// The innerText function changes the content of a <p></p> element on HTML when called
-// When formatting text in JS, you can add double quotes to printed text by using backslash as an "escape" method. Here is an example: 'const escapedString = "Naomi likes to play \"Zelda\" sometimes.";'
-/* Objects are non primitive data types that store key-value pairs. Non primitive data types are mutable data types that are not undefined, null, boolean, number, string, or symbol. Mutable means that the data can be changed after it is created.
-
-Here is the basic syntax for an object:
-Example Code
-
-{
-  key: value
-} 
-
-Objects are similar to arrays, except that instead of using indexes to access and modify their data, you access the data in objects through properties.
-Properties consist of a key and a value. The key is the name of the property, and the value is the data stored in the property.*/
-/* You can hide and unhide elements of a screen dynamically using JS scripts through the style and display CSS properties. For instance:
-
-const paragraph = document.querySelector('p');
-paragraph.style.display = 'block';
-
-Would allow you to change a display from 'none' to 'block' */
-// Math.floor() is useful for rounding down calculation results
-/* In order for the &#x2620; emoticon text to properly display on the page, you will need to use the innerHTML property.
-The innerHTML property allows you to access or modify the content inside an HTML element using JavaScript.
-Here is an example of updating the content for this paragraph element using the innerHTML property:
-
-<p id="demo">This is a paragraph.</p>
-
-document.querySelector("#demo").innerHTML = "Hello, innerHTML!"; */
-/* One bug that might happen is if your xp is high enough, the getMonsterAttackValue function will return a negative number, which will actually add to your total health when fighting a monster! You can fix this issue by using a ternary operator to ensure negative values are not returned.
-The ternary operator is a conditional operator and can be used as a one-line if-else statement. The syntax is: condition ? expressionIfTrue : expressionIfFalse */
-// The logical OR operator will use the first value if it is truthy – that is, anything apart from NaN, null, undefined, 0, -0, 0n, "", and false. Otherwise, it will use the second value. For example: num < 10 || num > 20
-// Use the logical AND operator && to add a second condition to your if statement
-
-
 index.html
 
 <!DOCTYPE html>
@@ -72,9 +29,10 @@ index.html
         Welcome to Dragon Repeller. You must defeat the dragon that is preventing people from leaving the town. You are in the town square. Where do you want to go? Use the buttons above.
       </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="./script.js"></script>				//We'll start adding JavaScript to our HTML files, using the '<script></script>' notation. Usually we link our script from an external file using the 'src="./script.js"' attribute. It is advisable to place the <script> element at the end of the <body> element, so the page finished loading before you start querying it for information used on your script
   </body>
 </html>
+
 
 
 
@@ -108,7 +66,7 @@ body {
 }
 
 #monsterStats {
-  display: none;
+  display: none;						// You can hide CSS elements using a 'display:none' property
   border: 1px solid #0a0a23;
   padding: 5px;
   color: #ffffff;
@@ -140,7 +98,7 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
-const button1 = document.querySelector('#button1');
+const button1 = document.querySelector('#button1');								// Since button1 is a variable that is not going to be reassigned, it is best practice to use the const keyword to declare it instead of the let keyword. This will tell JavaScript to throw an error if you accidentally reassign it
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const text = document.querySelector("#text");
@@ -178,7 +136,7 @@ const locations = [
     name: "town square",
     "button text": ["Go to store", "Go to cave", "Fight dragon"],
     "button functions": [goStore, goCave, fightDragon],
-    text: "You are in the town square. You see a sign that says \"Store\"."
+    text: "You are in the town square. You see a sign that says \"Store\"."				// When formatting text in JS, you can add double quotes to printed text by using backslash as an "escape" method. Here is an example: 'const escapedString = "Naomi likes to play \"Zelda\" sometimes.";'
   },
   {
     name: "store",
@@ -225,13 +183,13 @@ const locations = [
 ];
 
 // initialize buttons
-button1.onclick = goStore;
+button1.onclick = goStore;								// button1 represents your first button element. These elements have a special property called onclick, which you can use to determine what happens when someone clicks that button. Reminder: when we're initializing a button (onclick), we should not call a function (i.e. we should not add the parenthesis)
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
   monsterStats.style.display = "none";
-  button1.innerText = location["button text"][0];
+  button1.innerText = location["button text"][0];		// The innerText function changes the content of an object on HTML when called
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
   button1.onclick = location["button functions"][0];
@@ -323,7 +281,7 @@ function attack() {
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
-    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    					// Math.floor() is useful for rounding down calculation results
   } else {
     text.innerText += " You miss.";
   }
@@ -338,7 +296,7 @@ function attack() {
       defeatMonster();
     }
   }
-  if (Math.random() <= .1 && inventory.length !== 1) {
+  if (Math.random() <= .1 && inventory.length !== 1) {				// Use the logical AND operator && to add a second condition to your if statement
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
   }
@@ -347,11 +305,11 @@ function attack() {
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
   console.log(hit);
-  return hit > 0 ? hit : 0;
+  return hit > 0 ? hit : 0;											// One bug that might happen is if your xp is high enough, the getMonsterAttackValue function will return a negative number, which will actually add to your total health when fighting a monster! You can fix this issue by using a ternary operator to ensure negative values are not returned. The ternary operator is a conditional operator and can be used as a one-line if-else statement. The syntax is: condition ? expressionIfTrue : expressionIfFalse
 }
 
 function isMonsterHit() {
-  return Math.random() > .2 || health < 20;
+  return Math.random() > .2 || health < 20;							// The logical OR operator will use the first value if it is truthy – that is, anything apart from NaN, null, undefined, 0, -0, 0n, "", and false. Otherwise, it will use the second value. For example: num < 10 || num > 20
 }
 
 function dodge() {
@@ -420,3 +378,43 @@ function pick(guess) {
     }
   }
 }
+
+
+
+
+
+
+
+/*JavaScript interacts with the HTML using the Document Object Model, or DOM. The DOM is a tree of objects that represents the HTML. You can access the HTML using the document object, which represents your entire HTML document. One method for finding specific elements in your HTML is using the querySelector() method. The querySelector() method takes a CSS selector as an argument and returns the first element that matches that selector. For example, to find the <h1> element in your HTML, you would write:
+
+let h1 = document.querySelector("h1");
+
+Note that h1 is a string and matches the CSS selector you would use*/
+
+/* Objects are non primitive data types that store key-value pairs. Non primitive data types are mutable data types that are not undefined, null, boolean, number, string, or symbol. Mutable means that the data can be changed after it is created.
+
+Here is the basic syntax for an object:
+Example Code
+
+{
+  key: value
+} 
+
+Objects are similar to arrays, except that instead of using indexes to access and modify their data, you access the data in objects through properties.
+Properties consist of a key and a value. The key is the name of the property, and the value is the data stored in the property.*/
+
+/* You can hide and unhide elements of a screen dynamically using JS scripts through the style and display CSS properties. For instance:
+
+const paragraph = document.querySelector('p');
+paragraph.style.display = 'block';
+
+Would allow you to change a display from 'none' to 'block' */
+
+/* In order for the &#x2620; emoticon text to properly display on the page, you will need to use the innerHTML property.
+The innerHTML property allows you to access or modify the content inside an HTML element using JavaScript.
+Here is an example of updating the content for this paragraph element using the innerHTML property:
+
+<p id="demo">This is a paragraph.</p>
+
+document.querySelector("#demo").innerHTML = "Hello, innerHTML!"; */
+
