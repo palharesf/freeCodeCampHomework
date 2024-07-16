@@ -1,107 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-basic-string-and-array-methods-by-building-a-music-player/step-1
 
-// All modern browsers support the Web Audio API, which lets you generate and process audio in web applications. Use const to create a variable named audio and set it equal to new Audio(). This will create a new HTML5 audio element
-
-/* Since users will be able to shuffle and delete songs from the playlist, you will need to create a copy of the allSongs array without mutating the original. This is where the spread operator comes in handy. The spread operator (...) allows you to copy all elements from one array into another. It can also be used to concatenate multiple arrays into one
-
-const arr1 = [1, 2, 3];
-const arr2 = [4, 5, 6];
-
-const combinedArr = [...arr1, ...arr2]; */
-
-/* An arrow function is an anonymous function expression and a shorter way to write functions. Anonymous means that the function does not have a name. Arrow functions are always anonymous. To create a named arrow function, you can assign the function to a variable:
-
-const exampleFunction = () => {
-  // code goes here
-} 
-
-If the function only has one parameter, you can omit the parentheses around the parameter list like this:
-
-const greet = name => {
-  console.log(`Hello, ${name}!`);
-}; 
-
-If the arrow function is returning a simple expression, you can omit the return keyword and the curly braces {}. This is called an implicit return.
-
-const multiplyTwoNumbers = (num1, num2) => num1 * num2; */
-
-/* The map() method is used to iterate through an array and return a new array. It's helpful when you want to create a new array based on the values of an existing array. For example:
-
-const numbers = [1, 2, 3];
-const doubledNumbers = numbers.map((number) => number * 2); // doubledNumbers will be [2, 4, 6]
-
-Notice that the map() method takes a function as an argument. This is called a callback function, which is a function that is passed to another function as an argument. In the example above, the callback function is (number) => number * 2, and it's run on each element in the numbers array. The map() method then returns a new array with the results */
-
-/* The join() method is used to concatenate all the elements of an array into a single string. It takes an optional parameter called a separator which is used to separate each element of the array. For example:
-
-const exampleArr = ["This", "is", "a", "sentence"];
-const sentence = exampleArr.join(" "); // Separator takes a space character
-console.log(sentence); // Output: "This is a sentence" */
-
-/* Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined. For example:
-
-const user = {
-  name: "Quincy",
-  address: {
-    city: "San Francisco",
-    state: "CA",
-    country: "USA",
-  },
-};
-
-// Accessing nested properties without optional chaining
-const state = user.address.state; // CA
-
-// Accessing a non-existent nested property with optional chaining
-const zipCode = user.address?.zipCode; // Returns undefined instead of throwing an error */
-
-/* The sort() method converts elements of an array into strings and sorts them in place based on their values in the UTF-16 encoding.
-
-const names = ["Tom", "Jessica", "Quincy", "Naomi"];
-names.sort() // ["Jessica", "Naomi", "Quincy", "Tom"] */
-
-/* The find() method retrieves the first element within an array that fulfills the conditions specified in the provided callback function. If no element satisfies the condition, the method returns undefined. In the example below, the find() method is used to find the first number greater than 25:
-
-const numbers = [10, 20, 30, 40, 50];
-
-// Find the first number greater than 25
-const foundNumber = numbers.find((number) => number > 25);
-console.log(foundNumber); // Output: 30 */
-
-/* The forEach method is used to loop through an array and perform a function on each element of the array. For example, suppose you have an array of numbers and you want to log each number to the console:
-
-const numbers = [1, 2, 3, 4, 5];
-
-// Using forEach to iterate through the array
-numbers.forEach((number) => {
-  console.log(number); // 1, 2, 3, 4, 5
-}); */
-
-// One way to randomize an array of items would be to subtract 0.5 from Math.random() which produces random values that are either positive or negative. This makes the comparison result a mix of positive and negative values, leading to a random ordering of elements
-
-/* createElement() is a DOM method you can use to dynamically create an element using JavaScript. To use createElement(), you call it, then pass in the tag name as a string:
-
-// syntax
-document.createElement(tagName)
-
-// example
-document.createElement('div')
-
-You can also assign it to a variable:
-
-const divElement = document.createElement('div') 
-
-The createTextNode() method is used to create a text node. To use it, you call it and pass in the text as a string:
-
-document.createTextNode("your text")
-
-You can also assign it to a variable:
-
-const myText = document.createTextNode("your text") */
-
-// The "ended" event listener is fired when the playback of a media reaches the end
-
-
 index.html
 
 <!DOCTYPE html>
@@ -686,12 +584,56 @@ const allSongs = [
   },
 ];
 
-const audio = new Audio();
+/* Since users will be able to shuffle and delete songs from the playlist, you will need to create a copy of the allSongs array without mutating the original. This is where the spread operator comes in handy. The spread operator (...) allows you to copy all elements from one array into another. It can also be used to concatenate multiple arrays into one
+
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combinedArr = [...arr1, ...arr2]; */
+
+const audio = new Audio();								// All modern browsers support the Web Audio API, which lets you generate and process audio in web applications. Use const to create a variable named audio and set it equal to new Audio(). This will create a new HTML5 audio element
 let userData = {
   songs: [...allSongs],
   currentSong: null,
   songCurrentTime: 0,
 };
+
+/* An arrow function is an anonymous function expression and a shorter way to write functions. Anonymous means that the function does not have a name. Arrow functions are always anonymous. To create a named arrow function, you can assign the function to a variable:
+
+const exampleFunction = () => {
+  // code goes here
+} 
+
+If the function only has one parameter, you can omit the parentheses around the parameter list like this:
+
+const greet = name => {
+  console.log(`Hello, ${name}!`);
+}; 
+
+If the arrow function is returning a simple expression, you can omit the return keyword and the curly braces {}. This is called an implicit return.
+
+const multiplyTwoNumbers = (num1, num2) => num1 * num2; */
+
+/* Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined. For example:
+
+const user = {
+  name: "Quincy",
+  address: {
+    city: "San Francisco",
+    state: "CA",
+    country: "USA",
+  },
+};
+
+const state = user.address.state; // CA
+const zipCode = user.address?.zipCode; // Returns undefined instead of throwing an error */
+
+/* The find() method retrieves the first element within an array that fulfills the conditions specified in the provided callback function. If no element satisfies the condition, the method returns undefined. In the example below, the find() method is used to find the first number greater than 25:
+
+const numbers = [10, 20, 30, 40, 50];
+
+// Find the first number greater than 25
+const foundNumber = numbers.find((number) => number > 25);
+console.log(foundNumber); // Output: 30 */
 
 const playSong = (id) => {
   const song = userData?.songs.find((song) => song.id === id);
@@ -740,8 +682,13 @@ const playPreviousSong = () => {
    }
 };
 
+/* The sort() method converts elements of an array into strings and sorts them in place based on their values in the UTF-16 encoding.
+
+const names = ["Tom", "Jessica", "Quincy", "Naomi"];
+names.sort() // ["Jessica", "Naomi", "Quincy", "Tom"] */
+
 const shuffle = () => {
-  userData?.songs.sort(() => Math.random() - 0.5);
+  userData?.songs.sort(() => Math.random() - 0.5);  // One way to randomize an array of items would be to subtract 0.5 from Math.random() which produces random values that are either positive or negative. This makes the comparison result a mix of positive and negative values, leading to a random ordering of elements
   userData.currentSong = null;
   userData.songCurrentTime = 0;
 
@@ -750,6 +697,23 @@ const shuffle = () => {
   setPlayerDisplay();
   setPlayButtonAccessibleText();
 };
+
+/* createElement() is a DOM method you can use to dynamically create an element using JavaScript. To use createElement(), you call it, then pass in the tag name as a string:
+
+// example
+document.createElement('div')
+
+You can also assign it to a variable:
+
+const divElement = document.createElement('div') 
+
+The createTextNode() method is used to create a text node. To use it, you call it and pass in the text as a string:
+
+document.createTextNode("your text")
+
+You can also assign it to a variable:
+
+const myText = document.createTextNode("your text") */
 
 const deleteSong = (id) => {
   if (userData?.currentSong?.id === id) {
@@ -796,6 +760,15 @@ const setPlayerDisplay = () => {
   songArtist.textContent = currentArtist ? currentArtist : "";
 };
 
+/* The forEach method is used to loop through an array and perform a function on each element of the array. For example, suppose you have an array of numbers and you want to log each number to the console:
+
+const numbers = [1, 2, 3, 4, 5];
+
+// Using forEach to iterate through the array
+numbers.forEach((number) => {
+  console.log(number); // 1, 2, 3, 4, 5
+}); */
+
 const highlightCurrentSong = () => {
   const playlistSongElements = document.querySelectorAll(".playlist-song");
   const songToHighlight = document.getElementById(
@@ -808,6 +781,18 @@ const highlightCurrentSong = () => {
 
   if (songToHighlight) songToHighlight.setAttribute("aria-current", "true");
 };
+
+/* The map() method is used to iterate through an array and return a new array. It's helpful when you want to create a new array based on the values of an existing array. For example:
+
+const numbers = [1, 2, 3];
+const doubledNumbers = numbers.map((number) => number * 2); // doubledNumbers will be [2, 4, 6]
+
+Notice that the map() method takes a function as an argument. This is called a callback function, which is a function that is passed to another function as an argument. In the example above, the callback function is (number) => number * 2, and it's run on each element in the numbers array. The map() method then returns a new array with the results.
+The join() method is used to concatenate all the elements of an array into a single string. It takes an optional parameter called a separator which is used to separate each element of the array. For example:
+
+const exampleArr = ["This", "is", "a", "sentence"];
+const sentence = exampleArr.join(" "); // Separator takes a space character
+console.log(sentence); // Output: "This is a sentence" */
 
 const renderSongs = (array) => {
   const songsHTML = array
@@ -858,7 +843,7 @@ previousButton.addEventListener("click", playPreviousSong);
 
 shuffleButton.addEventListener("click", shuffle);
 
-audio.addEventListener("ended", () => {
+audio.addEventListener("ended", () => {												// The "ended" event listener is fired when the playback of a media reaches the end
   const currentSongIndex = getCurrentSongIndex();
   const nextSongExists = userData?.songs[currentSongIndex + 1] !== undefined;
 
