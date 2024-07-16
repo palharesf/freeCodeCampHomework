@@ -1,14 +1,19 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-the-date-object-by-building-a-date-formatter/step-1
 
-/* In JavaScript, there are many built-in constructors that create objects. A constructor is like a regular function, but starts with a capital letter, and is initialized with the new operator. For example, you can use the Date() constructor with the new operator to create a new Date object that returns a string with the current date and time:
+script.js
 
-const currentDate = new Date();
-console.log(currentDate);
+const currentDateParagraph = document.getElementById("current-date");
+const dateOptionsSelectElement = document.getElementById("date-options");
 
-// Output:
-// Mon Aug 23 2021 15:31:00 GMT-0400 (Eastern Daylight Time) */
+const date = new Date(); 												// In JavaScript, there are many built-in constructors that create objects. A constructor is like a regular function, but starts with a capital letter, and is initialized with the new operator. For example, you can use the Date() constructor with the new operator to create a new Date object that returns a string with the current date and time: const currentDate = new Date();
+const day = date.getDate();
+const month = date.getMonth() + 1;
+const year = date.getFullYear();
+const hours = date.getHours();
+const minutes = date.getMinutes();
 
-// In JavaScript, the change event is used to detect when the value of an HTML element has changed: element.addEventListener("change", () => {});
+const formattedDate = `${day}-${month}-${year}`;
+currentDateParagraph.textContent = formattedDate;
 
 /* A switch statement is used to compare an expression against multiple possible values and execute different code blocks based on the match. It's commonly used for branching logic. For example, here's how to compare the expression dayOfWeek against possible values:
 
@@ -27,31 +32,12 @@ switch (dayOfWeek) {
 If the switch statement is going to have multiple cases, it is best practice to include a break statement. Otherwise the code will run for all cases.
 In a switch statement, the default case is executed when none of the previous case conditions match the value being evaluated. It serves as a catch-all for any other possible cases */
 
-// The split() method is used to divide a string into substrings based on a specified separator. It then returns these substrings as elements of an array
-// To reverse an array of elements, you can use the reverse method. This method reverses the order of the elements in the array in place. The first element becomes the last, and the last element becomes the first. '[1, 2, 3, 4, 5].reverse();' becomes '[5, 4, 3, 2, 1]'
-
-script.js
-
-const currentDateParagraph = document.getElementById("current-date");
-const dateOptionsSelectElement = document.getElementById("date-options");
-
-const date = new Date();
-const day = date.getDate();
-const month = date.getMonth() + 1;
-const year = date.getFullYear();
-const hours = date.getHours();
-const minutes = date.getMinutes();
-
-const formattedDate = `${day}-${month}-${year}`;
-currentDateParagraph.textContent = formattedDate;
-
-dateOptionsSelectElement.addEventListener("change", () => {
-
+dateOptionsSelectElement.addEventListener("change", () => {				// In JavaScript, the change event is used to detect when the value of an HTML element has changed: element.addEventListener("change", () => {});
   switch (dateOptionsSelectElement.value) {
     case "yyyy-mm-dd":
       currentDateParagraph.textContent = formattedDate
-        .split("-")
-        .reverse()
+        .split("-")														// The split() method is used to divide a string into substrings based on a specified separator. It then returns these substrings as elements of an array
+        .reverse()														// To reverse an array of elements, you can use the reverse method. This method reverses the order of the elements in the array in place. The first element becomes the last, and the last element becomes the first. '[1, 2, 3, 4, 5].reverse();' becomes '[5, 4, 3, 2, 1]'
         .join("-");
       break;
     case "mm-dd-yyyy-h-mm":
