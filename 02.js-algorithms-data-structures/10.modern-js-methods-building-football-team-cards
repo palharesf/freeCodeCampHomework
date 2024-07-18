@@ -1,31 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-modern-javascript-methods-by-building-football-team-cards/step-1
 
-// To avoid changes to an object, we can use a method called Object.freeze(obj) which will freeze this object and prevent any changes being made to it
-/* While you can access properties from an object using dot notation and assigning them to new const variables, there is an easier way to accomplish the same goal through object destructuring syntax. It allows you to unpack values from arrays and objects:
-
-const developerObj = {
-  name: "Jessica Wilkins",
-  isDeveloper: true
-};
-
-// Object destructuring
-const { name, isDeveloper } = developerObj; 
-
-This syntax extracts 'name' and 'isDeveloper' from the object 'developerObj' and assigns them to variables with the same names */
-
-/* Function parameters can be initialized with default values. If a function is called without an argument, then the default value will be used:
-
-const greeting = (name = "Anonymous") => {
-  return "Hello " + name;
-} 
-
-console.log(greeting("John")); // Hello John
-console.log(greeting()); // Hello Anonymous 
-
-If you're passing an array as the default value, you can omit the brackets [] */
-
-// You can set up ternary operators within embedded expressions (back ticks) to add an element of conditionality to your code: `<h2>${isCaptain ? "(Captain)" : ""} ${name}</h2>`
-
 script.js
 
 const teamName = document.getElementById("team");
@@ -201,7 +175,19 @@ const myFavoriteFootballTeam = {
   ],
 };
 
-Object.freeze(myFavoriteFootballTeam);
+/* While you can access properties from an object using dot notation and assigning them to new const variables, there is an easier way to accomplish the same goal through object destructuring syntax. It allows you to unpack values from arrays and objects:
+
+const developerObj = {
+  name: "Jessica Wilkins",
+  isDeveloper: true
+};
+
+// Object destructuring
+const { name, isDeveloper } = developerObj; 
+
+This syntax extracts 'name' and 'isDeveloper' from the object 'developerObj' and assigns them to variables with the same names */
+
+Object.freeze(myFavoriteFootballTeam);								// To avoid changes to an object, we can use a method called Object.freeze(obj) which will freeze this object and prevent any changes being made to it
 const { sport, team, year, players } = myFavoriteFootballTeam;
 const { coachName } = myFavoriteFootballTeam.headCoach;
 
@@ -210,13 +196,24 @@ teamName.textContent = team;
 worldCupYear.textContent = year;
 headCoach.textContent = coachName;
 
+/* Function parameters can be initialized with default values. If a function is called without an argument, then the default value will be used:
+
+const greeting = (name = "Anonymous") => {
+  return "Hello " + name;
+} 
+
+console.log(greeting("John")); // Hello John
+console.log(greeting()); // Hello Anonymous 
+
+If you're passing an array as the default value, you can omit the brackets [] */
+
 const setPlayerCards = (arr = players) => {
   playerCards.innerHTML += arr
     .map(
       ({ name, position, number, isCaptain, nickname }) =>
         `
         <div class="player-card">
-          <h2>${isCaptain ? "(Captain)" : ""} ${name}</h2>
+          <h2>${isCaptain ? "(Captain)" : ""} ${name}</h2>								// You can set up ternary operators within embedded expressions (back ticks) to add an element of conditionality to the code
           <p>Position: ${position}</p>
           <p>Number: ${number}</p>
           <p>Nickname: ${nickname !== null ? nickname : "N/A"}</p>
