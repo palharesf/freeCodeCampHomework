@@ -1,34 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-localstorage-by-building-a-todo-app/step-1
 
-// Earlier projects relied on adding and removing classes from an element with el.classList.add() and el.classList.remove(). Another method to use with the classList property is the toggle method. The toggle method will add the class if it is not present on the element, and remove the class if it is present on the element. Ex: 'element.classList.toggle("class-to-toggle");'
-// You can use dialog modal boxes to manage popus and dialog boxes within your modal. Examples include '.showModal()' and '.close()'
-// Inside the curly braces, use the preventDefault() method to stop the browser from refreshing the page after submitting the form
-
-/* The findIndex() array method finds and returns the index of the first element in an array that meets the criteria specified by a provided testing function. If no such element is found, the method returns -1.
-
-const numbers = [3, 1, 5, 6];
-const firstNumLargerThanThree = numbers.findIndex((num) => num > 3);
-
-console.log(firstNumLargerThanThree); // prints index 2 */
-
-// To make the id more unique, we can add a timestamp through Date.now()
-// splice() is an array method that modifies arrays by removing, replacing, or adding elements at a specified index, while also returning the removed elements. It can take up to three arguments: the first one is the mandatory index at which to start, the second is the number of items to remove, and the third is an optional replacement element
-
-/* localStorage offers methods for saving, retrieving, and deleting items. The items you save can be of any JavaScript data type. For instance, the setItem() method is used to save an item, and the getItem() method retrieves the item. To delete a specific item, you can utilize the removeItem() method, or if you want to delete all items in the storage, you can use clear(). Here's how you can save an item:
-
-localStorage.setItem("key", value); // value could be string, number, or any other data type 
-
-Checking the "Application" tab of the browser console, there is a series of [object Object]. This is because everything you save in localStorage needs to be in string format. 'JSON.stringify()' takes care of that. To view it in its original form before saving, you need to use JSON.parse() */
-
-/* You can setup code to run when the taskData array is not empty using the length of the array. Because 0 is a falsy value all you need for the condition is the array length. Here is an example checking the length of an array:
-
-if (arr.length) {
-  // do something
-}
-
-In that example, if arr has a length greater than 0, the code inside the if statement block will run. If arr has a length of 0, the code inside the if statement block will not run */
-
-
 script.js
 
 const taskForm = document.getElementById("task-form");
@@ -43,13 +14,26 @@ const titleInput = document.getElementById("title-input");
 const dateInput = document.getElementById("date-input");
 const descriptionInput = document.getElementById("description-input");
 
+/* localStorage offers methods for saving, retrieving, and deleting items. The items you save can be of any JavaScript data type. For instance, the setItem() method is used to save an item, and the getItem() method retrieves the item. To delete a specific item, you can utilize the removeItem() method, or if you want to delete all items in the storage, you can use clear(). Here's how you can save an item:
+
+localStorage.setItem("key", value); // value could be string, number, or any other data type 
+
+Checking the "Application" tab of the browser console, there is a series of [object Object]. This is because everything you save in localStorage needs to be in string format. 'JSON.stringify()' takes care of that. To view it in its original form before saving, you need to use JSON.parse() */
+
 const taskData = JSON.parse(localStorage.getItem("data")) || [];
 let currentTask = {};
+
+/* The findIndex() array method finds and returns the index of the first element in an array that meets the criteria specified by a provided testing function. If no such element is found, the method returns -1.
+
+const numbers = [3, 1, 5, 6];
+const firstNumLargerThanThree = numbers.findIndex((num) => num > 3);
+
+console.log(firstNumLargerThanThree); // prints index 2 */
 
 const addOrUpdateTask = () => {
   const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
   const taskObj = {
-    id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,
+    id: `${titleInput.value.toLowerCase().split(" ").join("-")}-${Date.now()}`,					// To make the id more unique, we can add a timestamp through Date.now()
     title: titleInput.value,
     date: dateInput.value,
     description: descriptionInput.value,
@@ -91,7 +75,7 @@ const deleteTask = (buttonEl) => {
   );
 
   buttonEl.parentElement.remove();
-  taskData.splice(dataArrIndex, 1);
+  taskData.splice(dataArrIndex, 1);								// splice() is an array method that modifies arrays by removing, replacing, or adding elements at a specified index, while also returning the removed elements. It can take up to three arguments: the first one is the mandatory index at which to start, the second is the number of items to remove, and the third is an optional replacement element
   localStorage.setItem("data", JSON.stringify(taskData));
 }
 
@@ -108,7 +92,7 @@ const editTask = (buttonEl) => {
 
   addOrUpdateTaskBtn.innerText = "Update Task";
 
-  taskForm.classList.toggle("hidden");  
+  taskForm.classList.toggle("hidden");  						// Earlier projects relied on adding and removing classes from an element with el.classList.add() and el.classList.remove(). Another method to use with the classList property is the toggle method. The toggle method will add the class if it is not present on the element, and remove the class if it is present on the element. Ex: 'element.classList.toggle("class-to-toggle");'
 }
 
 const reset = () => {
@@ -119,6 +103,14 @@ addOrUpdateTaskBtn.innerText = "Add Task";
   taskForm.classList.toggle("hidden");
   currentTask = {};
 }
+
+/* You can setup code to run when the taskData array is not empty using the length of the array. Because 0 is a falsy value all you need for the condition is the array length. Here is an example checking the length of an array:
+
+if (arr.length) {
+  // do something
+}
+
+In that example, if arr has a length greater than 0, the code inside the if statement block will run. If arr has a length of 0, the code inside the if statement block will not run */
 
 if (taskData.length) {
   updateTaskContainer();
@@ -133,7 +125,7 @@ closeTaskFormBtn.addEventListener("click", () => {
   const formInputValuesUpdated = titleInput.value !== currentTask.title || dateInput.value !== currentTask.date || descriptionInput.value !== currentTask.description;
 
   if (formInputsContainValues && formInputValuesUpdated) {
-    confirmCloseDialog.showModal();
+    confirmCloseDialog.showModal();											// You can use dialog modal boxes to manage popus and dialog boxes within your modal. Examples include '.showModal()' and '.close()'
   } else {
     reset();
   }
@@ -147,7 +139,7 @@ discardBtn.addEventListener("click", () => {
 });
 
 taskForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault();														// preventDefault() method stops the browser from refreshing the page after submitting the form
 
   addOrUpdateTask();
 });
