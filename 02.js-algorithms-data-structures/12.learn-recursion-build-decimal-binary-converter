@@ -1,11 +1,6 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-recursion-by-building-a-decimal-to-binary-converter/step-1
 
-// The keydown event fires every time a user presses a key on their keyboard, and is a good way to add more interactivity to input elements
-// If you open your browser's console and type in the number input, you'll see event objects logged to the browser. And if you take a closer look at one of those event objects, you'll see helpful properties like type and target. Since you want to perform an action when the Enter key is pressed, the most helpful property is key, which tells you the string value of the key that was pressed
-// Rather than check if a value is equal to a falsy value, you can use the logical NOT operator (!) to check if the value itself is falsy. For example, 'console.log(!num);'
-// A good way to check and normalize numbers in JavaScript is to use the built-in parseInt() function, which converts a string into an integer or whole number. parseInt() takes at least one argument, a string to be converted into an integer, and returns either an integer or NaN which stands for Not a Number
-// Next, you need to check if the value returned by the parseInt() function is a number or not. To do that, you can use the isNaN() function. This function takes in a string or number as an argument, and returns true if it evaluates to NaN
-// Division in JS is done either by the '/' symbol, denoting floating-point division, or '%', which returns remainder division
+script.js
 
 /* Placeholder: Old decimalToBinary function
 
@@ -35,11 +30,6 @@ const decimalToBinary = (input) => {
 
   result.innerText = remainders.reverse().join("");
 }; */
-
-// The setTimeout function takes two arguments: a callback function and a number representing the time in milliseconds to wait before executing the callback function
-
-
-script.js
 
 const numberInput = document.getElementById("number-input");
 const convertBtn = document.getElementById("convert-btn");
@@ -76,7 +66,7 @@ const decimalToBinary = (input) => {
   if (input === 0 || input === 1) {
     return String(input);
   } else {
-    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);			// Division in JS is done either by the '/' symbol, denoting floating-point division, or '%', which returns remainder division
   }
 };
 
@@ -84,7 +74,7 @@ const showAnimation = () => {
   result.innerText = "Call Stack Animation";
 
   animationData.forEach((obj) => {
-    setTimeout(() => {
+    setTimeout(() => {														// The setTimeout function takes two arguments: a callback function and a number representing the time in milliseconds to wait before executing the callback function
       animationContainer.innerHTML += `
         <p id="${obj.inputVal}" style="margin-top: ${obj.marginTop}px;" class="animation-frame">
           decimalToBinary(${obj.inputVal})
@@ -107,9 +97,9 @@ result.textContent = decimalToBinary(5);
 };
 
 const checkUserInput = () => {
-  const inputInt = parseInt(numberInput.value);
+  const inputInt = parseInt(numberInput.value);								// A good way to check and normalize numbers in JavaScript is to use the built-in parseInt() function, which converts a string into an integer or whole number. parseInt() takes at least one argument, a string to be converted into an integer, and returns either an integer or NaN which stands for Not a Number
 
-  if (!numberInput.value || isNaN(inputInt) || inputInt < 0) {
+  if (!numberInput.value || isNaN(inputInt) || inputInt < 0) {				// Rather than check if a value is equal to a falsy value, you can use the logical NOT operator (!) to check if the value itself is falsy. For example, 'console.log(!num);' // Next, you need to check if the value returned by the parseInt() function is a number or not. To do that, you can use the isNaN() function. This function takes in a string or number as an argument, and returns true if it evaluates to NaN
     alert("Please provide a decimal number greater than or equal to 0");
     return;
   }
@@ -125,8 +115,8 @@ const checkUserInput = () => {
 
 convertBtn.addEventListener("click", checkUserInput);
 
-numberInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
+numberInput.addEventListener("keydown", (e) => {							// The keydown event fires every time a user presses a key on their keyboard, and is a good way to add more interactivity to input elements
+  if (e.key === "Enter") {													// Taking a closer look at one of those event objects, you'll see helpful properties like type and target. Since you want to perform an action when the Enter key is pressed, the most helpful property is key, which tells you the string value of the key that was pressed
     checkUserInput();
   }
 });
