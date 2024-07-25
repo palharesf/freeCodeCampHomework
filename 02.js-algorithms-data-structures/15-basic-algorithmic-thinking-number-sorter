@@ -1,8 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-basic-algorithmic-thinking-by-building-a-number-sorter/step-1
 
-// .getElementsByClassName() returns an array-like object. The spread operator (...object) can be used to convert it into an array
-// Because some algorithms  won't immediately have a return value, it's important to set a fallback value for array to be an empty array. Here is an example of a function that has a fallback value: const myFunction = (string = "") => {}
-
 script.js
 
 const sortButton = document.getElementById("sort");
@@ -11,7 +8,7 @@ const sortInputArray = (event) => {
   event.preventDefault();
 
   const inputValues = [
-    ...document.getElementsByClassName("values-dropdown")
+    ...document.getElementsByClassName("values-dropdown")							// .getElementsByClassName() returns an array-like object. The spread operator (...object) can be used to convert it into an array
   ].map((dropdown) => Number(dropdown.value));
 
   const sortedValues = inputValues.sort((a, b) => {
@@ -21,7 +18,7 @@ const sortInputArray = (event) => {
   updateUI(sortedValues);
 }
 
-const updateUI = (array = []) => {
+const updateUI = (array = []) => {													// Because some algorithms  won't immediately have a return value, it's important to set a fallback value for array to be an empty array. Here is an example of a function that has a fallback value: const myFunction = (string = "") => {}
   array.forEach((num, i) => {
     const outputValueNode = document.getElementById(`output-value-${i}`);
     outputValueNode.innerText = num;
