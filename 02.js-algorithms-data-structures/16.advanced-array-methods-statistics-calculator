@@ -1,18 +1,11 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-advanced-array-methods-by-building-a-statistics-calculator/step-1
 
-// Arrays have another method, called .reduce(), which is perfect for this situation. The .reduce() method takes an array and applies a callback function to condense the array into a single value. Like the other methods, .reduce() takes a callback. This callback, however, takes at least two parameters. The first is the accumulator, and the second is the current element in the array. The return value for the callback becomes the value of the accumulator on the next iteration. The .reduce() method takes a second argument that is used as the initial value of the accumulator. Without a second argument, the .reduce() method uses the first element of the array as the accumulator, which can lead to unexpected results. To be safe, it's best to set an initial value. The syntax is array.reduce(function, startingValue)
-// A Set is a data structure that only allows unique values. If you pass an array into the Set constructor, it will remove any duplicate values
-// Math has a .min() method to get the smallest number from a series of numbers, and the .max() method to get the largest number
-// To square a value, you can use the ** operator. For example, 3 ** 2 would return 9
-// To calculate a root exponent, such as x−−√n, you can use an inverted exponent x1/n. JavaScript has a built-in Math.pow() function that can be used to calculate exponents. The Math object has a .sqrt() method specifically for finding the square root of a number
-// The .sort() method mutates the array it's called on. It is generally bad practice to mutate a function parameter, which array is. To fix this, add an empty .slice() call before your .sort() method. The empty .slice() call will make a shallow copy of the array, which you are free to mutate
-
 script.js
 
-const getMean = (array) => array.reduce((acc, el) => acc + el, 0) / array.length;
+const getMean = (array) => array.reduce((acc, el) => acc + el, 0) / array.length;  					// Arrays have another method, called .reduce(), which is perfect for this situation. The .reduce() method takes an array and applies a callback function to condense the array into a single value. Like the other methods, .reduce() takes a callback. This callback, however, takes at least two parameters. The first is the accumulator, and the second is the current element in the array. The return value for the callback becomes the value of the accumulator on the next iteration. The .reduce() method takes a second argument that is used as the initial value of the accumulator. Without a second argument, the .reduce() method uses the first element of the array as the accumulator, which can lead to unexpected results. To be safe, it's best to set an initial value. The syntax is array.reduce(function, startingValue)
 
 const getMedian = (array) => {
-  const sorted = array.slice().sort((a, b) => a - b);
+  const sorted = array.slice().sort((a, b) => a - b);												// The .sort() method mutates the array it's called on. It is generally bad practice to mutate a function parameter, which array is. To fix this, add an empty .slice() call before your .sort() method. The empty .slice() call will make a shallow copy of the array, which you are free to mutate
   const median =
     array.length % 2 === 0
       ? getMean([sorted[array.length / 2], sorted[array.length / 2 - 1]])
@@ -25,7 +18,7 @@ const getMode = (array) => {
   array.forEach((el) => {
     counts[el] = (counts[el] || 0) + 1;
   })
-  if (new Set(Object.values(counts)).size === 1) {
+  if (new Set(Object.values(counts)).size === 1) {													// A Set is a data structure that only allows unique values. If you pass an array into the Set constructor, it will remove any duplicate values
     return null;
   }
   const highest = Object.keys(counts).sort(
@@ -38,14 +31,14 @@ const getMode = (array) => {
 }
 
 const getRange = (array) => {
-  return Math.max(...array) - Math.min(...array);
+  return Math.max(...array) - Math.min(...array);													// Math has a .min() method to get the smallest number from a series of numbers, and the .max() method to get the largest number
 }
 
 const getVariance = (array) => {
   const mean = getMean(array);
   const variance = array.reduce((acc, el) => {
     const difference = el - mean;
-    const squared = difference ** 2;
+    const squared = difference ** 2;																// To square a value, you can use the ** operator. For example, 3 ** 2 would return 9
     return acc + squared;
   }, 0) / array.length;
   return variance;
@@ -53,7 +46,7 @@ const getVariance = (array) => {
 
 const getStandardDeviation = (array) => {
   const variance = getVariance(array);
-  const standardDeviation = Math.sqrt(variance);
+  const standardDeviation = Math.sqrt(variance);													// To calculate a root exponent, such as x−−√n, you can use an inverted exponent x1/n. JavaScript has a built-in Math.pow() function that can be used to calculate exponents. The Math object has a .sqrt() method specifically for finding the square root of a number
   return standardDeviation;
 }
 
