@@ -1,7 +1,172 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-advanced-array-methods-by-building-a-statistics-calculator/step-1
 
+// Arrays have another method, called .reduce(), which is perfect for this situation. The .reduce() method takes an array and applies a callback function to condense the array into a single value. Like the other methods, .reduce() takes a callback. This callback, however, takes at least two parameters. The first is the accumulator, and the second is the current element in the array. The return value for the callback becomes the value of the accumulator on the next iteration. The .reduce() method takes a second argument that is used as the initial value of the accumulator. Without a second argument, the .reduce() method uses the first element of the array as the accumulator, which can lead to unexpected results. To be safe, it's best to set an initial value. The syntax is array.reduce(function, startingValue)
+// A Set is a data structure that only allows unique values. If you pass an array into the Set constructor, it will remove any duplicate values
+// Math has a .min() method to get the smallest number from a series of numbers, and the .max() method to get the largest number
+// To square a value, you can use the ** operator. For example, 3 ** 2 would return 9
+// To calculate a root exponent, such as x−−√n, you can use an inverted exponent x1/n. JavaScript has a built-in Math.pow() function that can be used to calculate exponents. The Math object has a .sqrt() method specifically for finding the square root of a number
+// The .sort() method mutates the array it's called on. It is generally bad practice to mutate a function parameter, which array is. To fix this, add an empty .slice() call before your .sort() method. The empty .slice() call will make a shallow copy of the array, which you are free to mutate
+
+script.js
+
+const getMean = (array) => array.reduce((acc, el) => acc + el, 0) / array.length;
+
+const getMedian = (array) => {
+  const sorted = array.slice().sort((a, b) => a - b);
+  const median =
+    array.length % 2 === 0
+      ? getMean([sorted[array.length / 2], sorted[array.length / 2 - 1]])
+      : sorted[Math.floor(array.length / 2)];
+  return median;
+}
+
+const getMode = (array) => {
+  const counts = {};
+  array.forEach((el) => {
+    counts[el] = (counts[el] || 0) + 1;
+  })
+  if (new Set(Object.values(counts)).size === 1) {
+    return null;
+  }
+  const highest = Object.keys(counts).sort(
+    (a, b) => counts[b] - counts[a]
+  )[0];
+  const mode = Object.keys(counts).filter(
+    (el) => counts[el] === counts[highest]
+  );
+  return mode.join(", ");
+}
+
+const getRange = (array) => {
+  return Math.max(...array) - Math.min(...array);
+}
+
+const getVariance = (array) => {
+  const mean = getMean(array);
+  const variance = array.reduce((acc, el) => {
+    const difference = el - mean;
+    const squared = difference ** 2;
+    return acc + squared;
+  }, 0) / array.length;
+  return variance;
+}
+
+const getStandardDeviation = (array) => {
+  const variance = getVariance(array);
+  const standardDeviation = Math.sqrt(variance);
+  return standardDeviation;
+}
+
+const calculate = () => {
+  const value = document.querySelector("#numbers").value;
+  const array = value.split(/,\s*/g);
+  const numbers = array.map(el => Number(el)).filter(el => !isNaN(el));
+  
+  const mean = getMean(numbers);
+  const median = getMedian(numbers);
+  const mode = getMode(numbers);
+  const range = getRange(numbers);
+  const variance = getVariance(numbers);
+  const standardDeviation = getStandardDeviation(numbers);
+
+  document.querySelector("#mean").textContent = mean;
+  document.querySelector("#median").textContent = median;
+  document.querySelector("#mode").textContent = mode;
+  document.querySelector("#range").textContent = range;
+  document.querySelector("#variance").textContent = variance;
+  document.querySelector("#standardDeviation").textContent = standardDeviation;
+}
 
 
+
+
+
+
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js"></script>
+    <title>Statistics Calculator</title>
+  </head>
+  <body>
+    <h1>Statistics Calculator</h1>
+    <p>Enter a list of comma-separated numbers.</p>
+    <form onsubmit="calculate(); return false;">
+      <label for="numbers">Numbers:</label>
+      <input type="text" name="numbers" id="numbers" />
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="results">
+      <p>
+        The <dfn>mean</dfn> of a list of numbers is the average, calculated by
+        taking the sum of all numbers and dividing that by the count of numbers.
+      </p>
+      <p class="bold">Mean: <span id="mean"></span></p>
+      <p>
+        The <dfn>median</dfn> of a list of numbers is the number that appears in
+        the middle of the list, when sorted from least to greatest.
+      </p>
+      <p class="bold">Median: <span id="median"></span></p>
+      <p>
+        The <dfn>mode</dfn> of a list of numbers is the number that appears most
+        often in the list.
+      </p>
+      <p class="bold">Mode: <span id="mode"></span></p>
+      <p>
+        The <dfn>range</dfn> of a list of numbers is the difference between the
+        largest and smallest numbers in the list.
+      </p>
+      <p class="bold">Range: <span id="range"></span></p>
+      <p>
+        The <dfn>variance</dfn> of a list of numbers measures how far the values
+        are from the mean, on average.
+      </p>
+      <p class="bold">Variance: <span id="variance"></span></p>
+      <p>
+        The <dfn>standard deviation</dfn> of a list of numbers is the square
+        root of the variance.
+      </p>
+      <p class="bold">
+        Standard Deviation: <span id="standardDeviation"></span>
+      </p>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+styles.css
+
+body {
+  margin: 0;
+  background-color: rgb(27, 27, 50);
+  text-align: center;
+  color: #fff;
+}
+
+button {
+  cursor: pointer;
+  background-color: rgb(59, 59, 79);
+  border: 3px solid white;
+  color: white;
+}
+
+input {
+  background-color: rgb(10, 10, 35);
+  color: white;
+  border: 1px solid rgb(59, 59, 79);
+}
+
+.bold {
+  font-weight: bold;
+}
 
 
 
