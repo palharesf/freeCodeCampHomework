@@ -1,13 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-functional-programming-by-building-a-spreadsheet/step-1
 
-// The global window object represents the browser window (or tab). It has an onload property which allows you to define behavior when the window has loaded the entire page, including stylesheets and scripts
-// The Array() constructor has a .fill() method which can be used to fill an array with a value. You can use this to fill your array with the start value
-// The range function expects numbers, but the start and end values will be strings (specifically, they will be single characters such as A). We can convert the start and end values in the range() call to numbers by using the .charCodeAt() method on them, passing the number 0 as the argument to that method
-// To get the letter back from the Unicode value, we can use the String.fromCharCode() method
-// The same way Math.floor() rounds down a value, Math.ceil() rounds it up
-// You can immediately invoke the return result of a function if it takes another argument to call the function again. For instance, '.map(addCharacters(char1)(char2))' calls addCharacters with the argument char2 once it returns from the call with the argument char1
-// If you have a function parameter that is not being used, it's common convention to prefix it with an underscore (e.g. _match)
-
 script.js
 
 const infixToFunction = {
@@ -17,7 +9,7 @@ const infixToFunction = {
   "/": (x, y) => x / y,
 }
 
-const infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](parseFloat(arg1), parseFloat(arg2)));
+const infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](parseFloat(arg1), parseFloat(arg2)));		// If you have a function parameter that is not being used, it's common convention to prefix it with an underscore (e.g. _match)
 
 const highPrecedence = str => {
   const regex = /([\d.]+)([*\/])([\d.]+)/;
@@ -35,7 +27,7 @@ const median = nums => {
   const middle = length / 2 - 1;
   return isEven(length)
     ? average([sorted[middle], sorted[middle + 1]])
-    : sorted[Math.ceil(middle)];
+    : sorted[Math.ceil(middle)];											// The same way Math.floor() rounds down a value, Math.ceil() rounds it up
 }
 
 const spreadsheetFunctions = {
@@ -65,15 +57,15 @@ const applyFunction = str => {
   return str2.replace(functionCall, (match, fn, args) => spreadsheetFunctions.hasOwnProperty(fn.toLowerCase()) ? apply(fn, args) : match);
 }
 
-const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);
-const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));
+const range = (start, end) => Array(end - start + 1).fill(start).map((element, index) => element + index);					// The Array() constructor has a .fill() method which can be used to fill an array with a value. You can use this to fill your array with the start value
+const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map(code => String.fromCharCode(code));		// The range function expects numbers, but the start and end values will be strings (specifically, they will be single characters such as A). We can convert the start and end values in the range() call to numbers by using the .charCodeAt() method on them, passing the number 0 as the argument to that method. To get the letter back from the Unicode value, we can use the String.fromCharCode() method
 
 const evalFormula = (x, cells) => {
   const idToText = id => cells.find(cell => cell.id === id).value;
   const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;
   const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));
   const elemValue = num => character => idToText(character + num);
-  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));
+  const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue(num));			// You can immediately invoke the return result of a function if it takes another argument to call the function again. For instance, '.map(addCharacters(char1)(char2))' calls addCharacters with the argument char2 once it returns from the call with the argument char1
   const rangeExpanded = x.replace(rangeRegex, (_match, char1, num1, char2, num2) => rangeFromString(num1, num2).map(addCharacters(char1)(char2)));
   const cellRegex = /[A-J][1-9][0-9]?/gi;
   const cellExpanded = rangeExpanded.replace(cellRegex, match => idToText(match.toUpperCase()));
@@ -81,7 +73,7 @@ const evalFormula = (x, cells) => {
   return functionExpanded === x ? functionExpanded : evalFormula(functionExpanded, cells);
 }
 
-window.onload = () => {
+window.onload = () => {																										// The global window object represents the browser window (or tab). It has an onload property which allows you to define behavior when the window has loaded the entire page, including stylesheets and scripts
   const container = document.getElementById("container");
   const createLabel = (name) => {
     const label = document.createElement("div");
