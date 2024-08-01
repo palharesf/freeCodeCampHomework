@@ -1,12 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-basic-oop-by-building-a-shopping-cart/step-1
 
-// In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods
-// Classes have a special constructor method, which is called when a new instance of the class is created. The constructor method is a great place to initialize properties of the class
-// The this keyword in JavaScript is used to refer to the current object. Depending on where this is used, what it references changes. In the case of a class, it refers to the instance of the object being constructed. You can use the this keyword to set the properties of the object being instantiated
-/* You can instantiate a new ShoppingCart object and assign it to a variable. Here is an example of instantiating the Computer class from earlier examples:
-const myComputer = new Computer(); */
-// Browsers have a built-in confirm() function which displays a confirmation prompt to the user. confirm() accepts a string, which is the message displayed to the user. It returns true if the user confirms, and false if the user cancels
-
 script.js
 
 const cartContainer = document.getElementById("cart-container");
@@ -112,9 +105,9 @@ products.forEach(
   }
 );
 
-class ShoppingCart {
-  constructor() {
-    this.items = [];
+class ShoppingCart {																	// In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods
+  constructor() {																		// Classes have a special constructor method, which is called when a new instance of the class is created. The constructor method is a great place to initialize properties of the class
+    this.items = [];																	// The this keyword in JavaScript is used to refer to the current object. Depending on where this is used, what it references changes. In the case of a class, it refers to the instance of the object being constructed. You can use the this keyword to set the properties of the object being instantiated
     this.total = 0;
     this.taxRate = 8.25;
   }
@@ -154,9 +147,7 @@ class ShoppingCart {
       return;
     }
 
-    const isCartCleared = confirm(
-      "Are you sure you want to clear all items from your shopping cart?"
-    );
+    const isCartCleared = confirm("Are you sure you want to clear all items from your shopping cart?");						// Browsers have a built-in confirm() function which displays a confirmation prompt to the user. confirm() accepts a string, which is the message displayed to the user. It returns true if the user confirms, and false if the user cancels
 
     if (isCartCleared) {
       this.items = [];
@@ -184,7 +175,7 @@ class ShoppingCart {
   }
 };
 
-const cart = new ShoppingCart();
+const cart = new ShoppingCart();															// You can instantiate a new ShoppingCart object and assign it to a variable
 const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
 
 [...addToCartBtns].forEach(
