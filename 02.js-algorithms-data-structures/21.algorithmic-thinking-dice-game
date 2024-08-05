@@ -3,3 +3,23 @@
 
 
 
+script.js
+
+const listOfAllDice = document.querySelectorAll(".die");
+const scoreInputs = document.querySelectorAll("#score-options input");
+const scoreSpans = document.querySelectorAll("#score-options span");
+const currentRound = document.querySelector("#current-round");
+const currentRoundRolls = document.querySelector("#current-round-rolls");
+const totalScoreText = document.querySelector("#total-score");
+const scoreHistory = document.querySelector("#score-history");
+const rollDiceBtn = document.querySelector("#roll-dice-btn button");
+const keepScoreBtn = document.querySelector("#keep-score-btn button");
+const rulesBtn = document.querySelector("#rules-btn button");
+const rulesContainer = document.querySelectorAll(".rules-container");
+
+let isModalShowing = false;
+const diceValuesArr = [];
+let rolls = 0;
+let score = 0;
+let total = 0;
+let round = 1;
