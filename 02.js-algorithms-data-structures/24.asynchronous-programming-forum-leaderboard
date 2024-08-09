@@ -1,11 +1,5 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-asynchronous-programming-by-building-an-fcc-forum-leaderboard/step-1
 
-// o populate the forum leaderboard with data, you will need to request the data from an API. This is known as an asynchronous operation, which means that tasks execute independently of the main program flow. You can use the async keyword to create an asynchronous function, which returns a promise
-// The try block is designed to handle potential errors, and the code inside the catch block will be executed in case an error occurs
-// The await keyword waits for a promise to resolve and returns the result
-// We have to destructure the data object into its constituent parts: const { topic_list, users } = data;
-
-
 script.js
 
 const forumLatest = "https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json";
@@ -30,8 +24,7 @@ const forumCategory = (id) => {
   let selectedCategory = {};
 
   if (allCategories.hasOwnProperty(id)) {
-    const { className, category } = allCategories[id];
-
+    const { className, category } = allCategories[id];									// We have to destructure the data object into its constituent parts. As a reminder, destructuring starts with a const variable declaration, followed by curly braces with the name of the variables who will be created through the process, followed with an equal sign pointing to the structured object (to be destructured): const { className, category } = allCategories[id]
     selectedCategory.className = className;
     selectedCategory.category = category;
   } else {
@@ -95,10 +88,10 @@ const avatars = (posters, users) => {
     .join("");
 };
 
-const fetchData = async () => {
-  try {
+const fetchData = async () => {												// To populate the forum leaderboard with data, you will need to request the data from an API. This is known as an asynchronous operation, which means that tasks execute independently of the main program flow. You can use the async keyword to create an asynchronous function, which returns a promise
+  try {																		// The try block is designed to handle potential errors, and the code inside the catch block will be executed in case an error occurs
     const res = await fetch(forumLatest);
-    const data = await res.json();
+    const data = await res.json();											// The await keyword waits for a promise to resolve and returns the result
     showLatestPosts(data);
   } catch (err) {
     console.log(err);
@@ -141,6 +134,7 @@ const showLatestPosts = (data) => {
     </tr>`;
   }).join("");
 };
+
 
 
 
