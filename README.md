@@ -5,3 +5,7 @@
 ## Quick Start
 
 1. Read and ask questions. There's nothing to do here besides that, at least for now
+
+## To-Do
+
+1. Develop GitHub pages based on the exercises. Supporting documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site // https://pages.github.com/
