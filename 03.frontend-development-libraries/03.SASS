@@ -1,5 +1,356 @@
 <!-- Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/sass/store-data-with-sass-variables -->
 
+<!-- In Sass, variables start with a $ followed by the variable name. For instance:
+
+$main-fonts: Arial, sans-serif;
+$headings-color: green; 
+
+To use the variables:
+
+h1 {
+  font-family: $main-fonts;
+  color: $headings-color;
+}
+-->
 
 
+
+
+<style type='text/scss'>
+  $text-color: red;
+
+  .header{
+    text-align: center;
+  }
+  .blog-post, h2 {
+    color: $text-color;
+  }
+</style>
+
+<h1 class="header">Learn Sass</h1>
+<div class="blog-post">
+  <h2>Some random title</h2>
+  <p>This is a paragraph with some random text in it</p>
+</div>
+<div class="blog-post">
+  <h2>Header #2</h2>
+  <p>Here is some more random text.</p>
+</div>
+<div class="blog-post">
+  <h2>Here is another header</h2>
+  <p>Even more random text within a paragraph</p>
+</div>
+
+
+
+
+
+<!-- Sass allows nesting of CSS rules, which is a useful way of organizing a style sheet. It looks like this:
+
+article {
+  height: 200px;
+
+  p {
+    color: white;
+  }
+
+  ul {
+    color: blue;
+  }
+}
+-->
+
+
+<style type='text/scss'>
+  .blog-post {
+    h1 {
+    text-align: center;
+    color: blue;
+  }
+  p {
+    font-size: 20px;
+  }
+
+  }
+  
+</style>
+
+<div class="blog-post">
+  <h1>Blog Title</h1>
+  <p>This is a paragraph</p>
+</div>
+
+
+
+
+
+
+
+<!-- In Sass, a mixin is a group of CSS declarations that can be reused throughout the style sheet. The definition starts with the @mixin at-rule, followed by a custom name. You apply the mixin using the @include at-rule.
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul {
+  @include reset-list;
+}
+
+Your mixins can also take arguments, which allows their behavior to be customized. The arguments are required when using the mixin.
+
+@mixin prose($font-size, $spacing) {
+  font-size: $font-size;
+  margin: 0;
+  margin-block-end: $spacing;
+}
+
+p {
+  @include prose(1.25rem, 1rem);
+}
+
+h2 {
+  @include prose(2.4rem, 1.5rem);
+}
+
+-->
+
+
+<style type='text/scss'>
+
+@mixin shape($w,$h,$bg-color){
+  width: $w;
+  height: $h;
+  background-color: $bg-color;
+}
+
+#square {
+  @include shape(50px,50px,red);
+}
+
+#rect-a {
+  @include shape(100px,50px,blue);
+}
+
+#rect-b {
+  @include shape(50px, 100px, orange);
+}
+</style>
+
+<div id="square"></div>
+<div id="rect-a"></div>
+<div id="rect-b"></div>
+
+
+
+
+
+<!-- Just like in JavaScript, the @else if and @else directives test for more conditions:
+
+@mixin text-effect($val) {
+  @if $val == danger {
+    color: red;
+  }
+  @else if $val == alert {
+    color: yellow;
+  }
+  @else if $val == success {
+    color: green;
+  }
+  @else {
+    color: black;
+  }
+}
+-->
+
+<style type='text/scss'>
+  @mixin border-stroke($val){
+    @if $val == light {
+      border: 1px solid black;
+    }
+    @else if $val == medium {
+      border: 3px solid black;
+    }
+    @else if $val == heavy {
+      border: 6px solid black;
+    }
+    @else {
+      border: none;
+    }
+  }
+
+
+  #box {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    @include border-stroke(medium);
+  }
+</style>
+
+<div id="box"></div>
+
+
+
+
+
+
+<!-- The @for directive adds styles in a loop, very similar to a for loop in JavaScript
+
+@for $i from 1 through 12 {
+  .col-#{$i} { width: 100%/12 * $i; }
+}
+-->
+
+<style type='text/scss'>
+  @for $j from 1 to 6 {
+    .text-#{$j} {
+      font-size: 15px * $j;
+    }
+  }
+
+
+</style>
+
+<p class="text-1">Hello</p>
+<p class="text-2">Hello</p>
+<p class="text-3">Hello</p>
+<p class="text-4">Hello</p>
+<p class="text-5">Hello</p>
+
+
+
+
+
+
+<!-- Sass also offers the @each directive which loops over each item in a list or map. On each iteration, the variable gets assigned to the current value from the list or map.
+
+@each $color in blue, red, green {
+  .#{$color}-text {color: $color;}
+}
+
+A map has slightly different syntax. Here's an example:
+
+$colors: (color1: blue, color2: red, color3: green);
+
+@each $key, $color in $colors {
+  .#{$color}-text {color: $color;}
+}
+-->
+
+<style type='text/scss'>
+  @each $color in blue,black,red {
+    .#{$color}-bg {
+      background-color: $color;
+    }
+  }
+
+
+  div {
+    height: 200px;
+    width: 200px;
+  }
+</style>
+
+<div class="blue-bg"></div>
+<div class="black-bg"></div>
+<div class="red-bg"></div>
+
+
+
+
+
+
+<!-- The @while directive is an option with similar functionality to the JavaScript while loop. It creates CSS rules until a condition is met.
+
+$x: 1;
+@while $x < 13 {
+  .col-#{$x} { width: 100%/12 * $x;}
+  $x: $x + 1;
+}
+-->
+
+<style type='text/scss'>
+$x: 1;
+@while $x < 6 {
+  .text-#{$x} {
+    font-size: 15px * $x;
+  }
+  $x: $x + 1;
+}
+
+
+</style>
+
+<p class="text-1">Hello</p>
+<p class="text-2">Hello</p>
+<p class="text-3">Hello</p>
+<p class="text-4">Hello</p>
+<p class="text-5">Hello</p>
+
+
+
+
+
+
+<!-- Partials in Sass are separate files that hold segments of CSS code. These are imported and used in other Sass files. This is a great way to group similar code into a module to keep it organized.
+Names for partials start with the underscore (_) character, which tells Sass it is a small segment of CSS and not to convert it into a CSS file. Also, Sass files end with the .scss file extension. To bring the code in the partial into another Sass file, use the @import directive.
+For example, if all your mixins are saved in a partial named "_mixins.scss", and they are needed in the "main.scss" file, this is how to use them in the main file:
+
+@import 'mixins'
+
+Note that the underscore and file extension are not needed in the import statement - Sass understands it is a partial. Once a partial is imported into a file, all variables, mixins, and other code are available to use -->
+
+<!-- The main.scss file -->
+
+@import 'variables';
+
+
+
+
+
+
+
+<!-- Sass has a feature called extend that makes it easy to borrow the CSS rules from one element and build upon them in another.
+
+.panel{
+  background-color: red;
+  height: 70px;
+  border: 2px solid green;
+}
+
+.big-panel{
+  @extend .panel;
+  width: 150px;
+  font-size: 2em;
+}
+-->
+
+<style type='text/scss'>
+  h3{
+    text-align: center;
+  }
+  .info{
+    width: 200px;
+    border: 1px solid black;
+    margin: 0 auto;
+  }
+  .info-important{
+    @extend .info;
+    background-color: magenta;
+  }
+
+
+
+
+</style>
+<h3>Posts</h3>
+<div class="info-important">
+  <p>This is an important post. It should extend the class ".info" and have its own CSS styles.</p>
+</div>
+
+<div class="info">
+  <p>This is a simple post. It has basic styling and can be extended for other uses.</p>
+</div>
 
