@@ -9,3 +9,4 @@
 ## To-Do
 
 1. Develop GitHub pages based on the exercises. Supporting documentation: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site // https://pages.github.com/
+2. Adjust file naming convention from kebab case to snake case (from beginning all the way to 3.4)
