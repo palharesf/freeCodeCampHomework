@@ -237,6 +237,8 @@ class TypesOfFood extends React.Component {
 
 
 
+
+
 // React components are passed into ReactDOM.render() a little differently than JSX elements. For JSX elements, you pass in the name of the element that you want to render. However, for React components, you need to use the same syntax as if you were rendering a nested component, for example ReactDOM.render(<ComponentToRender />, targetNode). You use this syntax for both ES6 class components and functional components.
 
 class TypesOfFood extends React.Component {
@@ -255,6 +257,8 @@ class TypesOfFood extends React.Component {
 };
 
 ReactDOM.render(<TypesOfFood />,document.getElementById("challenge-node"))
+
+
 
 
 
@@ -346,6 +350,8 @@ class ToDo extends React.Component {
 
 
 
+
+
 //  You can assign default props to a component as a property on the component itself and React assigns the default prop if necessary. For example, if you declare MyComponent.defaultProps = { location: 'San Francisco' }, you have defined a location prop that's set to the string San Francisco, unless you specify otherwise. React assigns default props if props are undefined, but if you pass null as the value for a prop, it will remain null.
 
 const ShoppingCart = (props) => {
@@ -357,6 +363,7 @@ const ShoppingCart = (props) => {
 };
 
 ShoppingCart.defaultProps = {items: 0};
+
 
 
 
@@ -442,6 +449,8 @@ class Welcome extends React.Component {
 
 
 
+
+
 // Another example
 
 class CampSite extends React.Component {
@@ -470,6 +479,7 @@ class Camper extends React.Component {
 
 Camper.defaultProps = {name: 'CamperBot'};
 Camper.propTypes = {name: PropTypes.string.isRequired};
+
 
 
 
