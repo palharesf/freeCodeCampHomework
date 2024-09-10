@@ -1,6 +1,7 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-random-quote-machine
 // Example solution: https://random-quote-machine.freecodecamp.rocks/
 // You can build the solution using CodePen: https://codepen.io/pen?template=MJjpwO
+// My solution: https://codepen.io/fernandopa/pen/wvLRPMZ
 
 //If you want to make sure your project is not failing because of React 18 start by using the old render method
 
@@ -11,7 +12,7 @@ ReactDOM.render(<App />,  document.getElementById("root"));
 // If that doesn't help downgrade to React 17
 
 
-/* When working on a React/Redux project, here are some essential steps to follow:
+/* ChatGPT advice: When working on a React/Redux project, here are some essential steps to follow:
 
     Set up the project structure: Use tools like create-react-app to scaffold the basic React project, or configure a custom build if needed.
 
@@ -421,3 +422,113 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HTML
+
+<div id="root"></div>
+<p class="footer">Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CSS
+
+#quote-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 95%;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #2B432B;
+  border: 3px solid #4D694D;
+  border-radius: 10px;
+  text-align: center;
+  color: #BAC8BA;
+  padding: 20px;
+}
+
+#quote-box > h1,
+#quote-box > h2 {
+  align-self: center;
+}
+
+#author {
+  width: 100%; 
+  text-align: right;
+  font-weight: 300;
+}
+
+#new-quote {
+  margin: 50px;
+  height: 7%;
+  width: 50%;
+  background-color: #517451;
+  border-radius: 10px;
+  border: 1px solid;
+  color: #C1D0C1;
+  font-weight: bold;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 20px;
+  height: 5%;
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: yellow;
+  font-weight: 700;
+}
+
+#quote-box a:visited {
+  color: yellow;
+  font-weight: 700;
+}
+
+.footer a:visited {
+  color: yellow;
+  font-weight: 700;
+}
