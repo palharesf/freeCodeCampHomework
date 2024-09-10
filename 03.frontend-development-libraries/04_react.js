@@ -1,7 +1,11 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/react/create-a-simple-jsx-element
 
-/* React uses a syntax extension of JavaScript called JSX that allows you to write HTML directly within JavaScript. To do this, you simply include the code you want to be treated as JavaScript within curly braces: { 'this is treated as JavaScript code' }. However, because JSX is not valid JavaScript, JSX code must be compiled into JavaScript. The transpiler Babel is a popular tool for this process.
-It's worth noting that under the hood the challenges are calling ReactDOM.render(JSX, document.getElementById('root')). This function call is what places your JSX into React's own lightweight representation of the DOM. React then uses snapshots of its own DOM to optimize updating only specific parts of the actual DOM */
+/* React uses a syntax extension of JavaScript called JSX that allows you to write HTML directly within JavaScript.
+To do this, you simply include the code you want to be treated as JavaScript within curly braces: { 'this is treated as JavaScript code' }.
+However, because JSX is not valid JavaScript, JSX code must be compiled into JavaScript. The transpiler Babel is a popular tool for this process.
+It's worth noting that under the hood the challenges are calling ReactDOM.render(JSX, document.getElementById('root')).
+This function call is what places your JSX into React's own lightweight representation of the DOM.
+React then uses snapshots of its own DOM to optimize updating only specific parts of the actual DOM */
 
 const JSX = <h1>Hello JSX!</h1>;
 
