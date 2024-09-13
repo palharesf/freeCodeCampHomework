@@ -10,7 +10,7 @@ import ReactDOM from "https://esm.sh/react-dom";
 import { createStore } from "https://esm.sh/redux"
 import { Provider, connect } from "https://esm.sh/react-redux";
 
-// Probably will try to setup a master component with five child parts within it - the 9x9 grid, the power button, the display area, the slider, and the bank switch. Fingers crossed, wish me luck, let's see how it goes. Will rely heavily on bootstrap in particular to format the 9x9 grid
+// I'll start by setting up a master component with two children - the 9x9 grid on the left, and the settings on the right containing the power button, the display area, the volume slider, and the bank switch. Fingers crossed, wish me luck, let's see how it goes. Will rely heavily on bootstrap in particular to format the 9x9 grid
 
 // User Story #4: Within each .drum-pad, there should be an HTML5 audio element which has a src attribute pointing to an audio clip, a class name of clip, and an id corresponding to the inner text of its parent .drum-pad (e.g. id="Q", id="W", id="E" etc.).
 // User Story #5: When I click on a .drum-pad element, the audio clip contained in its child audio element should be triggered.
