@@ -1,8 +1,6 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-drum-machine
 // Codepen link: https://codepen.io/pen?template=MJjpwO
 
-// PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
-
 // Setting up dependencies
 
 import React from "https://esm.sh/react";
@@ -42,10 +40,19 @@ class Machine extends React.Component {
             </div>
           </div>
           <div id="settings-container" className="container-sm border border-secondary col-4">
-            <div id="power-switch" className="border border-tertiary">Power</div>
+            <div id="power-switch" className="border border-tertiary">Power
+              <label className="switch">
+                <input type="checkbox" />
+                  <span className="toggle-slider"></span>
+              </label>
+            </div>
             <div id="display" className="border border-tertiary">Display</div>
-            <div id="volume-slider" className="border border-tertiary">Volume Slider</div>
-            <div id="bank-switch" className="border border-tertiary">Bank Switch</div>
+            <div id="volume-slider" className="border border-tertiary ">Volume Slider</div>
+            <div id="bank-switch" className="border border-tertiary">Bank
+              <label className="switch">
+                <input type="checkbox" />
+                  <span className="toggle-slider"></span>
+              </label></div>
           </div>
       </div>
     );
@@ -103,8 +110,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   togglePower: () => dispatch({ type: "POWER_SWITCH" }),
-  updateDisplay: (msg) => dispatch({ type: "UPDATE_DISPLAY", payload.message: msg}),
-  updateDisplay: (vlm) => dispatch({ type: "CHANGE_VOLUME", payload.volume: vlm}),
+  updateDisplay: (msg) => dispatch({ type: "UPDATE_DISPLAY", payload: { message: msg }}),
+  updateVolume: (vlm) => dispatch({ type: "CHANGE_VOLUME", payload: { volume: vlm } }),
   toggleBank: () => dispatch({ type: "BANK_SWITCH" }),
 });
 
