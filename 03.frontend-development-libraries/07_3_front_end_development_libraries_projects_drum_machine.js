@@ -1,6 +1,8 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-drum-machine
 // Codepen link: https://codepen.io/pen?template=MJjpwO
 
+// PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
+
 // Setting up dependencies
 
 import React from "https://esm.sh/react";
@@ -21,30 +23,107 @@ class Machine extends React.Component {
   }
   render(){
     return(
-      <div id="drum-machine" className="container-fluid border border-primary border-5">
-        <div id="pad-container">
-          <div id="uid1" className="drum-pad">Q</div>
-          <div id="uid2" className="drum-pad">W</div>
-          <div id="uid3" className="drum-pad">E</div>
-          <div id="uid4" className="drum-pad">A</div>
-          <div id="uid5" className="drum-pad">S</div>
-          <div id="uid6" className="drum-pad">D</div>
-          <div id="uid7" className="drum-pad">Z</div>
-          <div id="uid8" className="drum-pad">X</div>
-          <div id="uid9" className="drum-pad">C</div>
-        </div>
-        <div id="settings-container">
-          <div id="power-switch"></div>
-          <div id="display"></div>
-          <div id="slider"></div>
-          <div id="bank-switch"></div>
-        </div>
+      <div id="drum-machine" className="container-lg border border-primary row text-center justify-content-center align-items-center p-2">
+          <div id="pad-container" className="container-md border border-secondary col-8">
+            <div className="row">
+              <div id="uid1" className="drum-pad col border border-tertiary shadow">Q</div>
+              <div id="uid2" className="drum-pad col border border-tertiary shadow">W</div>
+              <div id="uid3" className="drum-pad col border border-tertiary shadow">E</div>
+            </div>
+            <div className="row">
+              <div id="uid4" className="drum-pad col border border-tertiary shadow">A</div>
+              <div id="uid5" className="drum-pad col border border-tertiary shadow">S</div>
+              <div id="uid6" className="drum-pad col border border-tertiary shadow">D</div>
+            </div>
+            <div className="row">
+              <div id="uid7" className="drum-pad col border border-tertiary shadow">Z</div>
+              <div id="uid8" className="drum-pad col border border-tertiary shadow">X</div>
+              <div id="uid9" className="drum-pad col border border-tertiary shadow">C</div>
+            </div>
+          </div>
+          <div id="settings-container" className="container-sm border border-secondary col-4">
+            <div id="power-switch" className="border border-tertiary">Power</div>
+            <div id="display" className="border border-tertiary">Display</div>
+            <div id="volume-slider" className="border border-tertiary">Volume Slider</div>
+            <div id="bank-switch" className="border border-tertiary">Bank Switch</div>
+          </div>
       </div>
     );
   }
 }
 
-// Rendering on screen. Later, update this from the Machine component to the AppWrapper component (once the React-Redux connection has been finalized)
+// Time to setup reducers and store. Initially, it seems the information we want to draw from the store are the results on the right, whereas HTML can handle the audio play on the left side. I can update in the future if I see this is not the case
 
-ReactDOM.render(<Machine />,document.getElementById("root")
+const initialState = {
+  powerOn: false,
+  display: "",
+  volume: 0.3,
+  bankOn: false,
+}
+
+const machineReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "POWER_SWITCH":
+      return {
+        ...state,
+        powerOn: !state.powerOn,
+      };
+    case "UPDATE_DISPLAY":
+      return {
+        ...state,
+        display: action.payload.message,
+      }
+    case "CHANGE_VOLUME":
+      return {
+        ...state,
+        volume: action.payload.volume,
+      };
+    case "BANK_SWITCH":
+      return {
+        ...state,
+        bankOn: !state.bankOn,
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(machineReducer);
+
+// Setting up React-Redux connection.
+
+const mapStateToProps = (state) => {
+  return {
+    powerOn: state.powerOn,
+    display: state.display,
+    volume: state.volume,
+    bankOn: state.bankOn,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  togglePower: () => dispatch({ type: "POWER_SWITCH" }),
+  updateDisplay: (msg) => dispatch({ type: "UPDATE_DISPLAY", payload.message: msg}),
+  updateDisplay: (vlm) => dispatch({ type: "CHANGE_VOLUME", payload.volume: vlm}),
+  toggleBank: () => dispatch({ type: "BANK_SWITCH" }),
+});
+
+const ConnectedMachine = connect(mapStateToProps, mapDispatchToProps)(Machine);
+
+// Rendering on screen. We use the AppWrapper component to link everything with the Provider
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedMachine />
+      </Provider>
+    );
+  }
+};
+
+ReactDOM.render(<AppWrapper />,document.getElementById("root")
 );
