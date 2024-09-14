@@ -10,33 +10,35 @@ import { Provider, connect } from "https://esm.sh/react-redux";
 
 // I'll start by setting up a master component with two children - the 9x9 grid on the left, and the settings on the right containing the power button, the display area, the volume slider, and the bank switch. Fingers crossed, wish me luck, let's see how it goes. Will rely heavily on bootstrap in particular to format the 9x9 grid
 
-// User Story #4: Within each .drum-pad, there should be an HTML5 audio element which has a src attribute pointing to an audio clip, a class name of clip, and an id corresponding to the inner text of its parent .drum-pad (e.g. id="Q", id="W", id="E" etc.).
-// User Story #5: When I click on a .drum-pad element, the audio clip contained in its child audio element should be triggered.
-// User Story #6: When I press the trigger key associated with each .drum-pad, the audio clip contained in its child audio element should be triggered (e.g. pressing the Q key should trigger the drum pad which contains the string Q, pressing the W key should trigger the drum pad which contains the string W, etc.).
-// User Story #7: When a .drum-pad is triggered, a string describing the associated audio clip is displayed as the inner text of the #display element (each string must be unique).
-
 class Machine extends React.Component {
   constructor(props) {
     super(props);
+    this.playAudio = this.playAudio.bind(this);
   }
+  
+  playAudio(id) {
+    const audio = document.getElementById(id);
+    audio.play();
+  }
+  
   render(){
     return(
       <div id="drum-machine" className="container-lg border border-primary row text-center justify-content-center align-items-center p-2">
           <div id="pad-container" className="container-md border border-secondary col-8">
             <div className="row">
-              <div id="uid1" className="drum-pad col border border-tertiary shadow">Q</div>
-              <div id="uid2" className="drum-pad col border border-tertiary shadow">W</div>
-              <div id="uid3" className="drum-pad col border border-tertiary shadow">E</div>
+              <button type="button" id="heater1" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('Q')}>Q<audio id="Q" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-1.mp3" /></button>
+              <button type="button" id="heater2" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('W')}>W<audio id="W" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-2.mp3" /></button>
+              <button type="button" id="heater3" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('E')}>E<audio id="E" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-3.mp3" /></button>
             </div>
             <div className="row">
-              <div id="uid4" className="drum-pad col border border-tertiary shadow">A</div>
-              <div id="uid5" className="drum-pad col border border-tertiary shadow">S</div>
-              <div id="uid6" className="drum-pad col border border-tertiary shadow">D</div>
+              <button type="button" id="heater4" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('A')}>A<audio id="A" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-4_1.mp3" /></button>
+              <button type="button" id="clap" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('S')}>S<audio id="S" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-6.mp3" /></button>
+              <button type="button" id="openhh" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('D')}>D<audio id="D" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Dsc_Oh.mp3" /></button>
             </div>
             <div className="row">
-              <div id="uid7" className="drum-pad col border border-tertiary shadow">Z</div>
-              <div id="uid8" className="drum-pad col border border-tertiary shadow">X</div>
-              <div id="uid9" className="drum-pad col border border-tertiary shadow">C</div>
+              <button type="button" id="kicknhat" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('Z')}>Z<audio id="Z" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Kick_n_Hat.mp3" /></button>
+              <button type="button" id="kick" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('X')}>X<audio id="X" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/RP4_KICK_1.mp3" /></button>
+              <button type="button" id="closedhh" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('C')}>C<audio id="C" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Cev_H2.mp3" /></button>
             </div>
           </div>
           <div id="settings-container" className="container-sm border border-secondary col-4">
@@ -134,3 +136,13 @@ class AppWrapper extends React.Component {
 
 ReactDOM.render(<AppWrapper />,document.getElementById("root")
 );
+
+
+
+/* Reference code for the next user story:
+
+numberInput.addEventListener("keydown", (e) => {							// The keydown event fires every time a user presses a key on their keyboard, and is a good way to add more interactivity to input elements
+  if (e.key === "Enter") {													// Taking a closer look at one of those event objects, you'll see helpful properties like type and target. Since you want to perform an action when the Enter key is pressed, the most helpful property is key, which tells you the string value of the key that was pressed
+    checkUserInput();
+  }
+}); */
