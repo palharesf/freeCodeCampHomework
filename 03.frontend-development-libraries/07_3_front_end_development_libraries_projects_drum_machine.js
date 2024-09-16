@@ -1,7 +1,9 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-drum-machine
-// Codepen link: https://codepen.io/pen?template=MJjpwO
+// Codepen link: https://codepen.io/fernandopa/pen/LYKaJQJ
 
-// Setting up dependencies
+// To-do: right now, I pass the user stories, but both Power and Bank switches are useless (just placeholders), and there's no volume slider or logic behind it
+
+// Setting up external dependencies
 
 import React from "https://esm.sh/react";
 import ReactDOM from "https://esm.sh/react-dom";
@@ -14,17 +16,42 @@ class Machine extends React.Component {
   constructor(props) {
     super(props);
     this.playAudio = this.playAudio.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
+  
+  audioMessages = {
+    'Q': 'Heater 1',
+    'W': 'Heater 2',
+    'E': 'Heater 3',
+    'A': 'Heater 4',
+    'S': 'Clap',
+    'D': 'Open HH',
+    'Z': 'Kick N Hat',
+    'X': 'Kick',
+    'C': 'Closed HH',
+  };
   
   playAudio(id) {
     const audio = document.getElementById(id);
     audio.play();
+//  console.log("Within playAudio: id -- ", id," -- audioMessagesID --",this.audioMessages[id]);
+    this.props.updateDisplay(this.audioMessages[id] || 'Playing sound');
+  }  
+  componentDidMount() {
+    document.addEventListener("keydown",this.handleKeyPress);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown",this.handleKeyPress);
+  }  
+  handleKeyPress = (event) => {
+    this.playAudio(event.key.toUpperCase());
   }
   
   render(){
+    const {display} = this.props;
     return(
       <div id="drum-machine" className="container-lg border border-primary row text-center justify-content-center align-items-center p-2">
-          <div id="pad-container" className="container-md border border-secondary col-8">
+          <div id="pad-container" className="container-md border border-secondary col-8 p-3">
             <div className="row">
               <button type="button" id="heater1" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('Q')}>Q<audio id="Q" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-1.mp3" /></button>
               <button type="button" id="heater2" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('W')}>W<audio id="W" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-2.mp3" /></button>
@@ -41,16 +68,16 @@ class Machine extends React.Component {
               <button type="button" id="closedhh" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('C')}>C<audio id="C" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Cev_H2.mp3" /></button>
             </div>
           </div>
-          <div id="settings-container" className="container-sm border border-secondary col-4">
-            <div id="power-switch" className="border border-tertiary">Power
+          <div id="settings-container" className="container-sm border border-secondary col-4  p-3">
+            <div id="power-switch" className="border border-tertiary">Power: 
               <label className="switch">
                 <input type="checkbox" />
                   <span className="toggle-slider"></span>
               </label>
             </div>
-            <div id="display" className="border border-tertiary">Display</div>
+            <div id="display" className="border border-tertiary">{display}</div>
             <div id="volume-slider" className="border border-tertiary ">Volume Slider</div>
-            <div id="bank-switch" className="border border-tertiary">Bank
+            <div id="bank-switch" className="border border-tertiary">Bank:  
               <label className="switch">
                 <input type="checkbox" />
                   <span className="toggle-slider"></span>
@@ -65,7 +92,7 @@ class Machine extends React.Component {
 
 const initialState = {
   powerOn: false,
-  display: "",
+  display: "Uninitialized",
   volume: 0.3,
   bankOn: false,
 }
@@ -139,10 +166,96 @@ ReactDOM.render(<AppWrapper />,document.getElementById("root")
 
 
 
-/* Reference code for the next user story:
 
-numberInput.addEventListener("keydown", (e) => {							// The keydown event fires every time a user presses a key on their keyboard, and is a good way to add more interactivity to input elements
-  if (e.key === "Enter") {													// Taking a closer look at one of those event objects, you'll see helpful properties like type and target. Since you want to perform an action when the Enter key is pressed, the most helpful property is key, which tells you the string value of the key that was pressed
-    checkUserInput();
-  }
-}); */
+
+
+
+
+
+
+
+
+
+
+HTML
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<div id="root"></div>
+
+
+
+
+
+
+
+
+
+CSS
+
+#drum-machine {
+  position: relative;
+  top: 15vh;
+  left: 5vw;
+  width: 90vw;
+  height: 70vh;
+}
+
+/* Switch code: */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .toggle-slider {
+  background-color: #2196F3;
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .toggle-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* End of Switch code: */
