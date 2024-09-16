@@ -50,25 +50,25 @@ class Machine extends React.Component {
   render(){
     const {display} = this.props;
     return(
-      <div id="drum-machine" className="container-lg border border-primary row text-center justify-content-center align-items-center p-2">
-          <div id="pad-container" className="container-md border border-secondary col-8 p-3">
+      <div id="drum-machine" className="container bg-secondary row h-75">
+          <div id="pad-container" className="container border border-primary col-8 h-100 p-3">
             <div className="row">
-              <button type="button" id="heater1" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('Q')}>Q<audio id="Q" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-1.mp3" /></button>
-              <button type="button" id="heater2" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('W')}>W<audio id="W" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-2.mp3" /></button>
-              <button type="button" id="heater3" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('E')}>E<audio id="E" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-3.mp3" /></button>
+              <button type="button" id="heater1" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('Q')}>Q<audio id="Q" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-1.mp3" /></button>
+              <button type="button" id="heater2" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('W')}>W<audio id="W" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-2.mp3" /></button>
+              <button type="button" id="heater3" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('E')}>E<audio id="E" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-3.mp3" /></button>
             </div>
             <div className="row">
-              <button type="button" id="heater4" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('A')}>A<audio id="A" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-4_1.mp3" /></button>
-              <button type="button" id="clap" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('S')}>S<audio id="S" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-6.mp3" /></button>
-              <button type="button" id="openhh" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('D')}>D<audio id="D" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Dsc_Oh.mp3" /></button>
+              <button type="button" id="heater4" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('A')}>A<audio id="A" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-4_1.mp3" /></button>
+              <button type="button" id="clap" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('S')}>S<audio id="S" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Heater-6.mp3" /></button>
+              <button type="button" id="openhh" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('D')}>D<audio id="D" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Dsc_Oh.mp3" /></button>
             </div>
             <div className="row">
-              <button type="button" id="kicknhat" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('Z')}>Z<audio id="Z" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Kick_n_Hat.mp3" /></button>
-              <button type="button" id="kick" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('X')}>X<audio id="X" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/RP4_KICK_1.mp3" /></button>
-              <button type="button" id="closedhh" className="drum-pad col border border-tertiary shadow" onClick={() => this.playAudio('C')}>C<audio id="C" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Cev_H2.mp3" /></button>
+              <button type="button" id="kicknhat" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('Z')}>Z<audio id="Z" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Kick_n_Hat.mp3" /></button>
+              <button type="button" id="kick" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('X')}>X<audio id="X" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/RP4_KICK_1.mp3" /></button>
+              <button type="button" id="closedhh" className="drum-pad col border border-secondary shadow" onClick={() => this.playAudio('C')}>C<audio id="C" className="clip" src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/Cev_H2.mp3" /></button>
             </div>
           </div>
-          <div id="settings-container" className="container-sm border border-secondary col-4  p-3">
+          <div id="settings-container" className="container border border-primary text-center col-4 h-100 p-3">
             <div id="power-switch" className="border border-tertiary">Power: 
               <label className="switch">
                 <input type="checkbox" />
@@ -77,7 +77,7 @@ class Machine extends React.Component {
             </div>
             <div id="display" className="border border-tertiary">{display}</div>
             <div id="volume-slider" className="border border-tertiary ">Volume Slider</div>
-            <div id="bank-switch" className="border border-tertiary">Bank:  
+            <div id="bank-switch" className="border border-tertiary">Bank: 
               <label className="switch">
                 <input type="checkbox" />
                   <span className="toggle-slider"></span>
@@ -182,7 +182,7 @@ HTML
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<div id="root"></div>
+<div id="root" class="vh-100 d-flex align-items-center justify-content-center"></div>
 
 
 
@@ -193,14 +193,6 @@ HTML
 
 
 CSS
-
-#drum-machine {
-  position: relative;
-  top: 15vh;
-  left: 5vw;
-  width: 90vw;
-  height: 70vh;
-}
 
 /* Switch code: */
 
