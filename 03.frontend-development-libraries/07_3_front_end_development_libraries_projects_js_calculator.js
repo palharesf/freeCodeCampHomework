@@ -1,7 +1,7 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-javascript-calculator
 // Codepen link: https://codepen.io/fernandopa/pen/vYqqrZb
 
-// Project notes: right now the initial layout is setup. Before I proceed with the React-Redux connection, I need to make sure all these divs become buttons (except for the Display of course), and that I can format them appropriately with Bootstrap. The grid is looking better than the previous exercise, but it still needs work
+// Project notes: right now the initial layout is setup. Before I proceed with the React-Redux connection, I need to make sure all these divs become buttons (except for the Display of course)
 
 // Setting up external dependencies
 
@@ -21,32 +21,32 @@ class Calculator extends React.Component {
     return(
       <div class="container border border-secondary">
         <div id="row-1" class="row">
-          <div id="display" class="col-5 border border-primary">Display</div>
+          <div id="display" class="col border border-primary">Display</div>
         </div>
         <div id="row-2" class="row">
-          <div id="one" class="col-1 border border-primary">1</div>
-          <div id="two" class="col-1 border border-primary">2</div>
-          <div id="three" class="col-1 border border-primary">3</div>
-          <div id="four" class="col-1 border border-primary">4</div>
-          <div id="five" class="col-1 border border-primary">5</div>
+          <div id="one" class="col border border-primary">1</div>
+          <div id="two" class="col border border-primary">2</div>
+          <div id="three" class="col border border-primary">3</div>
+          <div id="four" class="col border border-primary">4</div>
+          <div id="five" class="col border border-primary">5</div>
         </div>
         <div id="row-3" class="row">
-          <div id="six" class="col-1 border border-primary">6</div>
-          <div id="seven" class="col-1 border border-primary">7</div>
-          <div id="eight" class="col-1 border border-primary">8</div>
-          <div id="nine" class="col-1 border border-primary">9</div>
-          <div id="zero" class="col-1 border border-primary">0</div>
+          <div id="six" class="col border border-primary">6</div>
+          <div id="seven" class="col border border-primary">7</div>
+          <div id="eight" class="col border border-primary">8</div>
+          <div id="nine" class="col border border-primary">9</div>
+          <div id="zero" class="col border border-primary">0</div>
         </div>
         <div id="row-4" class="row">
-          <div id="add" class="col-1 border border-primary">+</div>
-          <div id="subtract" class="col-1 border border-primary">-</div>
-          <div id="multiply" class="col-1 border border-primary">*</div>
-          <div id="divide" class="col-1 border border-primary">/</div>
-          <div id="equals" class="col-1 border border-primary">=</div>
+          <div id="add" class="col border border-primary">+</div>
+          <div id="subtract" class="col border border-primary">-</div>
+          <div id="multiply" class="col border border-primary">*</div>
+          <div id="divide" class="col border border-primary">/</div>
+          <div id="equals" class="col border border-primary">=</div>
         </div>
-        <div id="row-5" class="row">
-          <div id="clear" class="col-4 border border-primary">AC</div>
-          <div id="decimal" class="col-1 border border-primary">.</div>
+        <div id="row-5" class="row"> {/* For the columns here, I want a 80%/20% split, and that does not conform to the 12-column grid that Bootstrap provides, so I'll just adjust it by manually setting the width of each. Using col-auto as the class preserves the grid structure without forcing a specific width */}
+          <div id="clear" class="col-auto border border-primary" style={{ width: '80%' }}>AC</div>
+          <div id="decimal" class="col-auto border border-primary" style={{ width: '20%' }}>.</div>
         </div>
       </div>
     );
