@@ -12,12 +12,12 @@ import { Provider, connect } from "https://esm.sh/react-redux";
 
 // I'll start by setting up a master component with two children - the 9x9 grid on the left, and the settings on the right containing the power button, the display area, the volume slider, and the bank switch. Fingers crossed, wish me luck, let's see how it goes. Will rely heavily on bootstrap in particular to format the 9x9 grid
 
-class Machine extends React.Component {
-  constructor(props) {
-    super(props);
-    this.playAudio = this.playAudio.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-  }
+	class Machine extends React.Component {
+	  constructor(props) {
+		super(props);
+		this.playAudio = this.playAudio.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+	  }
   
   audioMessages = {
     'Q': 'Heater 1',
