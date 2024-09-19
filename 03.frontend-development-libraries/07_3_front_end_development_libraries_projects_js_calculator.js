@@ -1,7 +1,7 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-javascript-calculator
 // Codepen link: https://codepen.io/fernandopa/pen/vYqqrZb
 
-// Project Notes: lots of upgrades today. All buttons have been added, and most buttons are functional except for the operators. A lot of logic has been developed and implemented, with operations and computing still remaining.
+// Project Notes: Operator logic partially implemented - buttons are now able to add an operator if there is none previously. A lot of logic has been developed and implemented, with operations and computing still remaining.
 
 // Setting up external dependencies
 
@@ -41,7 +41,13 @@ class Calculator extends React.Component {
     }
   }
   
+  // handleOperator currently assigns an operator if there's none assigned yet. This is working fine for ADD, I need to expand it to the other operators. Afterwards, I need to create the logic to send the currentValue to inputOne
   handleOperator(opr) {
+    console.log("handleOperator upon call: ", this.props.operator);
+    switch(this.props.operator) {
+      case "":
+        this.props.updateOperator(opr);
+    }
     
   }
   
@@ -52,6 +58,7 @@ class Calculator extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.currentValue !== this.props.currentValue) {
       console.log("Updated currentValue: ", this.props.currentValue);
+      console.log("Updated operator: ", this.props.operator);
       this.props.updateDisplay(parseFloat(this.props.currentValue.join('')));
     }
   }
@@ -78,10 +85,10 @@ class Calculator extends React.Component {
           <button type="button" id="zero" class="col border" onClick={() => this.handleNumber(0)}>0</button>
         </div>
         <div id="row-4" class="row text-center">
-          <button type="button" id="add" class="col border" onClick="">+</button>
+          <button type="button" id="add" class="col border" onClick={() => this.handleOperator("ADD")}>+</button>
           <button type="button" id="subtract" class="col border" onClick="">-</button>
-          <button type="button" id="multiply" class="col border" onClick="">*</button>
-          <button type="button" id="divide" class="col border" onClick="">/</button>
+          <button type="button" id="multiply" class="col border" onClick={() => this.handleOperator("MULTIPLY")}>*</button>
+          <button type="button" id="divide" class="col border" onClick={() => this.handleOperator("DIVIDE")}>/</button>
           <button type="button" id="equals" class="col border" onClick={() => this.computeOperation()}>=</button>
         </div>
         <div id="row-5" class="row"> {/* For the columns here, I want a 80%/20% split, and that does not conform to the 12-column grid that Bootstrap provides, so I'll just adjust it by manually setting the width of each. Using col-auto as the class preserves the grid structure without forcing a specific width */}
@@ -124,6 +131,11 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         currentValue: [0],
       };
+    case "UPDATE_OPERATOR":
+      return {
+        ...state,
+        operator: action.payload.operator,
+      }
     case "COMPUTE":
       switch(state.operator) {
           case "ADD":
@@ -168,6 +180,7 @@ const dispatchStateToProps = (dispatch) => ({
   updateDisplay: (msg) => dispatch({ type: "UPDATE_DISPLAY", payload: {message: msg}}),
   addDigit: (dgt) => dispatch({ type: "ADD_DIGIT", payload: {digit: dgt}}),
   clearMemory: () => dispatch({ type: "CLEAR_MEMORY" }),
+  updateOperator: (opr) => dispatch({ type: "UPDATE_OPERATOR", payload: {operator: opr}}),
   computeOperation: () => dispatch({ type: "COMPUTE" }),
 });
 
