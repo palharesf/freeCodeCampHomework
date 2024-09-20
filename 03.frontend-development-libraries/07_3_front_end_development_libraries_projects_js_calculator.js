@@ -1,7 +1,9 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-javascript-calculator
 // Codepen link: https://codepen.io/fernandopa/pen/vYqqrZb
 
-// Project Notes: Operator logic partially implemented - buttons are now able to add an operator if there is none previously. A lot of logic has been developed and implemented, with operations and computing still remaining.
+// PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
+
+// Project notes - one test missing. Handling the negative sign has proven very very very difficult indeed
 
 // Setting up external dependencies
 
@@ -19,49 +21,104 @@ class Calculator extends React.Component {
     this.handleNumber = this.handleNumber.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.handleOperator = this.handleOperator.bind(this);
-    this.computeOperation = this.computeOperation.bind(this);
+    this.equalButton = this.equalButton.bind(this);
   }
   
   clearScreenBtn() {
     //console.log("Clear Screen Btn pressed");
     this.props.clearMemory();
     this.props.updateDisplay(0);
+    this.props.updateOperator("");
+    this.props.updateInputOne(null);
+    this.props.updateInputTwo(null);
+    this.props.updateLastPress("Clear");
   }
   
   handleNumber(num) {
-    console.log("Current Value pre update: ",this.props.currentValue);
+    //console.log("Number pressed");
+    if(this.props.flagInvert === true) {
+      if (this.props.currentValue.length === 1 && this.props.currentValue[0] === 0) {
+        this.props.clearMemory();  // Clear the initial 0
+      }
+      num = num * (-1);
+      this.props.resetInvert();
+    }
     this.props.addDigit(num);
+    this.props.updateLastPress("Number");
   }
   
   handleDecimal() {
-    if(this.props.currentValue.includes(".")) {
-      alert("Number already includes decimal point");
+    if(this.props.lastPress === "Decimal") {
+      return;
+    } else if(this.props.currentValue.includes(".")) {
+      return;
     } else {
       this.props.addDigit(".");
+      this.props.updateLastPress("Decimal");
     }
   }
   
-  // handleOperator currently assigns an operator if there's none assigned yet. This is working fine for ADD, I need to expand it to the other operators. Afterwards, I need to create the logic to send the currentValue to inputOne
   handleOperator(opr) {
-    console.log("handleOperator upon call: ", this.props.operator);
-    switch(this.props.operator) {
-      case "":
-        this.props.updateOperator(opr);
+    //console.log("Operator Pressed");
+    if (this.props.lastPress === "Operator" && opr === "SUBTRACT") {
+    // Set the invert flag to mark that the next number should be negative
+      this.props.setInvert();
+      return;
     }
     
+    if (this.props.inputOne !== null && this.props.operator !== "") {
+      // Perform the previous operation
+      let inputTwo = parseFloat(this.props.currentValue.join(''));
+      this.props.updateInputTwo(inputTwo);
+      this.props.computeOperation();
+    } else if (this.props.inputOne === null) {
+      let inputOne = parseFloat(this.props.currentValue.join(''));
+      this.props.updateInputOne(inputOne);
+    }
+    this.props.updateOperator(opr);
+    this.props.clearMemory();
+    this.props.setDNR();
+    this.props.updateLastPress("Operator");
   }
   
-  computeOperation() {
-    
+  equalButton() {
+    //console.log("Equal pressed");
+    if (this.props.lastPress === "Operator") {
+      //console.log("Nothing happened!");
+      return;
+    }
+    if (this.props.inputOne !== null && this.props.operator !== "") {
+      this.props.updateInputTwo(parseFloat(this.props.currentValue.join('')));
+      this.props.computeOperation();
+      this.props.updateOperator("");
+    }
+    this.props.updateLastPress("Equal");
   }
   
   componentDidUpdate(prevProps) {
-    if (prevProps.currentValue !== this.props.currentValue) {
-      console.log("Updated currentValue: ", this.props.currentValue);
-      console.log("Updated operator: ", this.props.operator);
-      this.props.updateDisplay(parseFloat(this.props.currentValue.join('')));
+    console.log("---");
+    //console.log("display", this.props.display);
+    console.log("currentValue", this.props.currentValue);
+    console.log("operator", this.props.operator);
+    console.log("inputOne", this.props.inputOne);
+    console.log("inputTwo", this.props.inputTwo);
+    //console.log("Flag DNR", this.props.flagDNR);
+    //console.log("LastPress", this.props.lastPress);
+    console.log("flagInvert", this.props.flagInvert);
+    
+    if (prevProps.currentValue !== this.props.currentValue && !this.props.flagDNR ) {
+      let num;
+      if (this.props.currentValue.length === 1 && this.props.currentValue[0] === 0) {
+        num = 0;
+      } else if (this.props.currentValue.includes(".")) {
+        num = this.props.currentValue.join('');
+      } else {
+        num = parseFloat(this.props.currentValue.join(''));
+      }
+      this.props.updateDisplay(num);
     }
-  }
+    this.props.resetDNR();
+   }
   
   render(){
     const { display } = this.props;
@@ -86,10 +143,10 @@ class Calculator extends React.Component {
         </div>
         <div id="row-4" class="row text-center">
           <button type="button" id="add" class="col border" onClick={() => this.handleOperator("ADD")}>+</button>
-          <button type="button" id="subtract" class="col border" onClick="">-</button>
+          <button type="button" id="subtract" class="col border" onClick={() => this.handleOperator("SUBTRACT")}>-</button>
           <button type="button" id="multiply" class="col border" onClick={() => this.handleOperator("MULTIPLY")}>*</button>
           <button type="button" id="divide" class="col border" onClick={() => this.handleOperator("DIVIDE")}>/</button>
-          <button type="button" id="equals" class="col border" onClick={() => this.computeOperation()}>=</button>
+          <button type="button" id="equals" class="col border" onClick={() => this.equalButton()}>=</button>
         </div>
         <div id="row-5" class="row"> {/* For the columns here, I want a 80%/20% split, and that does not conform to the 12-column grid that Bootstrap provides, so I'll just adjust it by manually setting the width of each. Using col-auto as the class preserves the grid structure without forcing a specific width */}
           <button type="button" id="clear" class="col-auto border text-end" style={{ width: '80%' }} onClick={() => this.clearScreenBtn()}>AC</button>
@@ -104,14 +161,19 @@ class Calculator extends React.Component {
 
 I'm thinking of storing display, input one and input two as numbers, and then turn them into strings when it needs to be displayed. Might revisit this idea later 
 
-UPDATE 1 - Ok, I added a new variable called currentValue. I was initially thinking of working with it within the scope of the React component, but since I'm using Redux, might as well manage this here*/
+UPDATE 1 - Ok, I added a new variable called currentValue. I was initially thinking of working with it within the scope of the React component, but since I'm using Redux, might as well manage this here
+
+UPDATE 2 - I've added a Do Not Refresh tag, so when currentValue is emptied and its value is moved into inputOne or inputTwo, the screen keeps the old value until a new value is started */
 
 const initialState = {
-  display: 80085,
-  inputOne: 0,
+  display: 0,
+  inputOne: null,
   operator: "",
-  inputTwo: 0,
+  inputTwo: null,
   currentValue: [0],
+  flagDNR: false,
+  lastPress: null,
+  flagInvert: false,
 }
 
 const calculatorReducer = (state = initialState, action) => {
@@ -122,10 +184,17 @@ const calculatorReducer = (state = initialState, action) => {
         display: action.payload.message,
       };
     case "ADD_DIGIT":
-      return {
-        ...state,
-        currentValue: [...state.currentValue, action.payload.digit]
-      };
+      if (state.currentValue.length === 1 && state.currentValue[0] === 0 && action.payload.digit !== ".") {
+        return {
+          ...state,
+          currentValue: [action.payload.digit]
+        };
+      } else {
+        return {
+          ...state,
+          currentValue: [...state.currentValue, action.payload.digit]
+        };
+      }
     case "CLEAR_MEMORY":
       return {
         ...state,
@@ -136,25 +205,65 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         operator: action.payload.operator,
       }
+    case "UPDATE_INPUT_ONE":
+      return {
+        ...state,
+        inputOne: action.payload.number,
+      }
+    case "UPDATE_INPUT_TWO":
+      return {
+        ...state,
+        inputTwo: action.payload.number,
+      }
+    case "SET_DNR":
+      return {
+        ...state,
+        flagDNR: true,
+      }
+    case "RESET_DNR":
+      return {
+        ...state,
+        flagDNR: false,
+      }
+    case "LAST_PRESS":
+      return {
+        ...state,
+        lastPress: action.payload.message,
+      }
+    case "SET_INVERT":
+      return {
+        ...state,
+        flagInvert: true,
+      }
+    case "RESET_INVERT":
+      return {
+        ...state,
+        flagInvert: false,
+      }  
     case "COMPUTE":
+      let result;
       switch(state.operator) {
-          case "ADD":
-            return {
-              ...state,
-              display: state.inputOne + state.inputTwo,
-            };
-          case "MULTIPLY":
-            return {
-              ...state,
-              display: state.inputOne * state.inputTwo,
-            };
-          case "DIVIDE":
-            return {
-              ...state,
-              display: state.inputOne / state.inputTwo,
-            };
+        case "ADD":
+          result = state.inputOne + state.inputTwo;
+          break;
+        case "SUBTRACT":
+          result = state.inputOne - state.inputTwo;
+          break;
+        case "MULTIPLY":
+          result = state.inputOne * state.inputTwo;
+          break;
+        case "DIVIDE":
+          result = state.inputOne / state.inputTwo;
+          break;
         default:
           return state;
+      }
+      return {
+        ...state,
+        currentValue: [result],
+        inputOne: result,
+        inputTwo: null,
+        display: result,
       }
     default:
       return state;
@@ -173,6 +282,9 @@ const mapStateToProps = (state) => {
     operator: state.operator,
     inputTwo: state.inputTwo,
     currentValue: state.currentValue,
+    flagDNR: state.flagDNR,
+    lastPress: state.lastPress,
+    flagInvert: state.flagInvert,
   }
 }
 
@@ -181,7 +293,14 @@ const dispatchStateToProps = (dispatch) => ({
   addDigit: (dgt) => dispatch({ type: "ADD_DIGIT", payload: {digit: dgt}}),
   clearMemory: () => dispatch({ type: "CLEAR_MEMORY" }),
   updateOperator: (opr) => dispatch({ type: "UPDATE_OPERATOR", payload: {operator: opr}}),
+  updateInputOne: (num) => dispatch({ type: "UPDATE_INPUT_ONE", payload: {number: num}}),
+  updateInputTwo: (num) => dispatch({ type: "UPDATE_INPUT_TWO", payload: {number: num}}),
+  setDNR: () => dispatch({ type: "SET_DNR"}),
+  resetDNR: () => dispatch({ type: "RESET_DNR"}),
   computeOperation: () => dispatch({ type: "COMPUTE" }),
+  updateLastPress: (msg) => dispatch({ type: "LAST_PRESS", payload: {message: msg}}),
+  setInvert: () => dispatch({ type: "SET_INVERT" }),
+  resetInvert: () => dispatch({ type: "RESET_INVERT" }),
 });
 
 const ConnectedCalculator = connect(mapStateToProps, dispatchStateToProps)(Calculator);
