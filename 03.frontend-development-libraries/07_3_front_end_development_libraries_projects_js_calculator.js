@@ -1,9 +1,7 @@
 // Exercise permalink: https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-javascript-calculator
 // Codepen link: https://codepen.io/fernandopa/pen/vYqqrZb
 
-// PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
-
-// Project notes - one test missing. Handling the negative sign has proven very very very difficult indeed
+// Project finished. Overall, super difficult. While previous projects took one, mostly two coding days, this one took almost five full days. Implementing the immediate execution logic and handling negative sign (is it an operator or a negative number?) were both very difficult, but carefully trackign the state evolution allowed me to zero in on the boundary/edge conditions
 
 // Setting up external dependencies
 
@@ -21,105 +19,104 @@ class Calculator extends React.Component {
     this.handleNumber = this.handleNumber.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.handleOperator = this.handleOperator.bind(this);
-    this.equalButton = this.equalButton.bind(this);
+    this.handleEquals = this.handleEquals.bind(this);
   }
-  
+
+// clearScreenBtn was reasonably easy, just reset the state to initialState and attach it to the AC button  
   clearScreenBtn() {
     //console.log("Clear Screen Btn pressed");
-    this.props.clearMemory();
-    this.props.updateDisplay(0);
-    this.props.updateOperator("");
-    this.props.updateInputOne(null);
-    this.props.updateInputTwo(null);
-    this.props.updateLastPress("Clear");
+    const { clearMemory, updateDisplay, updateOperator, setValueOne, updateLastPress } = this.props;
+    clearMemory();
+    updateDisplay(0);
+    updateOperator("");
+    setValueOne(null);
+    updateLastPress("Clear");
   }
-  
+
+// handleNumber was generally easy as well, although one edge case had to be added towards the end - if the state tells the negativeFlag is raised, that means this coming number is negative. Simple solution after all, but took a while to arrive at it  
   handleNumber(num) {
     //console.log("Number pressed");
-    if(this.props.flagInvert === true) {
-      if (this.props.currentValue.length === 1 && this.props.currentValue[0] === 0) {
-        this.props.clearMemory();  // Clear the initial 0
-      }
-      num = num * (-1);
-      this.props.resetInvert();
+    const { addDigit, updateLastPress, negFlag, resetNegFlag } = this.props;
+    
+    if (negFlag) {
+      console.log("num", num);
+      num = -num;
+      console.log("num", num);
+      resetNegFlag();
     }
-    this.props.addDigit(num);
-    this.props.updateLastPress("Number");
+    addDigit(num);
+    updateLastPress("Number");
   }
-  
+
+// handleDecimal was also easy - to avoid one number having multiple decimal points, we just need to look into our currentValue array and see if we find any decimals there already, in which case we skip the method's execution  
   handleDecimal() {
-    if(this.props.lastPress === "Decimal") {
+    const { lastPress, currentValue, addDigit, updateLastPress } = this.props;
+    if(lastPress === "Decimal") {
       return;
-    } else if(this.props.currentValue.includes(".")) {
+    } else if(currentValue.includes(".")) {
       return;
     } else {
-      this.props.addDigit(".");
-      this.props.updateLastPress("Decimal");
+      addDigit(".");
     }
+    updateLastPress("Decimal");
   }
-  
+
+// handleOperator was the bane of my existence. The edge cases we needed to manage at the end are: how to treat the minus sign differently from the other operators (is it an operator or a negative number that's about to come?), how to handle a second operator in the same sentence (i.e. immediate execution). The implementation was easy, but figuring out the logic was really problematic
   handleOperator(opr) {
-    //console.log("Operator Pressed");
-    if (this.props.lastPress === "Operator" && opr === "SUBTRACT") {
-    // Set the invert flag to mark that the next number should be negative
-      this.props.setInvert();
+    const { currentValue, lastPress, updateOperator, updateDisplay, updateLastPress, valueOne, setValueOne, computeOperation, setDNR, setNegFlag, resetNegFlag } = this.props;
+    
+    setDNR();
+    if (lastPress === "Operator" && opr !== "SUBTRACT") {
+      updateOperator(opr);
+      updateLastPress("Operator");
+      resetNegFlag();
+      return;
+    } else if (lastPress === "Operator" && opr === "SUBTRACT") {
+      setNegFlag();
+      updateLastPress("Operator")
       return;
     }
     
-    if (this.props.inputOne !== null && this.props.operator !== "") {
-      // Perform the previous operation
-      let inputTwo = parseFloat(this.props.currentValue.join(''));
-      this.props.updateInputTwo(inputTwo);
-      this.props.computeOperation();
-    } else if (this.props.inputOne === null) {
-      let inputOne = parseFloat(this.props.currentValue.join(''));
-      this.props.updateInputOne(inputOne);
+    if (valueOne === null) {
+      setValueOne(parseFloat(currentValue.join('')));
+    } else {
+      computeOperation();
     }
-    this.props.updateOperator(opr);
-    this.props.clearMemory();
-    this.props.setDNR();
-    this.props.updateLastPress("Operator");
+    updateOperator(opr);
+    updateLastPress("Operator");
   }
-  
-  equalButton() {
-    //console.log("Equal pressed");
-    if (this.props.lastPress === "Operator") {
-      //console.log("Nothing happened!");
-      return;
-    }
-    if (this.props.inputOne !== null && this.props.operator !== "") {
-      this.props.updateInputTwo(parseFloat(this.props.currentValue.join('')));
-      this.props.computeOperation();
-      this.props.updateOperator("");
-    }
-    this.props.updateLastPress("Equal");
+
+// handleEquals is very straightforward. computeOperation is already hooked in a way that it clears the memory and move variables around, so the method itself could be very simple  
+  handleEquals() {
+    const { computeOperation, updateLastPress } = this.props;
+    
+    computeOperation();
+    updateLastPress("Equal");
   }
-  
+
+// componentDidUpdate was the lifecycle method that saved my life. I was able to update the display every time there was a change to the state, except when I wanted to avoid this update (using flagDNR i.e. flag Do Not Refresh). It was also a perfect place to add console logs and monitor the code execution  
   componentDidUpdate(prevProps) {
-    console.log("---");
-    //console.log("display", this.props.display);
-    console.log("currentValue", this.props.currentValue);
-    console.log("operator", this.props.operator);
-    console.log("inputOne", this.props.inputOne);
-    console.log("inputTwo", this.props.inputTwo);
-    //console.log("Flag DNR", this.props.flagDNR);
-    //console.log("LastPress", this.props.lastPress);
-    console.log("flagInvert", this.props.flagInvert);
+    const { updateDisplay, currentValue, flagDNR, resetDNR } = this.props;
     
-    if (prevProps.currentValue !== this.props.currentValue && !this.props.flagDNR ) {
-      let num;
-      if (this.props.currentValue.length === 1 && this.props.currentValue[0] === 0) {
-        num = 0;
-      } else if (this.props.currentValue.includes(".")) {
-        num = this.props.currentValue.join('');
-      } else {
-        num = parseFloat(this.props.currentValue.join(''));
+    //console.log("-----");
+    
+    if (prevProps.currentValue !== currentValue && !flagDNR) {
+      if (currentValue.length > 0) {
+        let num;
+        if (currentValue.length === 1 && currentValue[0] === 0) {
+          num = 0;
+        } else if (currentValue.includes(".")) {
+          num = currentValue.join('');
+        } else {
+          num = parseFloat(currentValue.join(''));
+        }
+        updateDisplay(num);
       }
-      this.props.updateDisplay(num);
     }
-    this.props.resetDNR();
-   }
-  
+    resetDNR();
+  }
+
+// render was my first focus for this exercise, and generally was easy compared to handling the methods and the reducer  
   render(){
     const { display } = this.props;
     return(
@@ -146,7 +143,7 @@ class Calculator extends React.Component {
           <button type="button" id="subtract" class="col border" onClick={() => this.handleOperator("SUBTRACT")}>-</button>
           <button type="button" id="multiply" class="col border" onClick={() => this.handleOperator("MULTIPLY")}>*</button>
           <button type="button" id="divide" class="col border" onClick={() => this.handleOperator("DIVIDE")}>/</button>
-          <button type="button" id="equals" class="col border" onClick={() => this.equalButton()}>=</button>
+          <button type="button" id="equals" class="col border" onClick={() => this.handleEquals()}>=</button>
         </div>
         <div id="row-5" class="row"> {/* For the columns here, I want a 80%/20% split, and that does not conform to the 12-column grid that Bootstrap provides, so I'll just adjust it by manually setting the width of each. Using col-auto as the class preserves the grid structure without forcing a specific width */}
           <button type="button" id="clear" class="col-auto border text-end" style={{ width: '80%' }} onClick={() => this.clearScreenBtn()}>AC</button>
@@ -158,24 +155,22 @@ class Calculator extends React.Component {
 }
 
 /* Time to setup reducers and store. I think I'll have four items on my state: the display value, input one, operator, and input two. Pressing "Clear" resets all to zero, but otherwise, once an input one and an operator have been added, then a second input, pressing any other operator will compute the first part of the calcs, pass the result to display and to input one, the second operator to operator, and will wait for data on input two, rinse and repeat
-
 I'm thinking of storing display, input one and input two as numbers, and then turn them into strings when it needs to be displayed. Might revisit this idea later 
-
 UPDATE 1 - Ok, I added a new variable called currentValue. I was initially thinking of working with it within the scope of the React component, but since I'm using Redux, might as well manage this here
-
-UPDATE 2 - I've added a Do Not Refresh tag, so when currentValue is emptied and its value is moved into inputOne or inputTwo, the screen keeps the old value until a new value is started */
+UPDATE 2 - I've added a Do Not Refresh tag, so when currentValue is emptied and its value is moved into inputOne or inputTwo, the screen keeps the old value until a new value is started 
+UPDATE FINAL - I have no idea how many variables I added and removed throughout the coding process, but I ended up with a single stored variable (valueOne) plus one live variable (currentValue) carrying the calculator's values. flagDNR and negFlag were helpful to manage edge cases. Everythign else was mostly like I originally envisioned. Turns out valueTwo was irrelevant since I was always moving calculation's results into memory (valueOne) and handling the current display with currentValue */
 
 const initialState = {
   display: 0,
-  inputOne: null,
   operator: "",
-  inputTwo: null,
   currentValue: [0],
   flagDNR: false,
   lastPress: null,
-  flagInvert: false,
+  valueOne: null,
+  negFlag: false,
 }
 
+// The reducer also evolved a lot. The same way I realized I needed new variables in the state, I had to incorporate the corresponding action types. Definitely not difficult, just requires some attention to manage properly. It was also good to unpack how I can flesh out the actions more here in the reducer vs. in the component methods themselves
 const calculatorReducer = (state = initialState, action) => {
   switch(action.type) {
     case "UPDATE_DISPLAY":
@@ -205,16 +200,6 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         operator: action.payload.operator,
       }
-    case "UPDATE_INPUT_ONE":
-      return {
-        ...state,
-        inputOne: action.payload.number,
-      }
-    case "UPDATE_INPUT_TWO":
-      return {
-        ...state,
-        inputTwo: action.payload.number,
-      }
     case "SET_DNR":
       return {
         ...state,
@@ -225,44 +210,51 @@ const calculatorReducer = (state = initialState, action) => {
         ...state,
         flagDNR: false,
       }
+    case "SET_NEG":
+      return {
+        ...state,
+        negFlag: true,
+      }
+    case "RESET_NEG":
+      return {
+        ...state,
+        negFlag: false,
+      }  
     case "LAST_PRESS":
       return {
         ...state,
         lastPress: action.payload.message,
       }
-    case "SET_INVERT":
+    case "UPDATE_V_ONE":
       return {
         ...state,
-        flagInvert: true,
+        valueOne: action.payload.input,
+        currentValue: [0],
       }
-    case "RESET_INVERT":
-      return {
-        ...state,
-        flagInvert: false,
-      }  
     case "COMPUTE":
       let result;
+      const current = parseFloat(state.currentValue.join(''));
       switch(state.operator) {
         case "ADD":
-          result = state.inputOne + state.inputTwo;
+          result = state.valueOne + current;
           break;
         case "SUBTRACT":
-          result = state.inputOne - state.inputTwo;
+          result = state.valueOne - current;
           break;
         case "MULTIPLY":
-          result = state.inputOne * state.inputTwo;
+          result = state.valueOne * current;
           break;
         case "DIVIDE":
-          result = state.inputOne / state.inputTwo;
+          result = state.valueOne / current;
           break;
         default:
           return state;
       }
       return {
         ...state,
-        currentValue: [result],
-        inputOne: result,
-        inputTwo: null,
+        currentValue: [0],
+        flagDNR: true,
+        valueOne: result,
         display: result,
       }
     default:
@@ -278,13 +270,12 @@ UPDATE 1 - Ok, now it's later. Mapping state to props is simple, but still think
 const mapStateToProps = (state) => {
   return {
     display: state.display,
-    inputOne: state.inputOne,
     operator: state.operator,
-    inputTwo: state.inputTwo,
     currentValue: state.currentValue,
     flagDNR: state.flagDNR,
     lastPress: state.lastPress,
-    flagInvert: state.flagInvert,
+    valueOne: state.valueOne,
+    negFlag: state.negFlag,
   }
 }
 
@@ -293,14 +284,13 @@ const dispatchStateToProps = (dispatch) => ({
   addDigit: (dgt) => dispatch({ type: "ADD_DIGIT", payload: {digit: dgt}}),
   clearMemory: () => dispatch({ type: "CLEAR_MEMORY" }),
   updateOperator: (opr) => dispatch({ type: "UPDATE_OPERATOR", payload: {operator: opr}}),
-  updateInputOne: (num) => dispatch({ type: "UPDATE_INPUT_ONE", payload: {number: num}}),
-  updateInputTwo: (num) => dispatch({ type: "UPDATE_INPUT_TWO", payload: {number: num}}),
   setDNR: () => dispatch({ type: "SET_DNR"}),
   resetDNR: () => dispatch({ type: "RESET_DNR"}),
+  setNegFlag: () => dispatch({ type: "SET_NEG" }),
+  resetNegFlag: () => dispatch({ type: "RESET_NEG" }),
   computeOperation: () => dispatch({ type: "COMPUTE" }),
   updateLastPress: (msg) => dispatch({ type: "LAST_PRESS", payload: {message: msg}}),
-  setInvert: () => dispatch({ type: "SET_INVERT" }),
-  resetInvert: () => dispatch({ type: "RESET_INVERT" }),
+  setValueOne: (value) => dispatch({ type: "UPDATE_V_ONE", payload: {input: value}}),
 });
 
 const ConnectedCalculator = connect(mapStateToProps, dispatchStateToProps)(Calculator);
