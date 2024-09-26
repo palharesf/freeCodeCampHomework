@@ -3,8 +3,6 @@
 
 // PLEASE NOTE: Adding global style rules using the * selector, or by adding rules to body {..} or html {..}, or to all elements within body or html, i.e. h1 {..}, has the potential to pollute the test suite's CSS. Try adding: * { color: red }, for a quick example!
 
-// TO-DO: implement the actual countdown every 1000 ms, implement the change from session to break countdown and the audio beep
-
 // Setting up external dependencies
 
 import React from "https://esm.sh/react";
@@ -27,44 +25,89 @@ class Timer extends React.Component {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
+  }
+  
+  playAudio = () => {
+    const audio = document.getElementById("beep");
+    audio.play();
+  }
+  
+  rewindAudio = () => {
+    const audio = document.getElementById("beep");
+    audio.pause();
+    audio.currentTime = 0;
+  }
 
   handleStartStop = () => {
     this.props.toggleIsRunning();
-  };
+  }
 
   handleReset = () => {
     this.props.resetTimer();
     this.props.stopTimer();
-  };
+    this.rewindAudio();
+  }
 
   handleSessionDecrement = () => {
     const { sessionLength, isRunning, sessionDec } = this.props;
-    if (sessionLength > 0 && !isRunning) {
+    if (sessionLength > 1 && !isRunning) {
       sessionDec();
     }
-  };
+  }
 
   handleSessionIncrement = () => {
     const { sessionLength, isRunning, sessionInc } = this.props;
     if (sessionLength < 60 && !isRunning) {
       sessionInc();
     }
-  };
+  }
 
   handleBreakDecrement = () => {
     const { breakLength, isRunning, breakDec } = this.props;
-    if (breakLength > 0 && !isRunning) {
+    if (breakLength > 1 && !isRunning) {
       breakDec();
     }
-  };
+  }
 
   handleBreakIncrement = () => {
     const { breakLength, isRunning, breakInc } = this.props;
     if (breakLength < 60 && !isRunning) {
       breakInc();
     }
-  };
+  }
+  
+  startTimer = () => {
+    this.timerInterval = setInterval(() => {
+      this.props.decrementTime();
+    }, 1000);
+  }
+
+  stopTimer = () => {
+    clearInterval(this.timerInterval);
+  }
+  
+  componentDidUpdate(prevProps) {
+    const { isRunning, timeLeft, sessionLabel, setSessionLabel, setBreakLabel, setTimer, breakLength, sessionLength } = this.props;
+    if (isRunning !== prevProps.isRunning) {
+      if (isRunning) {
+        this.startTimer();
+      } else {
+        this.stopTimer();
+      }
+    }
+    // Manage what happens when timer hits zero
+    if (timeLeft < 0) {
+      if (sessionLabel === "Session") {
+        setBreakLabel();
+        setTimer(breakLength);
+        this.playAudio();
+      } else if (sessionLabel === "Break") {
+        setSessionLabel();
+        setTimer(sessionLength);
+        this.playAudio();
+      }
+    }
+  }
 
   render() {
     const { sessionLength, breakLength, sessionLabel, timeLeft } = this.props;
@@ -85,7 +128,7 @@ class Timer extends React.Component {
           </div>
           <div className="col-4">
             <div className="row">
-              <button id="start-stop" className="col-6" onClick={this.handleStartStop}>⏯️</button>
+              <button id="start_stop" className="col-6" onClick={this.handleStartStop}>⏯️</button>
               <button id="reset" className="col-6" onClick={this.handleReset}>🔄</button>
             </div>
           </div>
@@ -102,6 +145,7 @@ class Timer extends React.Component {
           <div id="break-length" className="col-2">{breakLength}</div>
           <button id="break-increment" className="col-2" onClick={this.handleBreakIncrement}>↗️</button>
         </div>
+        <audio id="beep" className="clip" src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav" />
       </div>
     );
   }
@@ -157,6 +201,26 @@ const timerReducer = (state = initialState, action) => {
         ...state,
         isRunning: false,
       }
+    case "DEC_TIMER":
+      return {
+        ...state,
+        timeLeft: state.timeLeft >= 0 ? state.timeLeft - 1 : 0,
+      }
+    case "SESSION_LABEL":
+      return {
+        ...state,
+        sessionLabel: "Session",
+      }
+    case "BREAK_LABEL":
+      return {
+        ...state,
+        sessionLabel: "Break",
+      }
+    case "SET":
+      return {
+        ...state,
+        timeLeft: action.payload.number * 60,
+      }
     default:
       return state;
   }
@@ -182,6 +246,10 @@ const dispatchStateToProps = (dispatch) => ({
   breakInc: () => dispatch({ type: "BREAKINC" }),
   toggleIsRunning: () => dispatch({ type: "TOGGLE" }),
   stopTimer: () => dispatch({ type: "STOP" }),
+  decrementTime: () => dispatch({ type: "DEC_TIMER" }),
+  setSessionLabel: () => dispatch({ type: "SESSION_LABEL" }),
+  setBreakLabel: () => dispatch({ type: "BREAK_LABEL" }),
+  setTimer: (num) => dispatch({ type: "SET", payload: {number: num} }),
 });
 
 const ConnectedTimer = connect(mapStateToProps, dispatchStateToProps)(Timer);
@@ -200,4 +268,21 @@ class AppWrapper extends React.Component {
 };
 
 ReactDOM.render(<AppWrapper />,document.getElementById("root"));
+
+
+
+
+
+
+
+
+
+
+HTML
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<div id="root" class="vh-100 d-flex align-items-center justify-content-center border border-primary"></div>
+
 
