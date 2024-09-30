@@ -570,3 +570,401 @@ Then the :hover pseudo-class for your new class holds the style rules for any ho
     </script>
 </body>
 
+<!-- A tooltip shows more information about an item on a page when the user hovers over that item. There are several ways to add a tooltip to a visualization.
+This challenge uses the SVG title element. title pairs with the text() method to dynamically add data to the bars. -->
+
+<style>
+    .bar:hover {
+      fill: brown;
+    }
+  </style>
+  <body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      const w = 500;
+      const h = 100;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("rect")
+         .data(dataset)
+         .enter()
+         .append("rect")
+         .attr("x", (d, i) => i * 30)
+         .attr("y", (d, i) => h - 3 * d)
+         .attr("width", 25)
+         .attr("height", (d, i) => d * 3)
+         .attr("fill", "navy")
+         .attr("class", "bar")
+         .append("title")
+         .text((d) => d)
+      svg.selectAll("text")
+         .data(dataset)
+         .enter()
+         .append("text")
+         .text((d) => d)
+         .attr("x", (d, i) => i * 30)
+         .attr("y", (d, i) => h - (d * 3 + 3))
+  
+    </script>
+</body>
+
+<!-- A scatter plot is another type of visualization. It usually uses circles to map data points, which have two values each.
+ These values tie to the x and y axes, and are used to position the circle in the visualization.
+SVG has a circle tag to create the circle shape. It works a lot like the rect elements you used for the bar chart.
+A circle in SVG has three main attributes. The cx and cy attributes are the coordinates. They tell D3 where to position the center of the shape on the SVG. The radius (r attribute) gives the size of the circle.
+Just like the rect y coordinate, the cy attribute for a circle is measured from the top of the SVG, not from the bottom.
+All three attributes can use a callback function to set their values dynamically. Remember that all methods chained after data(dataset) run once per item in dataset. The d parameter in the callback function refers to the current item in dataset, which is an array for each point. You use bracket notation, like d[0], to access the values in that array.-->
+
+<body>
+    <script>
+      const dataset = [
+                    [ 34,    78 ],
+                    [ 109,   280 ],
+                    [ 310,   120 ],
+                    [ 79,    411 ],
+                    [ 420,   220 ],
+                    [ 233,   145 ],
+                    [ 333,   96 ],
+                    [ 222,   333 ],
+                    [ 78,    320 ],
+                    [ 21,    123 ]
+                  ];
+  
+  
+      const w = 500;
+      const h = 500;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("circle")
+         .data(dataset)
+         .enter()
+         .append("circle")
+         .attr("cx",(d) => d[0])
+         .attr("cy",(d) => h - d[1])
+         .attr("r","5")
+    </script>
+</body>
+
+<!-- You can add text to create labels for the points in a scatter plot. The goal is to display the comma-separated values for the first (x) and second (y) fields of each item in dataset.
+The text nodes need x and y attributes to position it on the SVG. In this challenge, the y value (which determines height) can use the same value that the circle uses for its cy attribute. The x value can be slightly larger than the cx value of the circle, so the label is visible. This will push the label to the right of the plotted point. -->
+
+<body>
+    <script>
+      const dataset = [
+                    [ 34,    78 ],
+                    [ 109,   280 ],
+                    [ 310,   120 ],
+                    [ 79,    411 ],
+                    [ 420,   220 ],
+                    [ 233,   145 ],
+                    [ 333,   96 ],
+                    [ 222,   333 ],
+                    [ 78,    320 ],
+                    [ 21,    123 ]
+                  ];
+  
+  
+      const w = 500;
+      const h = 500;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("circle")
+         .data(dataset)
+         .enter()
+         .append("circle")
+         .attr("cx", (d, i) => d[0])
+         .attr("cy", (d, i) => h - d[1])
+         .attr("r", 5);
+  
+      svg.selectAll("text")
+         .data(dataset)
+         .enter()
+         .append("text")
+         .text((d) => d[0] + ", " + d[1])
+         .attr("x",(d, i) => d[0] + 5)
+         .attr("y",(d, i) => h - d[1])
+    </script>
+</body>
+
+<!-- The bar and scatter plot charts both plotted data directly onto the SVG. However, if the height of a bar or one of the data points were larger than the SVG height or width values, it would go outside the SVG area.
+In D3, there are scales to help plot data. scales are functions that tell the program how to map a set of raw data points onto the pixels of the SVG.
+For example, say you have a 100x500-sized SVG and you want to plot Gross Domestic Product (GDP) for a number of countries. The set of numbers would be in the billion or trillion-dollar range. You provide D3 a type of scale to tell it how to place the large GDP values into that 100x500-sized area.
+It's unlikely you would plot raw data as-is. Before plotting it, you set the scale for your entire data set, so that the x and y values fit your SVG width and height.
+D3 has several scale types. For a linear scale (usually used with quantitative data), there is the D3 method scaleLinear():
+
+const scale = d3.scaleLinear()
+
+By default, a scale uses the identity relationship. The value of the input is the same as the value of the output. A separate challenge covers how to change this. -->
+
+<body>
+    <script>
+      const scale = d3.scaleLinear(); // Create the scale here
+      const output = scale(50); // Call scale with an argument here
+      d3.select("body")
+        .append("h2")
+        .text(output);
+  
+    </script>
+</body>
+
+<!-- By default, scales use the identity relationship. This means the input value maps to the output value. However, scales can be much more flexible and interesting.
+Say a dataset has values ranging from 50 to 480. This is the input information for a scale, also known as the domain.
+You want to map those points along the x axis on the SVG, between 10 units and 500 units. This is the output information, also known as the range.
+The domain() and range() methods set these values for the scale. Both methods take an array of at least two elements as an argument. Here's an example:
+
+scale.domain([50, 480]);
+scale.range([10, 500]);
+scale(50)
+scale(480)
+scale(325)
+scale(750)
+d3.scaleLinear()
+
+In order, the following values would be displayed in the console: 10, 500, 323.37, and 807.67.
+Notice that the scale uses the linear relationship between the domain and range values to figure out what the output should be for a given number. The minimum value in the domain (50) maps to the minimum value (10) in the range. -->
+
+<body>
+    <script>
+      const scale = d3.scaleLinear().domain([250,500]).range([10,150]);
+      const output = scale(50);
+      d3.select("body")
+        .append("h2")
+        .text(output);
+    </script>
+</body>
+
+<!-- Often when you set the domain, you'll want to use the minimum and maximum values within the data set. Trying to find these values manually, especially in a large data set, may cause errors.
+D3 has two methods - min() and max() to return this information. Here's an example:
+
+const exampleData = [34, 234, 73, 90, 6, 52];
+d3.min(exampleData)
+d3.max(exampleData)
+
+A dataset may have nested arrays, like the [x, y] coordinate pairs that were in the scatter plot example. In that case, you need to tell D3 how to calculate the maximum and minimum. Fortunately, both the min() and max() methods take a callback function. In this example, the callback function's argument d is for the current inner array. The callback needs to return the element from the inner array (the x or y value) over which you want to compute the maximum or minimum. Here's an example for how to find the min and max values with an array of arrays:
+
+const locationData = [[1, 7],[6, 3],[8, 3]];
+const minX = d3.min(locationData, (d) => d[0]);
+
+minX would have the value 1. -->
+
+<body>
+    <script>
+      const positionData = [[1, 7, -4],[6, 3, 8],[2, 9, 3]]  
+      const output = d3.max(positionData,(d) => d[2]); // Change this line
+      d3.select("body")
+        .append("h2")
+        .text(output)
+    </script>
+</body>
+
+<!-- The D3 min() and max() methods are useful to help set the scale.
+Given a complex data set, one priority is to set the scale so the visualization fits the SVG container's width and height. You want all the data plotted inside the SVG so it's visible on the web page.
+The example below sets the x-axis scale for scatter plot data. The domain() method passes information to the scale about the raw data values for the plot. The range() method gives it information about the actual space on the web page for the visualization.
+In the example, the domain goes from 0 to the maximum in the set. It uses the max() method with a callback function based on the x values in the arrays. The range uses the SVG's width (w), but it includes some padding, too. This puts space between the scatter plot dots and the edge of the SVG.
+
+const dataset = [
+  [ 34,    78 ],
+  [ 109,   280 ],
+  [ 310,   120 ],
+  [ 79,    411 ],
+  [ 420,   220 ],
+  [ 233,   145 ],
+  [ 333,   96 ],
+  [ 222,   333 ],
+  [ 78,    320 ],
+  [ 21,    123 ]
+];
+const w = 500;
+const h = 500;
+
+const padding = 30;
+const xScale = d3.scaleLinear()
+  .domain([0, d3.max(dataset, (d) => d[0])])
+  .range([padding, w - padding]); 
+
+Note: Remember to keep the plot right-side-up. When you set the range for the y coordinates, the higher value (height minus padding) is the first argument, and the lower value is the second argument. -->
+
+<body>
+    <script>
+      const dataset = [
+                    [ 34,    78 ],
+                    [ 109,   280 ],
+                    [ 310,   120 ],
+                    [ 79,    411 ],
+                    [ 420,   220 ],
+                    [ 233,   145 ],
+                    [ 333,   96 ],
+                    [ 222,   333 ],
+                    [ 78,    320 ],
+                    [ 21,    123 ]
+                  ];
+  
+      const w = 500;
+      const h = 500;
+  
+      // Padding between the SVG boundary and the plot
+      const padding = 30;
+  
+      // Create an x and y scale
+  
+      const xScale = d3.scaleLinear()
+                      .domain([0, d3.max(dataset, (d) => d[0])])
+                      .range([padding, w - padding]);
+  
+      const yScale = d3.scaleLinear()
+                       .domain([0,d3.max(dataset, (d) => d[1])])
+                       .range([h-padding, padding])
+  
+      const output = yScale(411); // Returns 30
+      d3.select("body")
+        .append("h2")
+        .text(output)
+    </script>
+</body>
+
+<!-- You set the coordinate attribute values for an SVG shape with the scaling function. This includes x and y attributes for rect or text elements, or cx and cy for circles. Here's an example:
+
+shape
+  .attr("x", (d) => xScale(d[0]))
+
+Scales set shape coordinate attributes to place the data points onto the SVG. You don't need to apply scales when you display the actual data value, for example, in the text() method for a tooltip or label. -->
+
+<body>
+    <script>
+      const dataset = [
+                    [ 34,     78 ],
+                    [ 109,   280 ],
+                    [ 310,   120 ],
+                    [ 79,   411 ],
+                    [ 420,   220 ],
+                    [ 233,   145 ],
+                    [ 333,   96 ],
+                    [ 222,    333 ],
+                    [ 78,    320 ],
+                    [ 21,   123 ]
+                  ];
+  
+      const w = 500;
+      const h = 500;
+      const padding = 60;
+  
+      const xScale = d3.scaleLinear()
+                       .domain([0, d3.max(dataset, (d) => d[0])])
+                       .range([padding, w - padding]);
+  
+      const yScale = d3.scaleLinear()
+                       .domain([0, d3.max(dataset, (d) => d[1])])
+                       .range([h - padding, padding]);
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("circle")
+         .data(dataset)
+         .enter()
+         .append("circle")
+         .attr("cx", (d) => xScale(d[0]))
+         .attr("cy", (d) => yScale(d[1]))
+         .attr("r", 5);
+
+      svg.selectAll("text")
+         .data(dataset)
+         .enter()
+         .append("text")
+         .text((d) =>  (d[0] + ", " + d[1]))
+         .attr("x",(d) => xScale(d[0] + 10))
+         .attr("y",(d) => yScale(d[1]));
+    </script>
+</body>
+
+<!-- Another way to improve the scatter plot is to add an x-axis and a y-axis.
+D3 has two methods, axisLeft() and axisBottom(), to render the y-axis and x-axis, respectively. Here's an example to create the x-axis based on the xScale in the previous challenges:
+
+const xAxis = d3.axisBottom(xScale);
+
+The next step is to render the axis on the SVG. To do so, you can use a general SVG component, the g element. The g stands for group. Unlike rect, circle, and text, an axis is just a straight line when it's rendered. Because it is a simple shape, using g works. The last step is to apply a transform attribute to position the axis on the SVG in the right place. Otherwise, the line would render along the border of the SVG and wouldn't be visible. SVG supports different types of transforms, but positioning an axis needs translate. When it's applied to the g element, it moves the whole group over and down by the given amounts. Here's an example:
+
+const xAxis = d3.axisBottom(xScale);
+
+svg.append("g")
+   .attr("transform", "translate(0, " + (h - padding) + ")")
+   .call(xAxis);
+
+The above code places the x-axis at the bottom of the SVG. Then it's passed as an argument to the call() method. The y-axis works in the same way, except the translate argument is in the form (x, 0). Because translate is a string in the attr() method above, you can use concatenation to include variable values for its arguments. -->
+
+<body>
+    <script>
+      const dataset = [
+                    [ 34,     78 ],
+                    [ 109,   280 ],
+                    [ 310,   120 ],
+                    [ 79,   411 ],
+                    [ 420,   220 ],
+                    [ 233,   145 ],
+                    [ 333,   96 ],
+                    [ 222,    333 ],
+                    [ 78,    320 ],
+                    [ 21,   123 ]
+                  ];
+  
+      const w = 500;
+      const h = 500;
+      const padding = 60;
+  
+      const xScale = d3.scaleLinear()
+                       .domain([0, d3.max(dataset, (d) => d[0])])
+                       .range([padding, w - padding]);
+  
+      const yScale = d3.scaleLinear()
+                       .domain([0, d3.max(dataset, (d) => d[1])])
+                       .range([h - padding, padding]);
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("circle")
+         .data(dataset)
+         .enter()
+         .append("circle")
+         .attr("cx", (d) => xScale(d[0]))
+         .attr("cy",(d) => yScale(d[1]))
+         .attr("r", (d) => 5);
+  
+      svg.selectAll("text")
+         .data(dataset)
+         .enter()
+         .append("text")
+         .text((d) =>  (d[0] + "," + d[1]))
+         .attr("x", (d) => xScale(d[0] + 10))
+         .attr("y", (d) => yScale(d[1]))
+  
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale);
+  
+      svg.append("g")
+         .attr("transform", "translate(0," + (h - padding) + ")")
+         .call(xAxis);
+
+     svg.append("g")
+        .attr("transform", "translate(" + (padding) + ",0)")
+        .call(yAxis);
+
+    </script>
+</body>
