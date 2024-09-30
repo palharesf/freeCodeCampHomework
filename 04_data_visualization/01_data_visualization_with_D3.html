@@ -98,8 +98,7 @@ Using the current example as context, the first h2 element is bound to 12, the s
       d3.select("body").selectAll("h2")
         .data(dataset)
         .enter()
-        .append("h2")
-  
+        .append("h2")  
         .text((d) => d + " USD");
   
     </script>
@@ -117,12 +116,9 @@ selection.style("color","blue"); -->
         .data(dataset)
         .enter()
         .append("h2")
-        .text((d) => (d + " USD"))
-        // Add your code below this line
-  
+        .text((d) => (d + " USD"))  
         .style("font-family","verdana")
-  
-        // Add your code above this line
+
     </script>
 </body>
 
@@ -143,14 +139,256 @@ The style() method is not limited to setting the color - it can be used with oth
         .data(dataset)
         .enter()
         .append("h2")
-        .text((d) => (d + " USD"))
-        // Add your code below this line
-  
+        .text((d) => (d + " USD"))  
         .style("color", (d) => {
           return d < 20 ? "red" : "green"
         })
   
-        // Add your code above this line
+    </script>
+</body>
+
+<!-- The attr() method works the same way that style() does. It takes comma-separated values, and can use a callback function.
+Here's an example to add a class of container to a selection:
+
+selection.attr("class", "container");
+
+Note that the class parameter will remain the same whenever you need to add a class and only the container parameter will change. -->
+
+<style>
+    .bar {
+      width: 25px;
+      height: 100px;
+      display: inline-block;
+      background-color: blue;
+    }
+</style>
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      d3.select("body").selectAll("div")
+        .data(dataset)
+        .enter()
+        .append("div")  
+        .attr("class","bar")
+
+    </script>
+</body>
+
+<!-- The previous challenges covered how to display data from an array and how to add CSS classes.
+You can combine these lessons to create a simple bar chart. There are two steps to this:
+    Create a div for each data point in the array
+    Give each div a dynamic height, using a callback function in the style() method that sets height equal to the data value -->
+
+<style>
+    .bar {
+        width: 25px;
+        height: 100px;
+        display: inline-block;
+        background-color: blue;
+    }
+</style>
+<body>
+    <script>
+        const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+    
+        d3.select("body").selectAll("div")
+        .data(dataset)
+        .enter()
+        .append("div")
+        .attr("class", "bar")    
+        .style("height",(d) => {
+            return d + "px";
+        })
+
+    </script>
+</body>
+
+<!-- The last challenge created a bar chart, but there are a couple of formatting changes that could improve it:
+    - Add space between each bar to visually separate them, which is done by adding a margin to the CSS for the bar class
+    - Increase the height of the bars to better show the difference in values, which is done by multiplying the value by a number to scale the height -->
+
+<style>
+    .bar {
+        width: 25px;
+        height: 100px;    
+        margin: 2px;        
+        display: inline-block;
+        background-color: blue;
+    }
+</style>
+<body>
+    <script>
+        const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+    
+        d3.select("body").selectAll("div")
+        .data(dataset)
+        .enter()
+        .append("div")
+        .attr("class", "bar")
+        .style("height", (d) => (10*d + "px"))
+
+    </script>
+</body>
+
+<!-- SVG is used to make common geometric shapes.
+Since D3 maps data into a visual representation, it uses SVG to create the shapes for the visualization.
+SVG shapes for a web page must go within an HTML svg tag.
+CSS can be scalable when styles use relative units (such as vh, vw, or percentages), but using SVG is more flexible to build data visualizations. -->
+
+<style>
+  svg {
+    background-color: pink;
+  }
+</style>
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3.select("body")
+                  .append("svg")
+                  .style("width",w,)
+                  .style("height",h)
+  </script>
+</body>
+
+<!-- There are a number of supported shapes in SVG, such as rectangles and circles. They are used to display data.
+For example, a rectangle (<rect>) SVG shape could create a bar in a bar chart.
+When you place a shape into the svg area, you can specify where it goes with x and y coordinates. The origin point of (0, 0) is in the upper-left corner.
+Positive values for x push the shape to the right, and positive values for y push the shape down from the origin point.  
+An SVG rect has four attributes. There are the x and y coordinates for where it is placed in the svg area. It also has a height and width to specify the size. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      const w = 500;
+      const h = 100;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h)
+  
+                    .append("rect")
+                    .attr("width", 25)
+                    .attr("height", 100)
+                    .attr("x", 0)
+                    .attr("y", 0)
+  
+    </script>
+</body>
+
+<!-- A previous challenge showed the format for how to create and append a div for each item in dataset:
+
+d3.select("body").selectAll("div")
+  .data(dataset)
+  .enter()
+  .append("div")
+
+There are a few differences working with rect elements instead of div elements.
+The rect elements must be appended to an svg element, not directly to the body.
+Also, you need to tell D3 where to place each rect within the svg area. The bar placement will be covered in the next challenge. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      const w = 500;
+      const h = 100;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("rect")
+         .data(dataset)
+         .enter()
+         .append("rect")
+         .attr("x", 0)
+         .attr("y", 0)
+         .attr("width", 25)
+         .attr("height", 100);
+
+    </script>
+</body>
+
+<!-- The last challenge created and appended a rectangle to the svg element for each point in dataset to represent a bar.
+Unfortunately, they were all stacked on top of each other. The placement of a rectangle is handled by the x and y attributes.
+They tell D3 where to start drawing the shape in the svg area.
+The last challenge set them each to 0, so every bar was placed in the upper-left corner.
+For a bar chart, all of the bars should sit on the same vertical level, which means the y value stays the same (at 0) for all bars.
+The x value, however, needs to change as you add new bars. Remember that larger x values push items farther to the right.
+As you go through the array elements in dataset, the x value should increase.The attr() method in D3 accepts a callback function to dynamically set that attribute.
+The callback function takes two arguments, one for the data point itself (usually d) and one for the index of the data point in the array.
+The second argument for the index is optional. Here's the format:
+
+selection.attr("property", (d, i) => {
+
+})
+
+It's important to note that you do NOT need to write a for loop or use forEach() to iterate over the items in the data set.
+Recall that the data() method parses the data set, and any method that's chained after data() is run once for each item in the data set. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      const w = 500;
+      const h = 100;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("rect")
+         .data(dataset)
+         .enter()
+         .append("rect")
+         .attr("x", (d, i) => {  
+          return i*30;
+         })
+         .attr("y", 0)
+         .attr("width", 25)
+         .attr("height", 100);
+    </script>
+</body>
+
+<!-- The height of each bar can be set to the value of the data point in the array, similar to how the x value was set dynamically.
+
+selection.attr("property", (d, i) => {
+
+})
+
+Here d would be the data point value, and i would be the index of the data point in the array. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      const w = 500;
+      const h = 100;
+  
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+  
+      svg.selectAll("rect")
+         .data(dataset)
+         .enter()
+         .append("rect")
+         .attr("x", (d, i) => i * 30)
+         .attr("y", 0)
+         .attr("width", 25)
+         .attr("height", (d, i) => {
+            return d*3;
+         });
     </script>
 </body>
 
