@@ -1,2 +1,156 @@
 <!-- Exercise permalink: https://www.freecodecamp.org/learn/data-visualization/data-visualization-with-d3/add-document-elements-with-d3 -->
 
+<!-- The select() method selects one element from the document. It takes an argument for the name of the element you want and returns an HTML node for the first element in the document that matches the name. Here's an example:
+
+const anchor = d3.select("a");
+
+The above example finds the first anchor tag on the page and saves an HTML node for it in the variable anchor. You can use the selection with other methods. The d3 part of the example is a reference to the D3 object, which is how you access D3 methods.
+Two other useful methods are append() and text().
+The append() method takes an argument for the element you want to add to the document. It appends an HTML node to a selected item, and returns a handle to that node.
+The text() method either sets the text of the selected node, or gets the current text. To set the value, you pass a string as an argument inside the parentheses of the method.
+Here's an example that selects an unordered list, appends a list item, and adds text:
+
+d3.select("ul")
+.append("li")
+.text("Very important item")
+
+D3 allows you to chain several methods together with periods to perform a number of actions in a row. -->
+
+<body>
+    <script>      
+      d3.select("body")
+        .append("h1")
+        .text("Learning D3")
+    </script>
+</body>
+
+<!-- D3 also has the selectAll() method to select a group of elements. It returns an array of HTML nodes for all the items in the document that match the input string. Here's an example to select all the anchor tags in a document:
+
+const anchors = d3.selectAll("a");
+
+Like the select() method, selectAll() supports method chaining, and you can use it with other methods. -->
+
+<body>
+    <ul>
+      <li>Example</li>
+      <li>Example</li>
+      <li>Example</li>
+    </ul>
+    <script>
+  
+  d3.selectAll("li")
+    .text("list item")
+  
+    </script>
+</body>
+
+<!-- The D3 library focuses on a data-driven approach. When you have a set of data, you can apply D3 methods to display it on the page.
+Data comes in many formats, but this challenge uses a simple array of numbers. The first step is to make D3 aware of the data.
+The data() method is used on a selection of DOM elements to attach the data to those elements. The data set is passed as an argument to the method.
+A common workflow pattern is to create a new element in the document for each piece of data in the set. D3 has the enter() method for this purpose.
+When enter() is combined with the data() method, it looks at the selected elements from the page and compares them to the number of data items in the set.
+If there are fewer elements than data items, it creates the missing elements. Here is an example that selects a ul element and creates a new list item based on the number of entries in the array:
+
+<body>
+  <ul></ul>
+  <script>
+    const dataset = ["a", "b", "c"];
+    d3.select("ul").selectAll("li")
+      .data(dataset)
+      .enter()
+      .append("li")
+      .text("New item");
+  </script>
+</body>
+
+It may seem confusing to select elements that don't exist yet.
+This code is telling D3 to first select the ul on the page. Next, select all list items, which returns an empty selection.
+Then the data() method reviews the dataset and runs the following code three times, once for each item in the array.
+The enter() method sees there are no li elements on the page, but it needs 3 (one for each piece of data in dataset).
+New li elements are appended to the ul and have the text New item. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      d3.select("body")
+        .selectAll("h2")
+        .data(dataset)
+        .enter()
+        .append("h2")
+        .text("New Title")
+  
+    </script>
+</body>
+
+<!-- In the previous challenge, you created a new h2 element for each item in the dataset array, but they all contained the same text, New Title.
+This is because you have not made use of the data that is bound to each of the h2 elements. The D3 text() method can take a string or a callback function as an argument:
+
+selection.text((d) => d)
+
+In the example above, the parameter d refers to a single entry in the dataset that a selection is bound to.
+Using the current example as context, the first h2 element is bound to 12, the second h2 element is bound to 31, the third h2 element is bound to 22, and so on. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      d3.select("body").selectAll("h2")
+        .data(dataset)
+        .enter()
+        .append("h2")
+  
+        .text((d) => d + " USD");
+  
+    </script>
+</body>
+
+<!-- D3 lets you add inline CSS styles on dynamic elements with the style() method, which takes a comma-separated key-value pair as an argument. Example:
+
+selection.style("color","blue"); -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      d3.select("body").selectAll("h2")
+        .data(dataset)
+        .enter()
+        .append("h2")
+        .text((d) => (d + " USD"))
+        // Add your code below this line
+  
+        .style("font-family","verdana")
+  
+        // Add your code above this line
+    </script>
+</body>
+
+<!-- You may want to color a data point blue if it has a value less than 20, and red otherwise.
+The style() method accepts a callback function for conditional logic. It uses the d parameter to represent the data point:
+
+selection.style("color", (d) => {
+
+});
+
+The style() method is not limited to setting the color - it can be used with other CSS properties as well. -->
+
+<body>
+    <script>
+      const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+  
+      d3.select("body").selectAll("h2")
+        .data(dataset)
+        .enter()
+        .append("h2")
+        .text((d) => (d + " USD"))
+        // Add your code below this line
+  
+        .style("color", (d) => {
+          return d < 20 ? "red" : "green"
+        })
+  
+        // Add your code above this line
+    </script>
+</body>
+
