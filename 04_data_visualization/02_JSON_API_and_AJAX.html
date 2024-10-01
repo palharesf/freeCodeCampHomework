@@ -1,1 +1,488 @@
 <!-- Exercise permalink: https://www.freecodecamp.org/learn/data-visualization/json-apis-and-ajax/handle-click-events-with-javascript-using-the-onclick-property -->
+
+<!-- You want your code to execute only once your page has finished loading. For that purpose, you can attach a JavaScript event to the document called DOMContentLoaded. Here's the code that does this:
+
+document.addEventListener('DOMContentLoaded', function() {
+});
+
+You can implement event handlers that go inside of the DOMContentLoaded function. You can implement an onclick event handler which triggers when the user clicks on the #getMessage element, by adding the following code:
+
+document.getElementById('getMessage').onclick = function(){}; -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.getElementById("getMessage").onclick = function(){};
+    });
+</script>
+  
+<style>
+    body {
+      text-align: center;
+      font-family: "Helvetica", sans-serif;
+    }
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .box {
+      border-radius: 5px;
+      background-color: #eee;
+      padding: 20px 5px;
+    }
+    button {
+      color: white;
+      background-color: #4791d0;
+      border-radius: 5px;
+      border: 1px solid #4791d0;
+      padding: 5px 10px 8px 10px;
+    }
+    button:hover {
+      background-color: #0F5897;
+      border: 1px solid #0F5897;
+    }
+</style>
+<h1>Cat Photo Finder</h1>
+<p class="message box">
+    The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+<!-- When the click event happens, you can use JavaScript to update an HTML element.
+For example, when a user clicks the Get Message button, it changes the text of the element with the class message to say Here is the message.
+This works by adding the following code within the click event:
+
+document.getElementsByClassName('message')[0].textContent="Here is the message"; -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('getMessage').onclick = function(){
+        document.getElementsByClassName("message")[0].textContent = "Here is the message";
+      }
+    });
+</script>
+  
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">
+The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+<!-- You can also request data from an external source. This is where APIs come into play.
+Most web APIs transfer data in a format called JSON. JSON stands for JavaScript Object Notation.
+JSON syntax looks very similar to JavaScript object literal notation. JSON has object properties and their current values, sandwiched between a { and a }.
+These properties and their values are often referred to as "key-value pairs".
+However, JSON transmitted by APIs are sent as bytes, and your application receives it as a string. These can be converted into JavaScript objects, but they are not JavaScript objects by default. The JSON.parse method parses the string and constructs the JavaScript object described by it.
+You can request the JSON from freeCodeCamp's Cat Photo API. Here's the code you can put in your click event to do this:
+
+const req = new XMLHttpRequest();
+req.open("GET",'/json/cats.json',true);
+req.send();
+req.onload = function(){
+  const json = JSON.parse(req.responseText);
+  document.getElementsByClassName('message')[0].innerHTML = JSON.stringify(json);
+}; 
+
+Here's a review of what each piece is doing. The JavaScript XMLHttpRequest object has a number of properties and methods that are used to transfer data.
+First, an instance of the XMLHttpRequest object is created and saved in the req variable.
+Next, the open method initializes a request - this example is requesting data from an API, therefore is a GET request.
+The second argument for open is the URL of the API you are requesting data from.
+The third argument is a Boolean value where true makes it an asynchronous request.
+The send method sends the request.
+Finally, the onload event handler parses the returned data and applies the JSON.stringify method to convert the JavaScript object into a string. This string is then inserted as the message text -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('getMessage').onclick = function(){
+        const req = new XMLHttpRequest();
+        req.open("GET",'/json/cats.json',true);
+        req.send();
+        req.onload = function(){
+            const json = JSON.parse(req.responseText);
+            document.getElementsByClassName('message')[0].innerHTML = JSON.stringify(json);
+        };
+      };
+    });
+</script>
+
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">
+The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+
+<!-- Another way to request external data is to use the JavaScript fetch() method. It is equivalent to XMLHttpRequest, but the syntax is considered easier to understand.
+Here is the code for making a GET request to /json/cats.json
+
+fetch('/json/cats.json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('message').innerHTML = JSON.stringify(data);
+})
+
+The first line is the one that makes the request. So, fetch(URL) makes a GET request to the URL specified. The method returns a Promise.
+After a Promise is returned, if the request was successful, the then method is executed, which takes the response and converts it to JSON format.
+The then method also returns a Promise, which is handled by the next then method. The argument in the second then is the JSON object you are looking for!
+Now, it selects the element that will receive the data by using document.getElementById(). Then it modifies the HTML code of the element by inserting a string created from the JSON object returned from the request. -->
+
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+      document.getElementById('getMessage').onclick= () => {
+        fetch('/json/cats.json')
+        .then(response => response.json())
+        .then(data => {
+        document.getElementById('message').innerHTML = JSON.stringify(data);
+        })
+      };
+    });
+</script>
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+<h1>Cat Photo Finder</h1>
+<p id="message" class="box">
+The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+
+<!-- Now that you're getting data from a JSON API, you can display it in the HTML.
+You can use a forEach method to loop through the data since the cat photo objects are held in an array. As you get to each item, you can modify the HTML elements.
+First, declare an html variable with let html = "";.
+Then, loop through the JSON, adding HTML to the variable that wraps the key names in strong tags, followed by the value. When the loop is finished, you render it.
+
+let html = "";
+json.forEach(function(val) {
+  const keys = Object.keys(val);
+  html += "<div class = 'cat'>";
+  keys.forEach(function(key) {
+    html += "<strong>" + key + "</strong>: " + val[key] + "<br>";
+  });
+  html += "</div><br>";
+});
+
+Note: For this challenge, you need to add new HTML elements to the page, so you cannot rely on textContent. Instead, you need to use innerHTML, which can make a site vulnerable to cross-site scripting attacks.
+The last few challenges showed that each object in the JSON array contains an imageLink key with a value that is the URL of a cat's image.
+When you're looping through these objects, you can use this imageLink property to display this image in an img element.
+
+html += "<img src = '" + val.imageLink + "' " + "alt='" + val.altText + "'>"; -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('getMessage').onclick = function(){
+        const req=new XMLHttpRequest();
+        req.open("GET",'/json/cats.json',true);
+        req.send();
+        req.onload = function(){
+          const json = JSON.parse(req.responseText);
+          let html = "";
+          json.forEach(function(val) {
+            html += "<div class = 'cat'>";
+            html += "<img src = '" + val.imageLink + "' " + "alt='" + val.altText + "'>";
+            html += "</div><br>";
+          });
+          document.getElementsByClassName('message')[0].innerHTML=html;
+        };
+       };
+    });
+</script>
+
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+<h1>Cat Photo Finder</h1>
+<p class="message box">
+The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+<!-- You can pre-filter the JSON before looping through it.
+Given that the JSON data is stored in an array, you can use the filter method to filter out the cat whose id key has a value of 1.
+
+json = json.filter(function(val) {
+  return (val.id !== 1);
+}); -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('getMessage').onclick = function(){
+        const req = new XMLHttpRequest();
+        req.open("GET",'/json/cats.json', true);
+        req.send();
+        req.onload=function(){
+            let json = JSON.parse(req.responseText);
+            let html = "";
+            json = json.filter(function(val) {
+            return (val.id !== 1);
+        });
+            json.forEach(function(val) {
+                html += "<div class = 'cat'>"
+                html += "<img src = '" + val.imageLink + "' " + "alt='" + val.altText + "'>"
+                html += "</div>"
+            });
+            document.getElementsByClassName('message')[0].innerHTML = html;
+         };
+       };
+    });
+</script>
+
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+
+<h1>Cat Photo Finder</h1>
+<p class="message box">
+The message will go here
+</p>
+<p>
+<button id="getMessage">
+    Get Message
+</button>
+</p>
+
+
+<!-- Every browser has a built in navigator that can give you this information.
+The navigator will get the user's current longitude and latitude.
+
+if (navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(function(position) {
+    document.getElementById('data').innerHTML="latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude;
+  });
+}
+
+First, it checks if the navigator.geolocation object exists. If it does, the getCurrentPosition method on that object is called, which initiates an asynchronous request for the user's position. If the request is successful, the callback function in the method runs. This function accesses the position object's values for latitude and longitude using dot notation and updates the HTML -->
+
+<script>
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position) {
+        document.getElementById('data').innerHTML="latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude;
+        });
+    }
+</script>
+<h4>You are here:</h4>
+<div id="data">
+</div>
+
+<!-- You can also send data to an external resource, as long as that resource supports AJAX requests and you know the URL.
+JavaScript's XMLHttpRequest method is also used to post data to a server. Here's an example:
+
+const xhr = new XMLHttpRequest();
+xhr.open('POST', url, true);
+xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 201){
+    const serverResponse = JSON.parse(xhr.response);
+    document.getElementsByClassName('message')[0].textContent = serverResponse.userName + serverResponse.suffix;
+  }
+};
+const body = JSON.stringify({ userName: userName, suffix: ' loves cats!' });
+xhr.send(body);
+
+Here the open method initializes the request as a POST to the given URL of the external resource, and passes true as the third parameter - indicating to perform the operation asynchronously.
+The setRequestHeader method sets the value of an HTTP request header, which contains information about the sender and the request. It must be called after the open method, but before the send method. The two parameters are the name of the header and the value to set as the body of that header.
+Next, the onreadystatechange event listener handles a change in the state of the request. A readyState of 4 means the operation is complete, and a status of 201 means it was a successful request. Therefore, the document's HTML can be updated.
+Finally, the send method sends the request with the body value. The body consists of a userName and a suffix key -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('sendMessage').onclick = function(){
+  
+        const userName = document.getElementById('name').value;
+        const url = 'https://jsonplaceholder.typicode.com/posts';  
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 201){
+            const serverResponse = JSON.parse(xhr.response);
+            document.getElementsByClassName('message')[0].textContent = serverResponse.userName + serverResponse.suffix;
+            }
+        };
+        const body = JSON.stringify({ userName: userName, suffix: ' loves cats!' });
+        xhr.send(body);
+      };
+    });
+</script>
+
+<style>
+body {
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.box {
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 20px 5px;
+}
+button {
+    color: white;
+    background-color: #4791d0;
+    border-radius: 5px;
+    border: 1px solid #4791d0;
+    padding: 5px 10px 8px 10px;
+}
+button:hover {
+    background-color: #0F5897;
+    border: 1px solid #0F5897;
+}
+</style>
+
+<h1>Cat Friends</h1>
+<p class="message box">
+Reply from Server will be here
+</p>
+<p>
+<label for="name">Your name:
+    <input type="text" id="name"/>
+</label>
+<button id="sendMessage">
+    Send Message
+</button>
+</p>
