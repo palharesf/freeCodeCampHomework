@@ -11,42 +11,46 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data => {
     // The data already comes as an array filled with objects, so we can access its keys directly
     
-    //console.log(data[0]);
+    //console.table(data);
           
     // Setup the svg canvas reference values that will be used later in the code
-      const w = 800;
-      const h = 400;
-      const padding = 40;
+    const w = 800;
+    const h = 400;
+    const padding = 40;
+    
+    // Transform the "MM:SS" string into a Date type, to be used in setting up the y-axis
+    data.forEach(d => {
+      d.timeArray = d['Time'].split(':');
+    });
+    //console.log(data);
+    data.forEach(d => {
+      d.timeArrayDate = new Date(1970, 0, 1, 0, parseInt(d.timeArray[0]), parseInt(d.timeArray[1]), 0);
+    });
+    //console.log(data[0].timeArrayDate);
     
     // Create a time formatter function that will be used in the y-axis
     const formatTime = d3.timeFormat("%M:%S");
-    function formatMinutes(minutes) {
-      const mins = Math.floor(minutes);
-      const secs = Math.round((minutes - mins) * 60);
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
       
-    // Build the scales using domain and range. Remember to set scaleTime and scaleLinear accordingly. I chose a manual domain that fits all the data points instead of relying on automatic calculations. For the y-axis, thou, I built in a 10% padding automatically
-    const xScale = d3.scaleLinear()
-                     .domain([1993,2015])
-                     .range([padding, w - padding]);
+      // Build the scales using domain and range. Remember to set scaleTime and scaleLinear accordingly. I chose a manual domain that fits all the data points instead of relying on automatic calculations. For the y-axis, thou, I built in a 10% padding automatically
+      const xScale = d3.scaleLinear()
+                       .domain([1993,2015])
+                       .range([padding, w - padding]);
       
-    const yExtent = d3.extent(data, d => (d.Seconds/60));
-    const yPadding = (yExtent[1] - yExtent[0]) * 0.05; // 5% padding
-    const yScale = d3.scaleLinear()
-                     .domain([Math.ceil(yExtent[1] + yPadding), Math.floor(yExtent[0] - yPadding)])
-                     .range([h - padding, padding]);
+      const yScale = d3.scaleTime()
+                       .domain(d3.extent(data, d => d.timeArrayDate))
+                       .range([h - padding, padding]);
       
-    // Setup the svg canvas with the reference values set previously
-    const svg = d3.select("body")
-                  .append("svg")
-                  .attr("width", w)
-                  .attr("height", h);
-
+      // Setup the svg canvas with the reference values set previously
+      const svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+    
     // Create a title
     svg.append("text")
        .attr("x", w / 2) // Centering the title
        .attr("y", padding / 2) // Padding from the top
+       .attr("id","title")
        .attr("text-anchor", "middle")
        .attr("class", "chart-title")
        .text("Cyclist Performance Over Time");
@@ -78,51 +82,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 .attr("y", 25)
                 .text("Doping allegations");
 
-    // Add x-axis
-    svg.append("g")
-        .attr("id", "x-axis")
-        .attr("class", "tick")
-        .attr("transform", `translate(0, ${h - padding})`)
-        .call(d3.axisBottom(xScale)
-            .ticks(10,"d"));
+      // Add x-axis
+      svg.append("g")
+         .attr("id", "x-axis")
+         .attr("class", "tick")
+         .attr("transform", `translate(0, ${h - padding})`)
+         .call(d3.axisBottom(xScale)
+               .ticks(10,"d"));
 
-    // Add y-axis
-    svg.append("g")
-        .attr("id", "y-axis")
-        .attr("class", "tick")
-        .attr("transform", `translate(${padding}, 0)`)
-        .call(d3.axisLeft(yScale)
-            .ticks(8)
-            .tickFormat(formatMinutes));
-
+      // Add y-axis
+      svg.append("g")
+         .attr("id", "y-axis")
+         .attr("class", "tick")
+         .attr("transform", `translate(${padding}, 0)`)
+         .call(d3.axisLeft(yScale)
+               .ticks(8)
+               .tickFormat(formatTime));
+    
     // Create the tooltip as a separate entity
       const tooltip = d3.select("body")
                         .append("div")
                         .attr("id", "tooltip")
       
-    // Create the actual dots using the Year, TimeSeconds and the scales built previously      
-    svg.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("class","dot")
-        .attr("data-xvalue",(d) => d.Year)
-        .attr("data-yvalue",(d) => Date(d.Seconds/60))
-        .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.Seconds/60))
-        .attr("r", 5)
-        .attr("fill", (d) => d.Doping === "" ? "steelblue" : "orange")
+      // Create the actual dots using the Year, TimeSeconds and the scales built previously      
+      svg.selectAll("circle")
+         .data(data)
+         .enter()
+         .append("circle")
+         .attr("class","dot")
+         .attr("data-xvalue",(d) => d.Year)
+         .attr("data-yvalue",(d) => d.timeArrayDate)
+         .attr("cx", d => xScale(d.Year))
+         .attr("cy", d => yScale(d.timeArrayDate))
+         .attr("r", 5)
+         .attr("fill", (d) => d.Doping === "" ? "steelblue" : "orange")
     
     // Setup the tooltip to appear on mouseover and disappear on mouseout
          .on("mouseover", function(event, d) {
-            tooltip.style("opacity", 0.9)
-            .html(`${d.Name}, ${d.Nationality}<br/>Year: ${d.Year}, Time: ${d.Time}<br><br>${d.Doping}`)
-            .attr("data-year", d.Year)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 28) + "px");
-        })
+  tooltip.style("opacity", 0.9)
+         .html(`${d.Name}, ${d.Nationality}<br/>Year: ${d.Year}, Time: ${d.Time}<br><br>${d.Doping}`)
+         .attr("data-year", d.Year)
+         .style("left", (event.pageX + 10) + "px")
+         .style("top", (event.pageY - 28) + "px");
+         })
          .on("mouseout", function() {
-            tooltip.style("opacity", 0);
+           tooltip.style("opacity", 0);
          });
     })
     .catch(error => console.error('Error fetching data:', error));
