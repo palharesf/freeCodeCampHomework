@@ -36,7 +36,7 @@ function processData() {
   const {features} = geoCountyData;
   features.forEach((d, educationData) => {
     // Iterate through the features array, adding the bachelorsOrHigher value to it
-  };
+  });
   //console.log(features);
     
   const w = 800;
