@@ -33,8 +33,12 @@ function fetchData() {
 function processData() {
   // Converting TopoJSON into geoJSON
   const geoCountyData = topojson.feature(countyData,countyData.objects.counties);
-  //console.log(geoCountyData);
-  
+  const {features} = geoCountyData;
+  features.forEach((d, educationData) => {
+    // Iterate through the features array, adding the bachelorsOrHigher value to it
+  };
+  //console.log(features);
+    
   const w = 800;
   const h = 600;
   const padding = 40;
@@ -72,7 +76,7 @@ function processData() {
 
   // Plot the data
   svg.append("path")
-    .datum({type: "FeatureCollection", features: geoCountyData.features})
+    .datum({type: "FeatureCollection", features: features})
     .attr("d", d3.geoPath());
 }
 
