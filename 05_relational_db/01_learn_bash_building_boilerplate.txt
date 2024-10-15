@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-bash-by-building-a-boilerplate/build-a-boilerplate
+Gitpod link: https://freecodecam-learnbashby-c2w7v8vk4dk.ws-us116.gitpod.io/
