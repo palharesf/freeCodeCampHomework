@@ -1,2 +1,22 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-bash-by-building-a-boilerplate/build-a-boilerplate
 Gitpod link: https://freecodecam-learnbashby-c2w7v8vk4dk.ws-us116.gitpod.io/
+
+Command cheat sheet:
+
+PS - for everything, there's /help
+
+ls [options] [file|dir]
+cd [directory]
+pwd [options]
+touch [file]
+rm [options] [file|dir path]
+mkdir [options] [dir]
+rmdir [options] [dir]
+cp [options] [source] [destination]
+mv [options] [source] [destination]
+find [location] [expression] [options]
+sort [options] [file]
+echo [options] [string]
+history [options]
+exit [n]
+clear

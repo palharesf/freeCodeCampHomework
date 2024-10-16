@@ -3,7 +3,6 @@ Gitpod link: https://gitpod.io/start/#freecodecam-learnrelati-2wt0xrgu3lx
 
 Command cheat sheet:
 
-
 \l
 \c database_name
 CREATE DATABASE database_name;
