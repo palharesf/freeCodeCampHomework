@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-relational-databases-by-building-a-mario-database/build-a-mario-database
+Gitpod link:
