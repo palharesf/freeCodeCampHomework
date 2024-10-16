@@ -1,2 +1,56 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-relational-databases-by-building-a-mario-database/build-a-mario-database
-Gitpod link:
+Gitpod link: https://gitpod.io/start/#freecodecam-learnrelati-2wt0xrgu3lx
+
+Command cheat sheet:
+
+
+\l
+\c database_name
+CREATE DATABASE database_name;
+CREATE TABLE table_name();
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE;
+ALTER TABLE table_name DROP COLUMN column_name;
+ALTER TABLE table_name RENAME COLUMN column_name TO new_name;
+ALTER TABLE table_name ADD COLUMN column_name SERIAL PRIMARY_KEY;
+INSERT INTO table_name(column_1, column_2) VALUES(value1, value2);
+UPDATE <table> SET <column> = <value> WHERE <condition>
+SELECT columns FROM table_name;
+DELETE FROM table_name WHERE condition;
+ALTER TABLE table_name RENAME TO new_table_name;
+DROP TABLE table_name;
+ALTER DATABASE database_name RENAME TO new_database_name;
+INSERT INTO second_table(id, username) VALUES(1, 'Samus');
+INSERT INTO characters(name, homeland, favorite_color)
+VALUES('Mario', 'Mushroom Kingdom', 'Red'),
+('Luigi', 'Mushroom Kingdom', 'Green'),
+('Peach', 'Mushroom Kingdom', 'Pink');
+UPDATE table_name SET column_name=new_value WHERE condition;
+SELECT columns FROM table_name ORDER BY column_name;
+ALTER TABLE table_name ADD PRIMARY KEY(column_name);
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE REFERENCES referenced_table_name(referenced_column_name);
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+ALTER TABLE table_name ADD UNIQUE(column_name);
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+ALTER TABLE table_name ALTER COLUMN column_name TYPE DATATYPE;
+SELECT columns FROM table_name WHERE condition;
+CREATE TABLE table_name();
+CREATE TABLE table_name(column_name DATATYPE CONSTRAINTS);
+ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINT REFERENCES referenced_table_name(referenced_column_name);  
+ALTER TABLE table_name ADD FOREIGN KEY(column_name) REFERENCES referenced_table(referenced_column);
+ALTER TABLE table_name ADD PRIMARY KEY(column1, column2);
+SELECT columns FROM table_1 FULL JOIN table_2 ON table_1.primary_key_column = table_2.foreign_key_column;
+SELECT columns FROM junction_table
+FULL JOIN table_1 ON junction_table.foreign_key_column = table_1.primary_key_column
+FULL JOIN table_2 ON junction_table.foreign_key_column = table_2.primary_key_column;
+CREATE SEQUENCE my_serial AS integer START 1 OWNED BY address.new_id; 
+ALTER TABLE address ALTER COLUMN new_id SET DEFAULT nextval('my_serial');
+
+
+
+
+Sources:
+Free Code Camp Backend Database Certification
+
+https://www.w3schools.com/sql/
+
+https://www.postgresql.org/docs/devel/index.html
