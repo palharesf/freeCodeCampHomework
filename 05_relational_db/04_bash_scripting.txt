@@ -1,4 +1,12 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-bash-scripting-by-building-five-programs/build-five-programs
+Gitpod link: https://gitpod.io/start/#freecodecam-learnbashsc-6qyt1y4haes
+
+Exercise dependencies:
+05_relational_db/questionnaire.sh
+05_relational_db/countdown.sh
+05_relational_db/bingo.sh
+05_relational_db/fortune.sh
+05_relational_db/five.sh
 
 Run commands with `sh questionnaire.sh`. sh stands for shell. You could also use `bash questionnaire.sh`. To find out which shell is installed, use `which bash`
 You can tell your program to use a specific shell by placing a shebang at the very top of the file like this: #!<path_to_interpreter>, like this: #!/bin/bash
