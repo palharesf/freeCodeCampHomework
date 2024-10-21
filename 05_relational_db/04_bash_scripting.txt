@@ -1,0 +1,27 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-bash-scripting-by-building-five-programs/build-five-programs
+
+Run commands with `sh questionnaire.sh`. sh stands for shell. You could also use `bash questionnaire.sh`. To find out which shell is installed, use `which bash`
+You can tell your program to use a specific shell by placing a shebang at the very top of the file like this: #!<path_to_interpreter>, like this: #!/bin/bash
+You can see the permissions for all files in a directory by using `ls -l`, and change permissions, for example, `chmod +x questionnaire.sh` gives everyone executable permissions
+You can create a variable with VARIABLE_NAME=VALUE. There cannot be any spaces around the equal (=) sign.  If a variable has any spaces in it, place double quotes around it
+To use a variable, place $ in front of it like this: `$VARIABLE_NAME`. Shell scripts run from top to bottom, so you can only use variable below where it's created
+You want to be able to accept input from a user. You can do that with read like this: `read VARIABLE_NAME`
+Another way to find information about a command is with man. It stands for manual and you can use it like this: man <command>
+
+Comments in bash look like this: # <comment>
+Programs can take arguments. You can access them a few different ways with $ 
+Adding `echo $*` in the script will print all arguments passed to it. To access any one of them, use $<number>. arg2 could have been accessed with $2
+Each command has an exit status that can be accessed with $?. For instance, we can run `[[ 4 -le 5 ]]` followed by `echo $?`
+You can separate commands on a single line with ;
+You can create a multiline comment like this:
+
+: '
+  comment here
+  more comment here
+'
+
+You can subtract one from I with double parenthesis (((...))) and the -- operator. In your while loop, add (( I-- )) after you echo $I to subtract one from I on each pass
+A shell comes with environment variables. View them by entering `printenv` in the terminal
+View all variables in the shell with `declare -p`. -p stands for print
+The RANDOM variable will generate a random number between 0 and 32767. You can use the modulus operator to make it in the range you want
+
