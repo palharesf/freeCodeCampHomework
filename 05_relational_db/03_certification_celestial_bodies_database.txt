@@ -1,4 +1,4 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/build-a-celestial-bodies-database-project/build-a-celestial-bodies-database
 Gitpod link: https://gitpod.io/start/#freecodecam-learncelest-i47f2b1irwx
 
-Solution link: https://github.com/palharesf/freeCodeCampHomework/blob/main/05_relational_db/universe.sql
+Solution: 05_relational_db/universe.sql

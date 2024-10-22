@@ -1,0 +1,3 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-sql-by-building-a-student-database-part-1/build-a-student-database-part-1
+Gitpod link: https://gitpod.io/start/#freecodecam-learnsqlbyb-g5vczhyzf6m
+
