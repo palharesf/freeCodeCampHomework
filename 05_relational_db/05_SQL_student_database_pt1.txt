@@ -1,3 +1,18 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-sql-by-building-a-student-database-part-1/build-a-student-database-part-1
 Gitpod link: https://gitpod.io/start/#freecodecam-learnsqlbyb-g5vczhyzf6m
 
+Dependencies: 05_relational_db\05
+
+cat is a terminal command for printing the contents of a file. Here's an example: cat <filename>
+Instead of printing the content, you can pipe that output into a while loop so you can go through the rows one at a time. It looks like this:
+
+cat courses.csv | while read MAJOR COURSE
+do
+  <STATEMENTS>
+done
+
+There's a default IFS variable in bash. IFS stands for "Internal Field Separator". View it with declare -p IFS
+You used the psql command to log in and interact with the database. You can use it to just run a single command and exit.
+By declaring PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c", we can query your database using the PSQL variable like this: $($PSQL "<query_here>"). The code in the parenthesis will run in a subshell, which is a separate bash process.
+
+You can use TRUNCATE to delete all data from a table. In the psql prompt, try to delete all the data in the majors table by entering TRUNCATE majors;
