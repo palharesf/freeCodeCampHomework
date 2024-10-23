@@ -1,7 +1,7 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-sql-by-building-a-student-database-part-2/build-a-student-database-part-2
 Gitpod link: https://gitpod.io/start/#freecodecam-learnsqlbyb-xdy0ad8r8xh
 
-Dependencies:
+Dependencies: 05_relational_db\06
 
 You can use LIKE to find patterns in text like this:
     WHERE <column> LIKE '<pattern>'
