@@ -1,0 +1,49 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-sql-by-building-a-student-database-part-2/build-a-student-database-part-2
+Gitpod link: https://gitpod.io/start/#freecodecam-learnsqlbyb-xdy0ad8r8xh
+
+Dependencies:
+
+You can use LIKE to find patterns in text like this:
+    WHERE <column> LIKE '<pattern>'
+An underscore (_) in a pattern will return rows that have any character in that spot.
+Another pattern character is %. It means anything can be there. To find names that start with W, you could use W%
+ILIKE will ignore the case of the letters when matching. You can put NOT in front of ILIKE as well.
+
+All the fields that are empty or blank are null. You can access them using IS NULL as a condition like this: WHERE <column> IS NULL
+Inversely, you can use IS NOT NULL to see rows that aren't null.
+
+You can specify the order you want your results to be in by adding ORDER BY <column_name> at the end of a query. 
+When using ORDER BY, it will be in ascending (ASC) order by default. You can add DESC (descending) at the end of the last query to put the highest ones at the top.
+You can add more columns to the order by separating them with a comma like this: 
+    ORDER BY <column_1>, <column_2>
+
+Many times, you only want to return a certain number of rows. You can add LIMIT <number> at the end of the query to only get the amount you want.
+
+There's a number of mathematic functions to use with numerical columns. One of them is MIN, you can use it when selecting a column like this: SELECT MIN(<column>) FROM <table>. It will find the lowest value in the column
+Others are MAX, SUM, AVG.
+You can round decimals up or down to the nearest whole number with CEIL and FLOOR, respectively. Here's an example: CEIL(<number_to_round>). Or, you can round a number to the nearest whole number with ROUND
+You can round to a specific number of decimal places by adding a comma and number to ROUND, like this: ROUND(<number_to_round>, <decimals_places>)
+
+Another function is COUNT. You can use it like this: COUNT(<column>). It will tell you how many entries are in a table for the column
+DISTINCT is a function that will show you only unique values. You can use it like this: DISTINCT(<column>)
+You can get the same results with GROUP BY. Here's an example of how to use it: SELECT <column> FROM <table> GROUP BY <column>
+The output is the same as DISTINCT, but with GROUP BY you can add any of the aggregate functions (MIN, MAX, COUNT, etc) to it to find more information
+Another option with GROUP BY is HAVING. You can add it at the end like this: 
+    SELECT <column> FROM <table> GROUP BY <column> HAVING <condition>
+The condition must be an aggregate function with a test. An example to might be to use HAVING COUNT(*) > 0 to only show what whatever column is grouped that have at least one row
+You can rename a column with AS like this: SELECT <column> AS <new_column_name>
+
+The majors and students table are linked with the major_id foreign key. If you want to see the name of a major that a student is taking, you need to JOIN the two tables into one. Here's an example of how to do that:
+    SELECT * FROM <table_1> FULL JOIN <table_2> ON <table_1>.<foreign_key_column> = <table_2>.<foreign_key_column>;
+The FULL JOIN you used will include all rows from both tables, whether or not they have a row using that foreign key in the other. From there, you could use any of the previous methods to narrow down, group, order, etc
+LEFT JOIN and RIGHT JOIN keep only rows from the corresponding table
+INNER JOIN keeps rows that would appear in both LEFT and RIGHT join only
+
+Earlier, you used AS to rename columns. You can use it to rename tables, or give them aliases, as well
+    SELECT * FROM <table> AS <new_name>;
+
+There's a shortcut keyword, USING to join tables if the foreign key column has the same name in both tables.
+    SELECT * FROM <table_1> FULL JOIN <table_2> USING(<column>);
+
+To join multiple tables:
+    SELECT * FROM <table_1> FULL JOIN <table_2> USING(<column>) FULL JOIN <table_3> USING(<column>)
