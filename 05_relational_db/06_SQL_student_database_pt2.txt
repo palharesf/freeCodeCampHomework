@@ -28,6 +28,7 @@ Another function is COUNT. You can use it like this: COUNT(<column>). It will te
 DISTINCT is a function that will show you only unique values. You can use it like this: DISTINCT(<column>)
 You can get the same results with GROUP BY. Here's an example of how to use it: SELECT <column> FROM <table> GROUP BY <column>
 The output is the same as DISTINCT, but with GROUP BY you can add any of the aggregate functions (MIN, MAX, COUNT, etc) to it to find more information
+
 Another option with GROUP BY is HAVING. You can add it at the end like this: 
     SELECT <column> FROM <table> GROUP BY <column> HAVING <condition>
 The condition must be an aggregate function with a test. An example to might be to use HAVING COUNT(*) > 0 to only show what whatever column is grouped that have at least one row
