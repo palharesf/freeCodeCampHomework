@@ -1,0 +1,75 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-advanced-bash-by-building-a-kitty-ipsum-translator/build-a-kitty-ipsum-translator
+Gitpod link: https://gitpod.io/start/#freecodecam-learnadvanc-oezmzqeyyv8
+
+Dependencies:
+
+You can redirect an output to a file using >. Here’s an example: <command> > <filename> e.g.:
+    echo hello bash > stdout.txt
+A single > will create or overwrite the file. Use the same command with >> to append to the file. Passing nothing will empty the file:
+    echo > stdout.txt
+
+There’s two types of output, stdout (standard out) for when a command is successful, and stderr (standard error) for when it’s not. You can redirect stderr with 2>
+    bad_command 2> stderr.txt
+Similarly, you can use 1> to redirect stdout
+    echo hello bash 1> stdout.txt
+stdin (standard in) is the third thing commands can use and is for getting input. The default is the keyboard.
+    read NAME
+The command above will be looking at the keyboard to receive an input via stdin
+Just like you can redirect output, you can redirect stdin as well. Here's an example: <command> < <filename_for_stdin>
+    read NAME < name.txt
+Another way to set the stdin is by using the pipe (|). It will use the output from one command as input for another. Here's an example: <command_1> | <command_2>. This will take the stdout from command_1 and use it as the stdin for command_2
+    echo Fernando | read NAME
+If you want to run a script and pass an argument via pipe then redirect error as stderr, here's what it looks like:
+    echo Fer | ./script.sh 2> stderr.txt
+You can redirect both the stderr and stdout by adding another redirection at the end like this: > <filename>
+    echo Fer | ./script.sh 2> stderr.txt > stdout.txt
+One can redirect both inputs and outputs at the same time:
+    ./script.sh < name.txt 2> stderr.txt > stdout.txt
+
+The wc (word count) command prints some info about a file. It can take a file as an argument like the cat command:
+    wc kitty_ipsum_1.txt
+        27  332 1744 kitty_ipsum_1.txt
+It shows how many lines were in the file, how many words, and how many bytes
+
+grep is a command for searching for patterns in text. You can use it like this: grep '<pattern>' <filename>
+    grep 'meow' kitty_ipsum_1.txt 
+        hide from vacuum cleaner meow for catnip and act crazy steal
+        shirt howl or gimme attention meow bye and eat grass, meow, and
+        i stare at it i meow at it i do a wiggle come here birdy ears
+        eat sniff catnip meow meowzer. good morning sunshine. lick human chase
+        the pig around the house meow run in circles. always ensure to
+With different flags, you can highlight the keyword and add line numbers:
+    grep 'meow' kitty_ipsum_1.txt --color -n
+        1:hide from vacuum cleaner meow for catnip and act crazy steal
+        4:shirt howl or gimme attention meow bye and eat grass, meow, and
+        10:i stare at it i meow at it i do a wiggle come here birdy ears
+        22:eat sniff catnip meow meowzer. good morning sunshine. lick human chase
+        23:the pig around the house meow run in circles. always ensure to
+grep can use regular expressions, too. For instance, the pattern meow[a-z]* show all words that start with meow
+grep has a -c flag to give you a count of lines, or -o to put the matches on their own lines:
+    grep 'meow[a-z]*' kitty_ipsum_1.txt -o
+        meow
+        meow
+        meow
+        meow
+        meow
+        meowzer
+        meow
+Using wc, we can summarize the number of lines:
+    grep 'meow[a-z]*' kitty_ipsum_1.txt -o | wc -l
+        7
+
+There's a sed command for replacing text. sed can replace text like this: sed 's/<pattern_to_replace>/<text_to_replace_it_with>/' <filename>
+By default, it won't replace the text in the file. It will output it to stdout
+    sed 's/r/2/' name.txt
+        f2eeCodeCamp
+You can add regex flags after the last / in the sed argument. A g, for global, would replace all instances of a matched pattern, or an i to ignore the case of the pattern.
+    sed 's/freecodecamp/f233C0d3C@mp/i' name.txt
+        f233C0d3C@mp
+You can replace many patterns using sed like this: sed 's/<pattern_1>/<replacement_1>/; s/<pattern_2>/<replacement_2>/'
+Note that you need the semi-colon between the two replacement patterns and they both need to be wrapped in the quotes
+To search for multiple patterns at once, you can use a vertical bar/pipe:
+    grep '<dog_words>|<woof_words>'
+
+diff is a command to view the difference between two files:
+    diff <file_1> <file_2>
