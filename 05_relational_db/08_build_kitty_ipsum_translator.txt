@@ -1,7 +1,7 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-advanced-bash-by-building-a-kitty-ipsum-translator/build-a-kitty-ipsum-translator
 Gitpod link: https://gitpod.io/start/#freecodecam-learnadvanc-oezmzqeyyv8
 
-Dependencies:
+Dependencies: 05_relational_db/08
 
 You can redirect an output to a file using >. Here’s an example: <command> > <filename> e.g.:
     echo hello bash > stdout.txt
