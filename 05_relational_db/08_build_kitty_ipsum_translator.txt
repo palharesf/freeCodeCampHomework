@@ -15,6 +15,7 @@ Similarly, you can use 1> to redirect stdout
 stdin (standard in) is the third thing commands can use and is for getting input. The default is the keyboard.
     read NAME
 The command above will be looking at the keyboard to receive an input via stdin
+
 Just like you can redirect output, you can redirect stdin as well. Here's an example: <command> < <filename_for_stdin>
     read NAME < name.txt
 Another way to set the stdin is by using the pipe (|). It will use the output from one command as input for another. Here's an example: <command_1> | <command_2>. This will take the stdout from command_1 and use it as the stdin for command_2
