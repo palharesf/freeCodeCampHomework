@@ -1,3 +1,33 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-bash-and-sql-by-building-a-bike-rental-shop/build-a-bike-rental-shop
-Gitpod link: 
+Gitpod link: https://gitpod.io/start/#freecodecam-learnbashan-v7iijce7ved
+
+Dependencies: 05_relational_db/09
+
+When a user enters an option at the main menu, you want to take them to the appropriate sub-menu. You can use a case statement for this. Here's an example:
+
+    case EXPRESSION in
+    PATTERN) STATEMENTS ;;
+    PATTERN) STATEMENTS ;;
+    PATTERN) STATEMENTS ;;
+    *) STATEMENTS ;;
+    esac
+
+For example, if we're expecting the user to select options 1, 2, or 3 to access sub-menus via an input ($MAIN_MENU_SELECTION), we can write the case statement like this:
+
+    case $MAIN_MENU_SELECTION in
+        1) RENT_MENU ;;
+        2) RETURN_MENU ;;
+        3) EXIT ;;
+        *) MAIN_MENU ;;
+    esac
+
+The *) case is, naturally, the wildcard option
+
+What you put in a subshell ($(...)) will be executed, and the result of it will replace the subshell.
+For instance, if I want to take an echo command and some code to format it, I could have the following block:
+
+    #original echo command with formatting options:
+    echo $BIKE_INFO | sed 's/ |/"/'
+    #subshell
+    BIKE_INFO_FORMATTED=$(echo $BIKE_INFO | sed 's/ |/"/')
 

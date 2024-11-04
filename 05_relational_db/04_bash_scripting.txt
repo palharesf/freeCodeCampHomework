@@ -18,13 +18,34 @@ Each command has an exit status that can be accessed with $?. For instance, we c
 You can separate commands on a single line with ;
 You can create a multiline comment like this:
 
-: '
-  comment here
-  more comment here
-'
+  : '
+    comment here
+    more comment here
+  '
 
 You can subtract one from I with double parenthesis (((...))) and the -- operator. In your while loop, add (( I-- )) after you echo $I to subtract one from I on each pass
 A shell comes with environment variables. View them by entering `printenv` in the terminal
 View all variables in the shell with `declare -p`. -p stands for print
 The RANDOM variable will generate a random number between 0 and 32767. You can use the modulus operator to make it in the range you want
+
+To create a new function, the syntax is:
+
+  FUNCTION_NAME () {
+    
+  }
+
+To call the function, you just need to type it's name in a new line. You can call the function with arguments using the syntax below:
+
+  FUNCTION_NAME
+  FUNCTION_NAME "<argument>"
+
+To use the if conditional, the following syntax is required:
+
+  if [[ <CONDITION> ]]
+  then
+    <STATEMENTS>
+  else
+    <STATEMENTS>
+  fi
+
 
