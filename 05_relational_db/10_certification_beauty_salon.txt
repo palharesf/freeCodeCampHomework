@@ -1,0 +1,4 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/build-a-salon-appointment-scheduler-project/build-a-salon-appointment-scheduler
+Gitpod link: https://gitpod.io/start/#freecodecam-learnsalona-2u3ml5x7643
+
+Dependencies: 05_relational_db/10
