@@ -1,0 +1,10 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-nano-by-building-a-castle/build-a-castle
+Gitpod link: https://gitpod.io/start/#freecodecam-learnnanoby-7ktsiklypsu
+
+Dependencies:
+
+Nano is a program for editing files that runs in the terminal. You can open a file with
+    nano filename
+This will bring you to the nano editor, with the available commands on the bottom
+The ^ in front of all the commands at the bottom means to press control and the letter to run the command
+The M at the beginning of the other commands at the bottom stands for "meta". It's a key that doesn't exist on most keyboards. On Windows, it's ALT then the letter
