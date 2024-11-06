@@ -1,5 +1,5 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-git-by-building-an-sql-reference-object/build-an-sql-reference-object
-Gitpod link: 
+Gitpod link: https://gitpod.io/start/#freecodecam-learngitbyb-7xdlgjzf7hj
 
 Dependencies:
 
