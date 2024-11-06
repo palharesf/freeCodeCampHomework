@@ -1,5 +1,102 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-git-by-building-an-sql-reference-object/build-an-sql-reference-object
-Gitpod link: https://gitpod.io/start/#freecodecam-learngitbyb-7xdlgjzf7hj
+Gitpod link: https://gitpod.io/start/#freecodecam-learngitbyb-br15eun0zfh
 
 Dependencies:
+
+Git is a version control system to keep track of your code. A folder can be your git repository by turning into one with the 
+    git init
+command in the terminal from the folder
+
+Use git status to see the status of where you are. This command will be your best friend.
+
+A git repository has branches to help keep track of things you are doing with your code. It's common to have a main branch which might be for your production code, and other branches for adding new features or fixing bugs
+
+You can create and go to a new branch with
+    git checkout -b new_branch
+The -b stands for "branch"
+
+There's two steps to make git keep track of it for you. First you need to add it to the staging area like this:
+    git add file_name
+
+To commit files, you can use
+    git commit -m "Initial commit"
+The -m stands for "message". Often times, the first commit of a repo will have the message "Initial commit"
+
+You can see your commit history with
+    git log
+
+You can see the changes you made to a file with
+    git diff
+Commit messages often start with fix: or feat:, among others, to help people understand what your commit was for
+
+You have been making changes to your main branch. You actually want to try and avoid that. Type
+    git branch
+to see the current branches in your repo. You can create a branch with
+    git branch branch_name
+Branches often start with fix/ or feat/, among others, like commit messages, but they use a forward slash and can't contain spaces
+To switch to a branch use: 
+    git checkout branch_name
+You can create and switch to a new branch at the same time with
+    git checkout -b branch_name
+
+You can use
+    git merge branch_name
+to bring changes from a branch into the branch you are currently on
+
+You can delete a branch with
+    git branch -d branch_name
+-d stands for "delete"
+
+Sometimes there are changes to the upstream branch from the one you're working on e.g. someone else worked on a branch of main merged changes, and hence, main is not the same as you used to create your branch
+In this case, you need to rebase this branch against main. You do it by:
+    git rebase main
+Where main is your source branch. Sometimes conflicts will appear because the first commit you added to a branch changed the same lines as the commit from main
+So when git tries to add the commit, something is already there
+There are sections, separated by characters (<, >, and =), that represent the commit you are on (HEAD) and the commit that is trying to be added (feat: add column reference)
+
+ You can put your changes aside with
+    git stash
+You can stash your changes when you want to use your changes in a different branch. You can see the full list of stashed changes with
+    git stash list
+And finally, you can bring back the changes back with
+    git stash pop
+You can view a condensed version of the changes in the latest stash with
+    git stash show
+or the full changes of the latest stash with
+    git stash show -p
+-p stands for "patch"
+If you want to keep your stash when bringing back the changes, you can substitute 'pop' by 'apply':
+    git stash apply
+When you have multiple stashes, you can use the name at the front of each stash (stash@{#}) with many of the stash commands to select one other than the latest one
+The most recent stash is the one at the top, stash@{0}. You can retrieve the oldest, for example, by using:
+    git stash show stash@{1}
+In a case where you have two stashes
+You can drop stashes using:
+    git stash drop
+or
+    git stash drop <stash_name>
+
+There are a few ways to remove or undo a commit
+The first is to simply "travel back in time" using the
+    git reset command
+to travel to any point in your commit history. Your current HEAD is a reference to the last commit you just made
+For example,
+    git reset HEAD~1
+goes back one before HEAD. This is a "mixed" reset and will put the changes from the commit you undid in your working tree
+If you use the --hard flag with the reset, the changes would have not been added to the working tree and if you used the --soft flag, the changes would have been added to the working tree and to staging
+
+Reverting is a good way to undo a commit because you don't lose the commit from the history. You can revert the most recent commit (HEAD) with
+    git revert HEAD
+Using revert to undo a commit adds another commit that is the exact opposite of the first
+
+You've used rebase to update this branch, but you can enter an "interactive" mode to manipulate commits. Typing
+    git rebase --interactive HEAD~2
+into the terminal will enter this mode. The HEAD~2 means you will have a chance to change the last two commits. --root means that the rebase will go back to your very first commit
+
+Squashing commits means that you will take a bunch of commits and turn them into one. This is helpful to keep your commit history clean and something you want try to do
+You can do that via interactive rebasing, using the keyword 's' instead of 'pick'
+
+
+
+
 
