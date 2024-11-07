@@ -25,7 +25,7 @@ ALTER TABLE table_name DROP COLUMN column_name;
 ALTER TABLE table_name DROP CONSTRAINT constraint_name;
 ALTER TABLE table_name RENAME COLUMN column_name TO new_name;
 ALTER TABLE table_name RENAME TO new_table_name;
-ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL; #good for constraints
 ALTER TABLE table_name ALTER COLUMN column_name TYPE DATATYPE; 
 ALTER TABLE address ALTER COLUMN new_id SET DEFAULT nextval('my_serial');
 

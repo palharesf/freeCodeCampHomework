@@ -1,0 +1,4 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/build-a-periodic-table-database-project/build-a-periodic-table-database
+Gitpod link: https://gitpod.io/start/#freecodecam-learnperiod-6sjx0j10h7a
+
+Dependencies: 05_relational_db/13
