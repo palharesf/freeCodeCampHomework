@@ -1,7 +1,7 @@
 Exercise link: https://www.freecodecamp.org/learn/relational-database/learn-git-by-building-an-sql-reference-object/build-an-sql-reference-object
-Gitpod link: https://gitpod.io/start/#freecodecam-learngitbyb-br15eun0zfh
+Gitpod link: https://gitpod.io/start/#freecodecam-learngitbyb-55jqa3dpm4f
 
-Dependencies:
+Dependencies: 05_relational_db/12
 
 Git is a version control system to keep track of your code. A folder can be your git repository by turning into one with the 
     git init
@@ -95,6 +95,12 @@ into the terminal will enter this mode. The HEAD~2 means you will have a chance 
 
 Squashing commits means that you will take a bunch of commits and turn them into one. This is helpful to keep your commit history clean and something you want try to do
 You can do that via interactive rebasing, using the keyword 's' instead of 'pick'
+
+.env files are used to store environment variables for running code
+Often times, there may be sensitive information in it. If you need to ignore a file in your repo, you can add it to a .gitignore file
+Sensitive information can be stored in the .env file, but people need to know the variables that are in there so they can run a repository locally
+So usually we'll hide a .env but not a global.env or a sample.env
+
 
 
 
