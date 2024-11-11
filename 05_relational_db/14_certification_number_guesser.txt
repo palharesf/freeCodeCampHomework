@@ -1,0 +1,4 @@
+Exercise link: https://www.freecodecamp.org/learn/relational-database/build-a-number-guessing-game-project/build-a-number-guessing-game
+Gitpod link: https://gitpod.io/start/#freecodecam-learnnumber-kysvfe1sinh
+
+Dependencies: 05_relational_db/14

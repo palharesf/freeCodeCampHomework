@@ -5,6 +5,7 @@ Command cheat sheet:
 
 \l
 \c database_name
+\d table_name
 
 CREATE DATABASE database_name;
 CREATE TABLE table_name();
