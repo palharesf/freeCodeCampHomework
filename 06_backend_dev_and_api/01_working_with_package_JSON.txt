@@ -25,15 +25,23 @@ If some day you plan to publish a package to npm, this is the string that should
 However, that’s not the only use case for the description, it’s a great way to summarize what a project does.
 It’s just as important in any Node.js project to help other developers, future maintainers or even your future self understand the project quickly.
 
-Regardless of what you plan for your project, a description is definitely recommended. Here's an example:
+Regardless of what you plan for your project, a description is definitely recommended.
 
     "description": "A project that does something awesome",
 
-The keywords field is where you can describe your project using related keywords. Here's an example:
+The keywords field is where you can describe your project using related keywords.
 
     "keywords": [ "descriptive", "related", "words" ],
 
 As you can see, this field is structured as an array of double-quoted strings.
+The license field is where you inform users of what they are allowed to do with your project.
+Some common licenses for open source projects include MIT and BSD. License information is not required, and copyright laws in most countries will give you ownership of what you create by default.
+However, it’s always a good practice to explicitly state what users can and can’t do. Here's an example of the license field:
 
+    "license": "MIT",
+
+A version is one of the required fields of your package.json file. This field describes the current version of your project.
+
+    "version": "1.2.0",
 
 
