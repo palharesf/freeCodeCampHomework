@@ -1,5 +1,5 @@
 Exercise link: https://www.freecodecamp.org/learn/back-end-development-and-apis/managing-packages-with-npm/how-to-use-package-json-the-core-of-any-node-js-project-or-npm-package
-Dependencies:
+Dependencies: https://github.com/palharesf/freeCodeCampHomework/blob/main/06_backend_dev_and_api/01
 
 The package.json file is the center of any Node.js project or npm package. It stores information about your project.
 It consists of a single JSON object where information is stored in key-value pairs.
@@ -82,7 +82,3 @@ The difference is that the caret will allow both MINOR updates and PATCHes.
     "package": "^1.3.8"
 
 This would allow updates to any 1.x.x version of the package.
-
-
-
-
