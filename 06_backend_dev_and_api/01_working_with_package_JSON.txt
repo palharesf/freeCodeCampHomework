@@ -29,4 +29,11 @@ Regardless of what you plan for your project, a description is definitely recomm
 
     "description": "A project that does something awesome",
 
+The keywords field is where you can describe your project using related keywords. Here's an example:
+
+    "keywords": [ "descriptive", "related", "words" ],
+
+As you can see, this field is structured as an array of double-quoted strings.
+
+
 
