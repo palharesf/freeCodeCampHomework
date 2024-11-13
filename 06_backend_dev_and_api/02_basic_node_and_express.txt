@@ -160,7 +160,3 @@ As you can see, the body is encoded like the query string. This is the default f
 With Ajax, you can also use JSON to handle data having a more complex structure.
 There is also another type of encoding: multipart/form-data. This one is used to upload binary files.
 To parse the data coming from POST requests, you must use the body-parser package. This package allows you to use a series of middleware, which can decode data in different formats.
-
-
-
-
