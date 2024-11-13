@@ -1,6 +1,6 @@
 Exercise link: https://www.freecodecamp.org/learn/back-end-development-and-apis/basic-node-and-express/meet-the-node-console
 Dependencies: 06_backend_dev_and_api/02
-Gitpod link: 
+Gitpod link: https://gitpod.io/start/#freecodecam-boilerplate-eec08hg6ymm
 
 Node.js is a JavaScript runtime that allows developers to write backend (server-side) programs in JavaScript.
 Node.js comes with a handful of built-in modules — small, independent programs — that help with this.
