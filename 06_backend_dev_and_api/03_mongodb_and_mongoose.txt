@@ -1,6 +1,7 @@
 Exercise link: https://www.freecodecamp.org/learn/back-end-development-and-apis/#basic-node-and-express
 Dependencies:
 Gitpod link:
+MongoDB link: https://cloud.mongodb.com/v2/67366b68d149cd63fd37ac24#/clusters/detail/Cluster0
 
 MongoDB is a database application that stores JSON documents (or records) that you can use in your application. 
 Unlike SQL, another type of database, MongoDB is a non-relational or "NoSQL" database. 
@@ -16,19 +17,43 @@ First of all, we need a Schema. Each schema maps to a MongoDB collection. It def
 Schemas are building blocks for Models. They can be nested to create complex models, but in this case, we'll keep things simple.
 A model allows you to create instances of your objects, called documents.
 
+For instance, the following code:
+
+    const personSchema = new Schema({
+        name: { type: String, required: true },
+        age: Number,
+        favoriteFoods: [String]
+    });
+
+Creates a personSchema with three properties: name, with type String and required; age, with type Number; and favoriteFoods, a String array
+You can then create models from the schema:
+
+    const Person = mongoose.model("Person", personSchema);
+
+The model is then stored in a variable (the first 'Person' here), and a Collection is created in the database pluralizing the name given to it (the second 'People' here)
+
 Gitpod is a real server, and in real servers, the interactions with the database happen in handler functions.
 These functions are executed when some event happens (e.g. someone hits an endpoint on your API). We’ll follow the same approach in these exercises.
 The done() function is a callback that tells us that we can proceed after completing an asynchronous operation such as inserting, searching, updating, or deleting.
-It's following the Node convention, and should be called as done(null, data) on success, or done(err) on error.
-
-Warning - When interacting with remote services, errors may occur!
-
-/* Example */
+It's following the Node convention, and should be called as done(null, data) on success, or done(err) on error. For example:
 
     const someFunc = function(done) {
-    //... do something (risky) ...
-    if (error) return done(error);
-    done(null, result);
+        //... do something (risky) ...
+        if (error) return done(error);
+        done(null, result);
     };
 
+The way it works is by reserving space for the error checking ('errorSpace'), followed by space for the actual payload ('goodStuffSpace'):
+
+    done(errorSpace, goodStuffSpace)
+
+    // When everything goes well:
+        done(null, user)
+    // This is like saying: "No problems! 😊 Here's your user data!"
+
+    // When there's an error:
+        done(error, null)
+    // This is like saying: "Oops, we had a problem! 😕 No data to give you."
+
+The done callback follows this pattern because it's a standard way in Node.js to handle errors first, it makes it very clear whether the operation succeeded or failed, and if there's no error (null), we know we can safely use the data
 
