@@ -57,3 +57,21 @@ The way it works is by reserving space for the error checking ('errorSpace'), fo
 
 The done callback follows this pattern because it's a standard way in Node.js to handle errors first, it makes it very clear whether the operation succeeded or failed, and if there's no error (null), we know we can safely use the data
 
+If we want to create records in our database, we create a new variable containing our record, which is based on our previously created model:
+
+    const newUser = new Person(
+        {
+            name: "new User",
+            age: 13,
+            favoriteFoods: ["Sushi"]
+        }
+    );
+
+We can then call the .save method on that variable, using the done(null, data) convention for data consistency:
+
+    newUser.save(function(err, data) {
+        if (err) return console.error(err);
+        done(null, data)
+    });
+
+
