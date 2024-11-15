@@ -129,7 +129,7 @@ Mongoose has a dedicated updating method: Model.update(). It is bound to the low
 It can bulk-edit many documents matching certain criteria, but it doesn’t send back the updated document, only a 'status' message.
 Furthermore, it makes model validations difficult, because it just directly calls the mongo driver.
 
-Another (more manual) way of updating data is by chaining find() -> edit() -> save();
+One manual way of updating data is by chaining find() -> edit() -> save();
 It takes a few more lines, but it allows for fine-tuned control of what's happening to the data at each step of the process and allow for intermediate error-catching:
  
     const findEditThenSave = (personId, done) => {
@@ -148,5 +148,24 @@ It takes a few more lines, but it allows for fine-tuned control of what's happen
             }
         ).exec();
     };
+
+Other methods are avaialble on recent versions of Mongoose to simplify documents updating.
+Some more advanced features (i.e. pre/post hooks, validation) behave differently with this approach, so the classic method is still useful in many situations.
+findByIdAndUpdate() can be used when searching by id, or findOneAndUpdate() when using other parameters for the search:
+
+    const findAndUpdate = (personName, done) => {
+        const ageToSet = 20;
+
+        Person.findOneAndUpdate(
+            {name: personName},
+            {age: ageToSet},
+            {new: true},
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        ).exec();
+    };
+
 
 
