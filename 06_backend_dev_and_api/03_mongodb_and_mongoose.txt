@@ -99,5 +99,17 @@ It returns an array of matches. It supports an extremely wide range of search op
         ).exec();
     };
 
+Model.findOne() behaves like Model.find(), but it returns only one document (not an array), even if there are multiple items.
+It is especially useful when searching by properties that you have declared as unique.
+
+    const findOneByFood = (food, done) => {
+        Person.findOne(
+            {favoriteFoods: food},
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        ).exec();
+    };
 
 
