@@ -74,4 +74,30 @@ We can then call the .save method on that variable, using the done(null, data) c
         done(null, data)
     });
 
+If we need to create many documents at once, e.g. when seeding a database with initial data, we can use Model.create() (where Model is the name of the Model, not a standard name)
+It takes an array of objects like [{name: 'John', ...}, {...}, ...] as the first argument, and saves them all in the db. For instance:
+
+    const arrayOfPeople = [
+        {
+            name: "Mark",
+            age: 21,
+            favoriteFoods: ["eggs"]
+        },
+        {
+            name: "Pele",
+            age: 54,
+            favoriteFoods: ["feijuca", "feijao"]
+        }
+    ];
+
+    const createManyPeople = (arrayOfPeople, done) => {
+        Person.create(
+            arrayOfPeople, function(err, data) {
+                if (err) return console.error(err);
+                done(null, data)
+            }
+        )
+    };
+
+
 
