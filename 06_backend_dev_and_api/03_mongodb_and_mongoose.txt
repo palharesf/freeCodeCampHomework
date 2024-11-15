@@ -180,5 +180,37 @@ They pass the removed document to the db. As usual, use the function argument pe
         )
     };
 
+When we want mass removal, we can use Model.remove() which is useful to delete all the documents matching given criteria:
 
+    const removeManyPeople = (done) => {
+        const nameToRemove = "Mary";
 
+        Person.remove(
+            {name: nameToRemove},
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        )
+    };
+
+You can also chain search query helpers to narrow search results.
+If you don’t pass the callback as the last argument to Model.find() (or to the other search methods), the query is not executed.
+You can store the query in a variable for later use. This kind of object enables you to build up a query using chaining syntax.
+The actual db search is executed when you finally chain the method .exec().
+You always need to pass your callback to this last method:
+
+    const queryChain = (done) => {
+        const foodToSearch = "burrito";
+
+        Person.find({favoriteFoods: foodToSearch})
+        .sort({ name: 1 }) // Ascending, by name
+        .limit(2)
+        .select({age: 0}) // Here 0 means false and thus hide name property; The opposite will happen with 1
+        .exec(
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        );
+    };
