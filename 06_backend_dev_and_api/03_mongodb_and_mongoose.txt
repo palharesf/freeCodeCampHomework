@@ -167,5 +167,18 @@ findByIdAndUpdate() can be used when searching by id, or findOneAndUpdate() when
         ).exec();
     };
 
+Similarly, we have removal methods like findByIdAndRemove and findOneAndRemove linked to the previous update methods.
+They pass the removed document to the db. As usual, use the function argument personId as the search key:
+
+    const removeById = (personId, done) => {
+        Person.findByIdAndRemove(
+            personId,
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        )
+    };
+
 
 
