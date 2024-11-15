@@ -112,4 +112,17 @@ It is especially useful when searching by properties that you have declared as u
         ).exec();
     };
 
+When saving a document, MongoDB automatically adds the field _id, and set it to a unique alphanumeric key.
+Searching by _id is an extremely frequent operation, so Mongoose provides a dedicated method for it.
+
+    const findPersonById = (personId, done) => {
+        Person.findById(
+            personId,
+            function(err, data) {
+                if (err) return console.error(err);
+                done(null, data);
+            }
+        ).exec();
+    };
+
 
