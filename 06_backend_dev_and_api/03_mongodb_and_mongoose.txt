@@ -1,6 +1,6 @@
 Exercise link: https://www.freecodecamp.org/learn/back-end-development-and-apis/#basic-node-and-express
-Dependencies:
-Gitpod link:
+Dependencies: 06_backend_dev_and_api/03
+Gitpod link: https://gitpod.io/start/#freecodecam-boilerplate-te4egzxzl1t
 MongoDB link: https://cloud.mongodb.com/v2/67366b68d149cd63fd37ac24#/clusters/detail/Cluster0
 
 MongoDB is a database application that stores JSON documents (or records) that you can use in your application. 
