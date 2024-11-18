@@ -1,2 +1,2 @@
 Exercise link: https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/timestamp-microservice
-Project folder: https://github.com/freeCodeCamp/boilerplate-project-timestamp
+Project folder: https://github.com/palharesf/boilerplate-project-timestamp
