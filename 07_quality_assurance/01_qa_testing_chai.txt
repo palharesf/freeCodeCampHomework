@@ -17,3 +17,5 @@ In Chai, there are several tests one can configure:
     where we assert that the actual is equal to expected, to within a +/- delta range
 
 - For Arrays, we have tests for data type (#isArray, #isNotArray) and for content (Array #include, #notInclude);
+
+- For Strings, we have tests for data type (#isString, #isNotString), content (String #include, #notInclude) and Regex matching (#match, #notMatch);
