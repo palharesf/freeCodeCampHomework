@@ -10,3 +10,9 @@ In Chai, there are several tests one can configure:
 - equal() compares objects using '==', and the result can be tested with #equal and #notEqual;
 - strictEqual() compares objects using ===, and the result can be tested with #strictEqual and #notStrictEqual;
 - deepEqual() asserts that two objects are deep equal, and the result can be tested with #deepEqual and #notDeepEqual';
+
+- Numerical comparisons can use the operators '#isAbove, #isAtMost, #isBelow, #isAtLeast, and #approximately';
+- For .approximately, the syntax is :
+    .approximately(actual, expected, delta, [message])
+    where we assert that the actual is equal to expected, to within a +/- delta range
+
