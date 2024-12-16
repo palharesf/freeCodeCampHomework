@@ -1,0 +1,9 @@
+Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-and-testing-with-chai/learn-how-javascript-assertions-work
+Project link:
+
+In Chai, there are several tests one can configure:
+- #isNull vs #isNotNull, where only 'null' will trigger the #isNull condition, whereas anything else will trigger the #isNotNull condition;
+- #isDefined vs #isUndefined, where only 'undefined' is undefined, and anything else (including 'null') is defined;
+- #isOk vs #isNotOk, where truthy values are okay, and falsey values are not ok;
+- #isTrue vs #isNotTrue, where only truthy boolean values are true, whereas truthy non-boolean values (e.g. objects) are not true in this definition;
+
