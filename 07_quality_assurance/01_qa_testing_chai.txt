@@ -1,5 +1,5 @@
 Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-and-testing-with-chai/learn-how-javascript-assertions-work
-Project link:
+Project link: https://github.com/palharesf/qa-mocha-chai
 
 In Chai, there are several unit tests one can configure:
 - #isNull vs #isNotNull, where only 'null' will trigger the #isNull condition, whereas anything else will trigger the #isNotNull condition;
@@ -21,3 +21,106 @@ In Chai, there are several unit tests one can configure:
 - For Strings, we have tests for data type (#isString, #isNotString), content (String #include, #notInclude) and Regex matching (#match, #notMatch);
 
 - For Objects, we have tests for existence (or absence) of properties (#property, #notProperty), type (#typeOf, #notTypeOf), and hierarchy (#instanceOf, #notInstanceOf);
+
+On the other hand, Mocha allows you to test asynchronous operations like calls to API endpoints with a plugin called chai-http.
+The following is an example of a test using chai-http for a suite called 'GET /hello?name=[name] => "hello [name]"':
+
+    suite('GET /hello?name=[name] => "hello [name]"', function () {
+    test('?name=John', function (done) {
+        chai
+        .request(server)
+        .keepOpen()
+        .get('/hello?name=John')
+        .end(function (err, res) {
+            assert.equal(res.status, 200, 'Response status should be 200');
+            assert.equal(res.text, 'hello John', 'Response should be "hello John"');
+            done();
+        });
+    });
+    });
+
+The test sends a GET request to the server with a name as a URL query string (?name=John).
+In the end method's callback function, the response object (res) is received and contains the status property.
+The first assert.equal checks if the status is equal to 200.
+The second assert.equal checks that the response string (res.text) is equal to "hello John".
+Also, notice the done parameter in the test's callback function.
+Calling it without an argument at the end of a test is necessary to signal that the asynchronous operation is complete.
+Finally, note the keepOpen method just after the request method.
+Normally you would run your tests from the command line, or as part of an automated integration process, and you could let chai-http start and stop your server automatically.
+However, the tests that run when you submit the link to your project require your server to be up, so you need to use the keepOpen method to prevent chai-http from stopping your server.
+
+When you test a PUT request, you'll often send data along with it. The data you include with your PUT request is called the body of the request.
+To send a PUT request and a JSON object to the '/travellers' endpoint, you can use chai-http plugin's put and send methods:
+
+    chai
+    .request(server)
+    .keepOpen()
+    .put('/travellers')
+    .send({
+        "surname": [last name of a traveller of the past]
+    })
+    ...
+
+    And the route responds with:
+
+    {
+    "name": [first name],
+    "surname": [last name],
+    "dates": [birth - death years]
+    }
+
+Headless browsers are web browsers without a GUI.
+They are able to render and interpret HTML, CSS, and JavaScript the same way a regular browser would, making them particularly useful for testing web pages.
+For the following challenges you'll use Zombie.js, which is a lightweight headless browser that doesn't rely on additional binaries to be installed.
+But there are many other, more powerful headless browser options.
+Mocha allows you to run some code before any of the actual tests run
+ This can be useful to do things like add entries to a database which will be used in the rest of the tests.
+With a headless browser, before running tests, you need to visit the page you'll test.
+The suiteSetup hook is executed only once at the beginning of a test suite.
+There are several other hook types that can execute code before each test, after each test, or at the end of a test suite.
+See the Mocha docs for more information.
+
+Within our test, we can use 
+
+    Browser.site = 'http://0.0.0.0:3000'; // Your URL here
+
+Then at the root level of the 'Functional Tests with Zombie.js' suite, instantiate a new instance of the Browser object with the following code:
+
+    const browser = new Browser();
+
+And use the suiteSetup hook to direct the browser to the / route with the following code. Note: done is passed as a callback to browser.visit, you should not invoke it.
+
+    suiteSetup(function(done) {
+    return browser.visit('/', done);
+    });
+
+On the page there's an input form. It sends data to the PUT /travellers endpoint as an AJAX request.
+When the request successfully completes, the client code appends a <div> containing the information in the response to the DOM.
+Here's an example of how to use Zombie.js to interact with the form:
+
+    test('Submit the surname "Polo" in the HTML form', function (done) {
+    browser.fill('surname', 'Polo').then(() => {
+        browser.pressButton('submit', () => {
+        browser.assert.success();
+        browser.assert.text('span#name', 'Marco');
+        browser.assert.text('span#surname', 'Polo');
+        browser.assert.elements('span#dates', 1);
+        done();
+        });
+    });
+    });
+
+First, the fill method of the browser object fills the surname field of the form with the value 'Polo'.
+fill returns a promise, so then is chained off of it.
+Within the then callback, the pressButton method of the browser object is used to invoke the form's submit event listener.
+The pressButton method is asynchronous.
+Then, once a response is received from the AJAX request, a few assertions are made confirming:
+
+    The status of the response is 200
+    The text within the <span id='name'></span> element matches 'Marco'
+    The text within the <span id='surname'></span> element matches 'Polo'
+    There is 1 <span id='dates'></span> element.
+
+Finally, the done callback is invoked, which is needed due to the asynchronous test.
+
+
