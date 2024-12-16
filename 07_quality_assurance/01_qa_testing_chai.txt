@@ -19,3 +19,5 @@ In Chai, there are several tests one can configure:
 - For Arrays, we have tests for data type (#isArray, #isNotArray) and for content (Array #include, #notInclude);
 
 - For Strings, we have tests for data type (#isString, #isNotString), content (String #include, #notInclude) and Regex matching (#match, #notMatch);
+
+- For Objects, we have tests for existence (or absence) of properties (#property, #notProperty), type (#typeOf, #notTypeOf), and hierarchy (#instanceOf, #notInstanceOf);
