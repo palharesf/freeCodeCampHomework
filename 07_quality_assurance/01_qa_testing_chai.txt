@@ -1,4 +1,4 @@
-Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-and-testing-with-chai/learn-how-javascript-assertions-work
+Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-and-testing-with-chai
 Project link: https://github.com/palharesf/qa-mocha-chai
 
 In Chai, there are several unit tests one can configure:
