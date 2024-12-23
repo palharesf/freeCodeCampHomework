@@ -1,5 +1,5 @@
 Exercise link: https://www.freecodecamp.org/learn/quality-assurance/advanced-node-and-express
-Project link: 
+Project link: https://github.com/palharesf/qa-advanced-node
 
 A template engine enables you to use static template files (such as those written in Pug) in your app.
 At runtime, the template engine replaces variables in a template file with actual values which can be supplied by your server.
