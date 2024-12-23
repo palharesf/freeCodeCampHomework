@@ -207,4 +207,177 @@ Go ahead and add this in after all your other routes:
             .send('Not Found');
         });
 
+For user creation, we can enable the pug elements to display:
+
+    showRegistration: true
+
+And then proceed building the logic on the server.js file. It goes as:
+
+    - Register the new user
+    - Authenticate the new user
+    - Redirect to /profile
+
+For the first step:
+
+    - Query database with findOne
+    - If there is an error, call next with the error
+    - If a user is returned, redirect back to home
+    - If a user is not found and no errors occur, then insertOne into the database with the username and password. As long as no errors occur there, call next to go to step 2, authenticating the new user, which you already wrote the logic for in your POST /login route.
+
+Code:
+
+    app.route('/register')
+        .post((req, res, next) => {
+            myDataBase.findOne({ username: req.body.username }, (err, user) => {
+                if (err) {
+                    next(err);
+                } else if (user) {
+                    res.redirect('/');
+                } else {
+                    myDataBase.insertOne({
+                        username: req.body.username,
+                        password: req.body.password
+                    },
+                        (err, doc) => {
+                            if (err) {
+                                res.redirect('/');
+                            } else {
+                            // The inserted document is held within
+                            // the ops property of the doc
+                            next(null, doc.ops[0]);
+                            }
+                        }
+                    )
+                }
+            })
+        },
+            passport.authenticate('local', { failureRedirect: '/' }),
+            (req, res, next) => {
+                res.redirect('/profile');
+            }
+        );
+
+Going back to the information security section, you may remember that storing plaintext passwords is never okay.
+Now it is time to implement BCrypt to solve this issue.
+
+bcrypt@~5.0.0 has already been added as a dependency, so require it in your server.
+You will need to handle hashing in 2 key areas: where you handle registering/saving a new account, and when you check to see that a password is correct on login.
+Currently on your registration route, you insert a user's plaintext password into the database like so: password: req.body.password.
+Hash the passwords instead by adding the following before your database logic: const hash = bcrypt.hashSync(req.body.password, 12);, and replacing the req.body.password in the database saving with just password: hash.
+On your authentication strategy, you check for the following in your code before completing the process: if (password !== user.password) return done(null, false);.
+After making the previous changes, now user.password is a hash.
+Before making a change to the existing code, notice how the statement is checking if the password is not equal then return non-authenticated.
+With this in mind, change that code to look as follows to properly check the password entered against the hash:
+
+    if (!bcrypt.compareSync(password, user.password)) { 
+        return done(null, false);
+    }
+
+That is all it takes to implement one of the most important security features when you have to store passwords.
+
+For complex projects, it can be difficult to manage complexity in a single file. If we split server.js into two other files, routes.js and auth.js, it makes it more manageable.
+Both should be start with:
+
+    module.exports = function (app, myDataBase) {
+
+    }
+
+And we can reference them back to the server.js through the following statement:
+
+    const routes = require('./routes.js');
+    const auth  = require('./auth.js');
+
+We should also remember to add all the dependencies in the new files, as well as removing unused ones from the server file.
+
+For social implementation, we have a basic framework:
+
+    User clicks a button or link sending them to your route to authenticate using a specific strategy (e.g. GitHub).
+    Your route calls passport.authenticate('github') which redirects them to GitHub.
+    The page the user lands on, on GitHub, allows them to login if they aren't already.
+        It then asks them to approve access to their profile from your app.
+    The user is then returned to your app at a specific callback url with their profile if they are approved.
+    They are now authenticated, and your app should check if it is a returning profile, or save it in your database if it is not.
+
+Strategies with OAuth require you to have at least a Client ID and a Client Secret which is a way for the service to verify who the authentication request is coming from and if it is valid.
+These are obtained from the site you are trying to implement authentication with, such as GitHub, and are unique to your app--THEY ARE NOT TO BE SHARED and should never be uploaded to a public repository or written directly in your code. 
+A common practice is to put them in your .env file and reference them like so: process.env.GITHUB_CLIENT_ID.
+
+Set the homepage URL to your homepage (not the project code's URL), and set the callback URL to the same homepage URL with /auth/github/callback appended to the end.
+Save the client ID and your client secret in your project's .env file as GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET.
+In the routes.js file, add showSocialAuth: true to the homepage route, after showRegistration: true.
+Create 2 routes accepting GET requests: /auth/github and /auth/github/callback.
+The first should only call passport to authenticate 'github'.
+The second should call passport to authenticate 'github' with a failure redirect to /, and then if that is successful redirect to /profile (similar to your last project).
+
+An example of how /auth/github/callback should look is similar to how you handled a normal login:
+
+    app.route('/login')
+        .post(passport.authenticate('local', { failureRedirect: '/' }), (req,res) => {
+            res.redirect('/profile');
+        });
+
+The last part of setting up your GitHub authentication is to create the strategy itself.
+passport-github@~1.1.0 has already been added as a dependency, so require it in your auth.js file as GithubStrategy like this: const GitHubStrategy = require('passport-github').Strategy;.
+Do not forget to require and configure dotenv to use your environment variables.
+
+To set up the GitHub strategy, you have to tell Passport to use an instantiated GitHubStrategy, which accepts 2 arguments: an object (containing clientID, clientSecret, and callbackURL) and a function to be called when a user is successfully authenticated, which will determine if the user is new and what fields to save initially in the user's database object.
+This is common across many strategies, but some may require more information as outlined in that specific strategy's GitHub README.
+For example, Google requires a scope as well which determines what kind of information your request is asking to be returned and asks the user to approve such access.
+
+The current strategy you are implementing authenticates users using a GitHub account and OAuth 2.0 tokens.
+The client ID and secret obtained when creating an application are supplied as options when creating the strategy.
+The strategy also requires a verify callback, which receives the access token and optional refresh token, as well as profile which contains the authenticated user's GitHub profile.
+The verify callback must call cb providing a user to complete authentication.
+
+Here's how your new strategy should look at this point:
+
+    passport.use(new GitHubStrategy({
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: /*INSERT CALLBACK URL ENTERED INTO GITHUB HERE*/
+    },
+        function(accessToken, refreshToken, profile, cb) {
+            console.log(profile);
+            //Database logic here with callback containing your user object
+        }
+    ));
+
+The final part of the strategy is handling the profile returned from GitHub.
+We need to load the user's database object if it exists, or create one if it doesn't, and populate the fields from the profile, then return the user's object.
+GitHub supplies us a unique id within each profile which we can use to search with to serialize the user with (already implemented).
+
+    myDataBase.findOneAndUpdate(
+        { id: profile.id },
+        {
+            $setOnInsert: {
+                id: profile.id,
+                username: profile.username,
+                name: profile.displayName || 'John Doe',
+                photo: profile.photos[0].value || '',
+                email: Array.isArray(profile.emails)
+                    ? profile.emails[0].value
+                    : 'No public email',
+                created_on: new Date(),
+                provider: profile.provider || ''
+            },
+            $set: {
+                last_login: new Date()
+            },
+            $inc: {
+                login_count: 1
+            }
+        },
+        { upsert: true, new: true },
+        (err, doc) => {
+            return cb(null, doc.value);
+        }
+    );
+
+findOneAndUpdate allows you to search for an object and update it.
+If the object doesn't exist, it will be inserted and made available to the callback function.
+In this example, we always set last_login, increment the login_count by 1, and only populate the majority of the fields when a new object (new user) is inserted.
+Notice the use of default values.
+Sometimes a profile returned won't have all the information filled out or the user will keep it private.
+In this case, you handle it to prevent an error.
+
 
