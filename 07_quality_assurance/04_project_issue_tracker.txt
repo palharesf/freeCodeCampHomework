@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/issue-tracker
+Project link: https://github.com/palharesf/project-issue-tracker
