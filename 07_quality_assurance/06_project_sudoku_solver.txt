@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/sudoku-solver
+Project link: https://github.com/palharesf/project-sudoku-solver
