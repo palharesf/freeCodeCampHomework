@@ -138,6 +138,7 @@
 text = 'Hello Zaira'
 shift = 3
 
+
 def caesar(message, offset):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     encrypted_text = ''
@@ -152,6 +153,7 @@ def caesar(message, offset):
     print('plain text:', message)
     print('encrypted text:', encrypted_text)
 
+
 caesar(text, shift)
 caesar(text, 13)
 
@@ -159,4 +161,120 @@ caesar(text, 13)
 # What if the offset were different for each letter? That would be much more difficult to decrypt.
 # This algorithm is referred to as the Vigenère cipher, where the offset for each letter is determined by another text, called the key.
 
+# The .index() method is identical to the .find() method but it throws a ValueError exception if it is unable to find the substring.
+# A ValueError is a built-in exception that is raised when an argument with the right type but inappropriate value is passed to a function.
+# For function values to be used by other parts of the code to perform any actions, you need a return statement.
 
+# def foo():
+#     return 'spam'
+
+# You need to write return followed by a space and the value that the function should return.
+# Once the return statement is found, that value is returned and the execution of the function stops, proceeding to the next line of code after the function call.
+
+# Encryption and decryption are opposite processes and your function can do both with a couple of tweaks.
+# Functions can be called with default arguments. A default argument indicates the value that the function should take if the argument is not passed.
+# For example, the function below accepts three arguments but you can call it passing two arguments. The third one will assume the specified value by default:
+
+# def foo(a, b, c=value):
+#     <code>
+
+# The .isalpha() method returns True if all of the characters of the string on which it is called are letters.
+# For example, the code below returns True:
+
+# 'freeCodeCamp'.isalpha()
+
+# The not operator is used to negate an expression. When placed before a truthy value — a value that evaluates to True — it returns False and vice versa
+# The pass keyword can be used as a placeholder for future code. It does not have any effect in your code but it can save you from errors you would get in case of incomplete code:
+
+# def foo():
+#     pass
+
+text = 'Hello Zaira!'
+custom_key = 'python'
+
+
+def vigenere(message, key, direction=1):
+    key_index = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final_message = ''
+
+    for char in message.lower():
+
+        # Append any non-letter character to the message
+        if not char.isalpha():
+            final_message += char
+        else:        
+            # Find the right key character to encode/decode
+            key_char = key[key_index % len(key)]
+            key_index += 1
+
+            # Define the offset and the encrypted/decrypted letter
+            offset = alphabet.index(key_char)
+            index = alphabet.find(char)
+            new_index = (index + offset*direction) % len(alphabet)
+            final_message += alphabet[new_index]
+
+    return final_message
+
+
+def encrypt(message, key):
+    return vigenere(message, key)
+
+
+def decrypt(message, key):
+    return vigenere(message, key, -1)
+
+
+encryption = encrypt(text, custom_key)
+print(encryption)
+decryption = decrypt(encryption, custom_key)
+print(decryption)
+
+
+# In Python, there's a way to easily format strings. f-strings enable you to interpolate values in your strings.
+# Interpolation means writing placeholders that will be replaced by the specified values when the program runs.
+# For example, you can get the same result of 'Encrypted text: ' + text with f'Encrypted text: {text}'.
+# You need to put an f before the quotes to create the f-string and write the variables or expressions you want to interpolate between curly braces.
+# The newline character \n is a special sequence used to represent a new line.
+# You can write a backslash \ followed by an n as a normal sequence of characters in a string and it will be replaced by a new line in the output when the program runs.
+
+text = 'mrttaqrhknsw ih puggrur'
+custom_key = 'happycoding'
+
+
+def vigenere(message, key, direction=1):
+    key_index = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    final_message = ''
+
+    for char in message.lower():
+
+        # Append any non-letter character to the message
+        if not char.isalpha():
+            final_message += char
+        else:        
+            # Find the right key character to encode/decode
+            key_char = key[key_index % len(key)]
+            key_index += 1
+
+            # Define the offset and the encrypted/decrypted letter
+            offset = alphabet.index(key_char)
+            index = alphabet.find(char)
+            new_index = (index + offset*direction) % len(alphabet)
+            final_message += alphabet[new_index]
+
+    return final_message
+
+
+def encrypt(message, key):
+    return vigenere(message, key)
+
+
+def decrypt(message, key):
+    return vigenere(message, key, -1)
+
+
+print(f'\nEncrypted text: {text}')
+print(f'Key: {custom_key}')
+decryption = decrypt(text, custom_key)
+print(f'\nDecrypted text: {decryption}\n')
