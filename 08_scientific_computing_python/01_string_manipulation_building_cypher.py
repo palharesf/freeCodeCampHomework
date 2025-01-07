@@ -244,7 +244,7 @@ text = 'mrttaqrhknsw ih puggrur'
 custom_key = 'happycoding'
 
 
-def vigenere(message, key, direction=1):
+def vigenere2(message, key, direction=1):
     key_index = 0
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     final_message = ''
@@ -269,11 +269,11 @@ def vigenere(message, key, direction=1):
 
 
 def encrypt(message, key):
-    return vigenere(message, key)
+    return vigenere2(message, key)
 
 
 def decrypt(message, key):
-    return vigenere(message, key, -1)
+    return vigenere2(message, key, -1)
 
 
 print(f'\nEncrypted text: {text}')
