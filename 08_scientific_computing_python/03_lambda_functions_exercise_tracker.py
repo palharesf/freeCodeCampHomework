@@ -47,7 +47,7 @@
 
 # In this case, fruits_list.pop(2) removes the element at index 2 of the list.
 
-#A dictionary is another built-in data type in Python.
+# A dictionary is another built-in data type in Python.
 # A dictionary is a collection of data in the form of key-value pairs.
 # Dictionaries are defined with curly braces ({}) and they contain key-value pairs separated by commas.
 # Each key is followed by a colon (:) and the value:
@@ -89,7 +89,7 @@
 # test = lambda x: x * 2
 # print(list(map(test, [2, 3, 5, 8])))
 
-# The sum() function returns the sum of the items in the iterable which is passed as its argument. 
+# The sum() function returns the sum of the items in the iterable which is passed as its argument.
 
 # The filter() function allows you to select items from an iterable, such as a list, based on the output of a function:
 

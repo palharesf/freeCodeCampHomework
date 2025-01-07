@@ -38,7 +38,7 @@
 # We can reverse the order of the digits in the last four digits of card_number by using a slice with a step of -1.
 # Either a negative or positive indices can be used for the start and end.
 # Just as the step is optional, a start at 0 and an end at the end of the slice are optional:
-# 
+
 # my_string = 'camperbot'
 # camperbot = my_string[::]
 

@@ -76,7 +76,7 @@
 
 # message = 'Hello World'
 # message = 'Hello there!'
- 
+
 #  You can obtain the same effect of a = a + b by using the addition assignment operator:
 
 # a += b
@@ -205,7 +205,7 @@ def vigenere(message, key, direction=1):
         # Append any non-letter character to the message
         if not char.isalpha():
             final_message += char
-        else:        
+        else:
             # Find the right key character to encode/decode
             key_char = key[key_index % len(key)]
             key_index += 1
@@ -254,7 +254,7 @@ def vigenere(message, key, direction=1):
         # Append any non-letter character to the message
         if not char.isalpha():
             final_message += char
-        else:        
+        else:
             # Find the right key character to encode/decode
             key_char = key[key_index % len(key)]
             key_index += 1
