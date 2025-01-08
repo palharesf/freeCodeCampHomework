@@ -41,7 +41,8 @@
 #         Each number (operand) should only contain digits. Otherwise, the function will return: 'Error: Numbers must only contain digits.'
 #         Each operand (aka number on each side of the operator) has a max of four digits in width. Otherwise, the error string returned will be: 'Error: Numbers cannot be more than four digits.'
 #     If the user supplied the correct format of problems, the conversion you return will follow these rules:
-#         There should be a single space between the operator and the longest of the two operands, the operator will be on the same line as the second operand, both operands will be in the same order as provided (the first will be the top one and the second will be the bottom).
+#         There should be a single space between the operator and the longest of the two operands.
+#         The operator will be on the same line as the second operand, both operands will be in the same order as provided (the first will be the top one and the second will be the bottom).
 #         Numbers should be right-aligned.
 #         There should be four spaces between each problem.
 #         There should be dashes at the bottom of each problem. The dashes should run along the entire length of each problem individually. (The example above shows what this should look like.)
@@ -56,8 +57,45 @@ def arithmetic_arranger(problems, show_answers=False):
     elif any([len(p.split()[0]) > 4 or len(p.split()[2]) > 4 for p in problems]):
         return "Error: Numbers cannot be more than four digits."
     else:
-        
-        return problems
+        print("\n")
+        first_operand, operator, second_operand, linebreak, result = [], [], [], [], []
+        for p in problems:
+            a, op, b = p.split()
+            first_operand.append(a)
+            operator.append(op)
+            second_operand.append(b)
+            linebreak_size = max(len(a), len(b)) + 2
+            linebreak.append('-' * linebreak_size)
+            if show_answers:
+                result.append(str(eval(p)))
+
+        expression = ''
+
+        for i in range(len(problems)):
+            expression += ' ' * (len(linebreak[i]) - len(first_operand[i])) + first_operand[i]
+            if i < len(problems)-1:
+                expression += '    '
+        expression += '\n'
+        for i in range(len(problems)):
+            expression += operator[i] + ' ' * ((len(linebreak[i]) - len(second_operand[i])) - 1) + second_operand[i]
+            if i < len(problems)-1:
+                expression += '    '
+        expression += '\n'
+        for i in range(len(problems)):
+            expression += linebreak[i]
+            if i < len(problems)-1:
+                expression += '    '
+        if show_answers:
+            expression += '\n'
+            for i in range(len(problems)):
+                expression += ' ' * (len(linebreak[i]) - len(result[i])) + result[i]
+                if i < len(problems)-1:
+                    expression += '    '
+        print(expression)
+        return expression
 
 
-print(f'\n{arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])}')
+arithmetic_arranger(["3801 - 2", "123 + 49"])
+arithmetic_arranger(["1 + 2", "1 - 9380"], True)
+arithmetic_arranger(["3 + 855", "3801 - 2", "45 + 43", "123 + 49"], True)
+arithmetic_arranger(["11 + 4", "3801 - 2999", "1 + 2", "123 + 49", "1 - 9380"], True)
