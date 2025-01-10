@@ -6,7 +6,9 @@
 #     Mutable data types, such as lists, and dictionaries.
 
 # A dictionary is identified by a pair of curly braces, {}.
-# Dictionaries store data in the form of key-value pairs. A key is separated from the correspondent value by a colon. And each key-value pair is separated from the following pair by a comma:
+# Dictionaries store data in the form of key-value pairs.
+# A key is separated from the correspondent value by a colon.
+# And each key-value pair is separated from the following pair by a comma:
 
 # my_dict = {
 #     'name': 'Michael',
@@ -24,7 +26,8 @@
 
 # my_dict['name'] # 'Michael'
 
-# To add a new key-value pair after declaring a dictionary, you can indicate the key in the same way you would access an existing key, and set the value of the new key by using the assignment operator:
+# To add a new key-value pair after declaring a dictionary, you can indicate the key in the same way you would access an existing key.
+# Then, you set the value of the new key by using the assignment operator:
 
 # my_dict = {
 #     'name': 'Michael',
