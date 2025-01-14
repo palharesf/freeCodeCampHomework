@@ -122,17 +122,68 @@ class Category:
             return False
         return True
 
+    def withdrawal_total(self):
+        withdrawal_total = 0
+        for item in self.ledger:
+            if item['amount'] < 0:
+                withdrawal_total += abs(item['amount'])
+        return withdrawal_total
+
 
 def create_spend_chart(categories):
-    pass
+    output = ""
+    output += "Percentage spent by category\n"
+
+    total = 0
+
+    for category in categories:
+        total += category.withdrawal_total()
+
+    for category in categories:
+        category.percentage = round((category.withdrawal_total() / total) * 100, 2)
+        category.percentage_rounded = (category.withdrawal_total() * 10 // total) * 10
+
+    for i in range(100, -10, -10):
+        output += f"{i:>3}|"
+        for category in categories:
+            if category.percentage_rounded >= i:
+                output += " o "
+            else:
+                output += "   "
+        output += " \n"
+
+    output += "    " + "-" * 3 * len(categories) + "-\n"
+
+    max_length = max(len(category.category_name) for category in categories)
+    for i in range(max_length):
+        output += "    "
+        for category in categories:
+            if i < len(category.category_name):
+                output += f" {category.category_name[i]} "
+            else:
+                output += "   "
+        output += " "
+        if i < max_length - 1:
+            output += "\n"
+
+    return output
 
 
 # TESTS #
 
 food = Category('Food')
 food.deposit(1000, 'deposit')
-food.withdraw(10.15, 'groceries')
-food.withdraw(15.89, 'restaurant and more food for dessert')
+food.withdraw(10, 'groceries')
+food.withdraw(15, 'restaurant and more food for dessert')
 clothing = Category('Clothing')
 food.transfer(50, clothing)
+auto = Category('Auto')
+auto.deposit(1000, 'deposit')
+auto.withdraw(15, 'gas')
+business = Category('Business')
+business.deposit(1000, 'deposit')
+business.withdraw(100, 'rent')
+
 print(food)
+
+print(create_spend_chart([food, clothing, auto, business]))
