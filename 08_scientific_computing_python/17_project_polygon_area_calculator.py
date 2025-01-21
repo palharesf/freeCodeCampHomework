@@ -66,7 +66,7 @@ class Rectangle:
                 output_string += "*"*self.width + "\n"
             return output_string
 
-    def get_amound_inside(self, shape):
+    def get_amount_inside(self, shape):
         amount = int(self.get_area() / shape.get_area())
         if self.width < shape.width or self.height < shape.height:
             amount = 0
@@ -76,6 +76,21 @@ class Rectangle:
 class Square(Rectangle):
     def __init__(self, side):
         super().__init__(side, side)
+        self.side = side
+
+    def __str__(self):
+        return f"Square(side={self.side})"
+
+    def set_width(self, width):
+        self.side = width
+
+    def set_height(self, height):
+        self.side = height
+
+    def set_side(self, side):
+        self.side = side
+        self.width = side
+        self.height = side
 
 
 rect = Rectangle(10, 5)
@@ -85,13 +100,16 @@ print(rect.get_perimeter())
 print(rect)
 print(rect.get_picture())
 
-# sq = Square(9)
-# print(sq.get_area())
-# sq.set_side(4)
-# print(sq.get_diagonal())
-# print(sq)
-# print(sq.get_picture())
+sq = Square(9)
+print(sq.get_area())
+sq.set_side(4)
+print(sq.get_diagonal())
+print(sq)
+print(sq.get_picture())
 
-# rect.set_height(8)
-# rect.set_width(16)
-# print(rect.get_amount_inside(sq))
+rect.set_height(8)
+rect.set_width(16)
+print(rect.get_amount_inside(sq))
+
+sq2 = Square(5)
+print(sq2)
