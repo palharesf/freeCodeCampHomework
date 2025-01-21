@@ -30,14 +30,60 @@
 # If an instance of a Square is represented as a string, it should look like: 'Square(side=9)'.
 # Additionally, the set_width and set_height methods on the Square class should set both the width and height.
 
-# Usage example
 
-# rect = Rectangle(10, 5)
-# print(rect.get_area())
-# rect.set_height(3)
-# print(rect.get_perimeter())
-# print(rect)
-# print(rect.get_picture())
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def __str__(self):
+        return f"Rectangle(width={self.width}, height={self.height})"
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_height(self, height):
+        self.height = height
+
+    def get_area(self):
+        area = self.width * self.height
+        return area
+
+    def get_perimeter(self):
+        perimeter = 2 * self.width + 2 * self.height
+        return perimeter
+
+    def get_diagonal(self):
+        diagonal = ((self.width ** 2 + self.height ** 2) ** (1/2))
+        return diagonal
+
+    def get_picture(self):
+        output_string = ""
+        if self.width > 50 or self.height > 50:
+            return "Too big for picture."
+        else:
+            for _ in range(self.height):
+                output_string += "*"*self.width + "\n"
+            return output_string
+
+    def get_amound_inside(self, shape):
+        amount = int(self.get_area() / shape.get_area())
+        if self.width < shape.width or self.height < shape.height:
+            amount = 0
+        return amount
+
+
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
+
+
+rect = Rectangle(10, 5)
+print(rect.get_area())
+rect.set_height(3)
+print(rect.get_perimeter())
+print(rect)
+print(rect.get_picture())
 
 # sq = Square(9)
 # print(sq.get_area())
@@ -49,44 +95,3 @@
 # rect.set_height(8)
 # rect.set_width(16)
 # print(rect.get_amount_inside(sq))
-
-# That code should return:
-
-# 50
-# 26
-# Rectangle(width=10, height=3)
-# **********
-# **********
-# **********
-
-# 81
-# 5.656854249492381
-# Square(side=4)
-# ****
-# ****
-# ****
-# ****
-
-# 8
-
-# Tests:
-# 1. The Square class should be a subclass of the Rectangle class.
-# 2. The Square class should be a distinct class from the Rectangle class.
-# 3. A square object should be an instance of the Square class and the Rectangle class.
-# 4. The string representation of Rectangle(3, 6) should be 'Rectangle(width=3, height=6)'.
-# 5. The string representation of Square(5) should be 'Square(side=5)'.
-# 6. Rectangle(3, 6).get_area() should return 18.
-# 7. Square(5).get_area() should return 25.
-# 8. Rectangle(3, 6).get_perimeter() should return 18.
-# 9. Square(5).get_perimeter() should return 20.
-# 10. Rectangle(3, 6).get_diagonal() should return 6.708203932499369.
-# 11. Square(5).get_diagonal() should return 7.0710678118654755.
-# 12. An instance of the Rectangle class should have a different string representation after setting new values.
-# 13. An instance of the Square class should have a different string representation after setting new values by using .set_side().
-# 14. An instance of the Square class should have a different string representation after setting new values by using .set_width() or set_height().
-# 15. The .get_picture() method should return a different string representation of a Rectangle instance.
-# 16. The .get_picture() method should return a different string representation of a Square instance.
-# 17. The .get_picture() method should return the string 'Too big for picture.' if the width or height attributes are larger than 50.
-# 18. Rectangle(15,10).get_amount_inside(Square(5)) should return 6.
-# 19. Rectangle(4,8).get_amount_inside(Rectangle(3, 6)) should return 1.
-# 20. Rectangle(2,3).get_amount_inside(Rectangle(3, 6)) should return 0.
