@@ -65,8 +65,60 @@ import random
 
 
 class Hat:
-    pass
+    def __init__(self, **kwargs):
+        self.contents = []
+        for key, value in kwargs.items():
+            for _ in range(value):
+                self.contents.append(key)
+
+    def __str__(self):
+        return str(self.contents)
+
+    # def __repr__(self):
+    #     return f'{self.__class__}({self.contents})'
+
+    def draw(self, num_balls_drawn):
+        if num_balls_drawn >= len(self.contents):
+            drawn_contents = self.contents
+            self.contents = []
+            return drawn_contents
+        else:
+            print("Contents before draw:", self.contents)
+            drawn_contents = random.sample(self.contents, num_balls_drawn)
+            print("Drawn contents:", drawn_contents)
+            for ball in drawn_contents:
+                self.contents.remove(ball)
+            print("Contents after draw:", self.contents)
+            return drawn_contents
 
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    pass
+    successes: int = 0
+    for _ in range(num_experiments):
+        hat_copy = copy.deepcopy(hat)
+        hat_copy.contents = hat_copy.draw(num_balls_drawn)
+        if all(hat_copy.contents.count(balls) >= expected_balls[balls] for balls in expected_balls):
+            successes += 1
+    probability = successes / num_experiments
+    return probability
+
+
+# hat1 = Hat(yellow=3, blue=2, green=6)
+# hat2 = Hat(red=5, orange=4)
+# hat3 = Hat(red=5, orange=4, black=1, blue=0, pink=2, striped=9)
+
+# print(hat1)
+# print(hat2)
+# print(hat3)
+
+hat = Hat(black=6, red=4, green=3)
+# probability = experiment(
+#     hat=hat,
+#     expected_balls={'red': 2, 'green': 1},
+#     num_balls_drawn=5,
+#     num_experiments=2000
+#     )
+
+print(hat.draw(5))
+
+# print(probability)
