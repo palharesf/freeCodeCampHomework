@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/demographic-data-analyzer
+Project link: https://gitpod.io/start/#freecodecam-boilerplate-o8oxeu4iic2
