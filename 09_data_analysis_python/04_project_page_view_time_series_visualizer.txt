@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/page-view-time-series-visualizer
+Project Link: https://gitpod.io/start/#freecodecam-boilerplate-y2ko2yu88de
