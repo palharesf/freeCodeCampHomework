@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-projects/mean-variance-standard-deviation-calculator
+Project link: https://gitpod.io/start/#freecodecam-boilerplate-9lwgw4aidye
