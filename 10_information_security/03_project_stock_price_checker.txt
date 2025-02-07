@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/information-security/information-security-projects/stock-price-checker
+Project link: https://github.com/palharesf/infosec-stock-checker
