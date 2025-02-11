@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/information-security/information-security-projects/anonymous-message-board
+Project link: https://github.com/palharesf/infosec-anon-message-board
