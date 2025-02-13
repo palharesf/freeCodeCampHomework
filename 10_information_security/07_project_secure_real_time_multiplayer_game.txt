@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/information-security/information-security-projects/secure-real-time-multiplayer-game
+Project link: https://github.com/palharesf/infosec-secure-real-time-multiplayer-game
