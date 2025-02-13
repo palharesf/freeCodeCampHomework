@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/information-security/information-security-projects/port-scanner
+Project link: https://gitpod.io/start/#freecodecam-boilerplate-d9oxavdn7r2
