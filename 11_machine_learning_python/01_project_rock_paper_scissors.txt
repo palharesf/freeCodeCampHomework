@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/rock-paper-scissors
+Gitpod link: https://gitpod.io/start/#freecodecam-boilerplate-b3xfq79tdlz
