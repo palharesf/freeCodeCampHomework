@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/cat-and-dog-image-classifier
+Project link: https://colab.research.google.com/drive/13IjHOf8X63kN5wxxqAltGlIadL1I0Xic#scrollTo=la_Oz6oLlub6
