@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/book-recommendation-engine-using-knn
+Project link: https://colab.research.google.com/drive/1_MhBJYK7ZBceMhcTQfZRNmNk3HRILdwi?usp=sharing
