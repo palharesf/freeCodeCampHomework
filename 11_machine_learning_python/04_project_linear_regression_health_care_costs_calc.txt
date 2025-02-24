@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/linear-regression-health-costs-calculator
+Project link: https://colab.research.google.com/drive/1dIyZVcLwNujfYWqPRRYv7Dt3CuqxEOPd?usp=sharing

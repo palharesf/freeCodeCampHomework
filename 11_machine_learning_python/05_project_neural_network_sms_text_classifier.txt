@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/machine-learning-with-python/machine-learning-with-python-projects/neural-network-sms-text-classifier
+Project link: https://colab.research.google.com/drive/1nVU8Id09Hx4ueE1YtP6yLxzYgvZNa2hH?usp=sharing
