@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-how-to-solve-for-x/solving-for-x
+Colab link: https://colab.research.google.com/drive/1PdnZRnGndfnjPXzpnQ7SqJrkfoC1CfSO?usp=sharing

@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-ratios-and-proportions/introduction-to-college-algebra-with-python
+Colab link: https://colab.research.google.com/drive/1QsyapRydTF9lOTmWPsS-YwEJofzX_YQh?usp=sharing
