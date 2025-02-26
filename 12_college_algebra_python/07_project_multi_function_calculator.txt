@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/build-a-multi-function-calculator-project/build-a-multi-function-calculator
+Colab link: https://colab.research.google.com/drive/1kYCAeFaHP91MyOI9HXiT5YRt_YZNJcEz?usp=sharing
