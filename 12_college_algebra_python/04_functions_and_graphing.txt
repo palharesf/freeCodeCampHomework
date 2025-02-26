@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-functions-and-graphing/functions
+Colab link: https://colab.research.google.com/drive/1_ipZY9v6GIEt0tL_gNjK1TUjPJBWzr0t?usp=sharing
