@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-common-factors-and-square-roots/factoring
+Colab link: N/A
