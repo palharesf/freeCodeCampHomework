@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-applications-of-linear-systems/word-problems
+Colab link: N/A
