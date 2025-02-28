@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/build-three-math-games-project/build-three-math-games
+Colab link: https://colab.research.google.com/drive/1v4Jg9iLVKktBLpFB8YjiYUh9rave_qsV?usp=sharing
