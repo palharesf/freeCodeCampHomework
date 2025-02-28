@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/build-a-data-graph-explorer-project/build-a-data-graph-explorer
+Colab link: https://colab.research.google.com/drive/1J1POJakLlPbXQzyA3tASjw-G6fxs1M2b?usp=sharing

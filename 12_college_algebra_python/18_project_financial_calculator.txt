@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/build-a-financial-calculator-project/build-a-financial-calculator
+Colab link: https://colab.research.google.com/drive/1-eOiET_LNmq7cCRwVPzLJ0jnysTuuKqr?usp=sharing

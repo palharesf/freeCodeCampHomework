@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/college-algebra-with-python-conclusion/spreadsheets-and-additional-resources
+Colab link: N/A

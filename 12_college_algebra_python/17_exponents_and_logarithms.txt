@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-exponents-and-logarithms/exponents-and-logarithms
+Colab link: 

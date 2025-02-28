@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-business-applications-of-college-algebra/demand-and-revenue
+Colab link: N/A

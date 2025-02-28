@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-simple-and-compound-interest/simple-and-compound-interest
+Colab link: 
