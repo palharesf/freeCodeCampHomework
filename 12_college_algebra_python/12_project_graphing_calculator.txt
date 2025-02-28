@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/build-a-graphing-calculator-project/build-a-graphing-calculator
+Colab link: https://colab.research.google.com/drive/1D-hvQOauwwaUP7nL3B2lEJPtkgvP_FO7?usp=sharing
