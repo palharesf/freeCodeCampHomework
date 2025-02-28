@@ -1,0 +1,2 @@
+Exercise link: https://www.freecodecamp.org/learn/college-algebra-with-python/learn-quadratic-equations/quadratics
+Colab link: N/A
